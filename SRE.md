@@ -2,88 +2,101 @@
 ## Chapter 6. Monitoring Distributed Systems
 
 ### Worrying About Your Tail (or, Instrumentation and Performance)
+あなたの`しっぽ`について悩む
 
 When building a monitoring system from scratch, it’s tempting to design a system based upon the mean of some quantity: the mean latency, the mean CPU usage of your nodes, or the mean fullness of your databases.
 
-スクラッチで監視システムを構築する場合、
-いくつかの量の平均に基づいて設計するのが良い
-・latency(待ち時間)の平均
-・ノードのCPU使用率の平均
-・データベースのfullness?の平均
+スクラッチで監視システムを構築する場合、いくつかの平均に基づいて設計するのが良いです。
+* latency(待ち時間)の平均
+* ノードのCPU使用率の平均
+* データベース負荷(fullness)の平均
 
-The danger presented by the latter two cases is obvious: CPUs and databases can easily be utilized in a very imbalanced way. The same holds for latency. If you run a web service with an average latency of 100 ms at 1,000 requests per second, 1% of requests might easily take 5 seconds. If your users depend on several such web services to render their page, the 99th percentile of one backend can easily become the median response of your frontend.
+The danger presented by the latter two cases is obvious:
 
-CPU,データベースによって危険性が示されるのは明らか
-CPUとデータベースを簡単に非常に不均衡な方法で利用することができます
-同じことが、latencyにも当てはまります
-あなたは、毎秒1,000件の要求に100ミリ秒の平均待ち時間でWebサービスを実行する場合は、
-リクエストの1％は簡単に5秒かかる
+上記、後半の２つが提示する危険性は明らか。
 
-ユーザーがそれらのページを参照するためにそのようなWEBサービスに左右される場合
-バックエンドの 99 percentileはあなたのフロントエンドの中央値のレスポンスになることができる
+CPUs and databases can easily be utilized in a very imbalanced way.
+The same holds for latency.
 
-The simplest way to differentiate between a slow average and a very slow “tail” of requests is to collect request counts bucketed by latencies (suitable for rendering a histogram), rather than actual latencies: how many requests did I serve that took between 0 ms and 10 ms, between 10 ms and 30 ms, between 30 ms and 100 ms, between 100 ms and 300 ms, and so on? Distributing the histogram boundaries approximately exponentially (in this case by factors of roughly 3) is often an easy way to visualize the distribution of your requests.
+CPUとデータベースは、非常に不均衡な方法で　簡単に利用することができます。同じことが待ち時間にも当てはまります。
 
-遅い平均との非常に遅い "tail"のリクエストを区別するシンプルな方法は
-latenciesによって収集されたリクエスト数をカウントすること
+If you run a web service with an average latency of 100 ms at 1,000 requests per second, 1% of requests might easily take 5 seconds.
+
+もしあなたが、毎秒1,000件のリクエストを平均待ち時間：100ミリ秒で応答するWebサービスを実行する場合は、リクエストの1％は簡単に5秒かかるかもしれない
+
+If your users depend on several such web services to render their page, the 99th percentile of one backend can easily become the median response of your frontend.
+
+もしあなたのユーザが彼らのページを参照するためにそのようなWebサービスを信頼しているならば、1つのバックエンドの99パーセンタイルはあなたのフロントエンドの中央値のレスポンスになれる？？
+
+The simplest way to differentiate between a slow average and a very slow “tail” of requests is to collect request counts bucketed by latencies (suitable for rendering a histogram), rather than actual latencies:
+
+遅い平均との非常に遅い "tail"(しっぽ)のリクエストを区別する単純な方法は待ち時間によって分類されたリクエスト数をカウントすること
 (ヒストグラムをレンダリングするのに適している)
-実際のlatenciesよりも
-0ms - 10ms
-10ms - 30ms
-30ms - 100ms
-100ms - 300ms
-のリクエスト数がどのくらいか？
-およそ指数関数的にヒストグラムの境界を分布する
 
-多くの場合、あなたの要求の分布を可視化するのは簡単
+how many requests did I serve that took between 0 ms and 10 ms, between 10 ms and 30 ms, between 30 ms and 100 ms, between 100 ms and 300 ms, and so on? Distributing the histogram boundaries approximately exponentially (in this case by factors of roughly 3) is often an easy way to visualize the distribution of your requests.
+
+* 0ms - 10ms
+* 10ms - 30ms
+* 30ms - 100ms
+* 100ms - 300ms
+
+のリクエスト数がどのくらいか？
+おおよそ指数関数的にヒストグラムの境界を分布することは
+あなたのリクエストの分布を可視化するために簡単です
+
+★こんなグラフ？
+![](http://www.mathworks.com/help/stats/workingwithprobdist_plot3.png)
 
 ### Choosing an Appropriate Resolution for Measurements
 
-測定のための適切な解決？を選択する
+計測のための適切な解決を選択する
 
 Different aspects of a system should be measured with different levels of granularity. For example:
 
-システムの異なった局面は粒度の異なるレベルで測定されるべき
-例えば
+システムの異なった様相(aspects)は、粒度の異なるレベルで測定されるべきです。例えば
 
 * Observing CPU load over the time span of a minute won’t reveal even quite long-lived spikes that drive high tail latencies.
 
-1分ごと　CPUロード　は 瞬間的に高いlatenciesが完全に明確でないしょう
+1分毎のCPUロードを監視することは、瞬間的に高い（スパイクな）待ち時間が明確できない
 
 * On the other hand, for a web service targeting no more than 9 hours aggregate
 downtime per year (99.9% annual uptime), probing for a 200 (success) status more than once or twice a minute is probably unnecessarily frequent.
 
-一方、年間9時間未満のダウンタイム(99.9% 稼働)とするWebサービスのため、
-1,2分間ごとに ステータス200 を応答するか調査することは必要以上に頻繁にあります
+一方、年間9時間未満のダウンタイム(99.9% 稼働)をターゲットとするWebサービスのため、1,2分間ごとに ステータス200 を応答するか監視することは度々ある
 
 * Similarly, checking hard drive fullness for a service targeting 99.9% availability more than once every 1–2 minutes is probably unnecessary.
 
-同様に　毎1,2分ごとに99.9%稼働とするサービスのハードドライブをチェックすることはおそらく不要です。
+1,2分間ごとに99.9%稼働をターゲットとするサービスのHDを監視することは不要です。
 
-Take care in how you structure the granularity of your measurements. Collecting per-second measurements of CPU load might yield interesting data, but such frequent measurements may be very expensive to collect, store, and analyze. If your monitoring goal calls for high resolution but doesn’t require extremely low latency, you can reduce these costs by performing internal sampling on the server, then configuring an external system to collect and aggregate that distribution over time or across servers. You might:
+Take care in how you structure the granularity of your measurements.
 
-あなたがあなたの測定の精度を構造化する方法に注意してください
-CPU負荷の毎秒の測定値を収集することは、興味深いデータが得られるかもしれませんが、
-そのような頻繁に収集、格納、分析することは非常に高価になることもあります。
+どのように測定の粒度を組み立てるか、に注意してください
 
-もし、あなたの監視の目標が、高い分析を求めるが遅延が低いことを要求しないのであれば
-あなたは、サーバー上で内部サンプリングを行うことにより、これらのコストを削減することができます
-さらに
-外部システムを構成する際に収集し、時間をかけて、またはサーバー間でその分布を集計します
-時間の経過またはサーバー間でその分布を収集し、集約する外部システムを構成します
+Collecting per-second measurements of CPU load might yield interesting data, but such frequent measurements may be very expensive to collect, store, and analyze.
+
+CPU負荷の毎秒の測定値を収集することは、興味深いデータが得られるかもしれないが、頻繁にcollect, store, analyzeすることは非常に高価になるかもしれない
+
+If your monitoring goal calls for high resolution but doesn’t require extremely low latency, you can reduce these costs by performing internal sampling on the server, then configuring an external system to collect and aggregate that distribution over time or across servers. You might:
+
+もし、あなたの監視のゴールが、高度な解決を求めるが少しの遅延があっても良いのであれば、サーバーで内部サンプリングの実行することで、コストを削減することができます。
+さらに、収集し、時間をかけて配布、もしくは複数のサーバに渡って集計する為に外部システムを構成します。
+
+以下であれば実施して良い
 
 1. Record the current CPU utilization each second.<br>
-現在のCPU使用率を毎秒記録する
+毎秒のCPU使用率を記録
 
 2. Using buckets of 5% granularity, increment the appropriate CPU utilization bucket each second.<br>
-5％の粒度のbucketsを使用して、適切なCPU使用率のバケット　を毎秒ごとに　インクリメントする。
+5％の粒度のbucketsを使用して、毎秒ごとの適切なCPU使用のbucketをインクリメントする。
 
 3. Aggregate those values every minute.<br>
 毎分それらの値を集計する
 
 This strategy allows you to observe brief CPU hotspots without incurring very high cost due to collection and retention.
 
-この戦略は、あなたが収集および保存のために非常に高コスト化を招くことなく、簡単なCPUのhotspotsを観察することができます。
+この戦略は、収集および保存のための高コスト化を招くことなく、簡単なCPUのhotspotsを観察することができます。
+
+★毎秒のCPU使用率からサンプリングして、集計した結果を監視する？
 
 ### As Simple as Possible, No Simpler
 
@@ -96,9 +109,10 @@ Piling all these requirements on top of each other can add up to a very complex 
 
 * Alerts on different latency thresholds, at different percentiles, on all kinds of different metrics
 
-異なるlatencyのしきい値のアラート
-異なるpercentiles
-すべての種類の異なるmetrics
+・待ち時間がしきい値と異なる<br>
+・パーセンタイルが異なる<br>
+・すべての種類の異なるメトリックス<br>
+にアラートを発する
 
 * Extra code to detect and expose possible causes
 
