@@ -436,7 +436,7 @@ We review statistics about page frequency
 (usually expressed as incidents per shift, where an incident might be composed of a few related pages) in quarterly reports with management, ensuring that decision makers are kept up to date on the pager load and overall health of their teams.
 
 (通常、1シフトあたりのインシデントとして表現され、インシデントはいくつか関係する通知で構成されるかもしれない)
-経営陣による四半期レポートで、意思決定者が通知の負荷と彼らのチームの全体的な健全性に関して最新知識を持っていることを確実とします。？？
+経営陣による四半期レポートで、意思決定者が通知の負荷と彼らのチームの全体的な健全性に関して最新知識を持っていることを確実とします。？
 
 ### Conclusion
 
@@ -452,27 +452,23 @@ It focuses primarily on symptoms for paging, reserving cause-oriented heuristics
 
 Monitoring symptoms is easier the further “up” your stack you monitor, though monitoring saturation and performance of subsystems such as databases often must be performed directly on the subsystem itself.
 
-徴候を監視することはより容易で、 より一層の「up」 あなたが監視するあなたのスタック
-だけれども、データベースなどのサブシステムの監視飽和と性能は、サブシステム自身においてしばしば直接実行されなければならない
+徴候を監視することはより容易で、 あなたがモニターするあなたのスタックをさらに促進する。だけれども、データベースなどのサブシステムの監視飽和と性能は、サブシステム自身においてしばしば直接実行されなければならない
 
-Email alerts are of very limited value and tend to easily become overrun with noise; instead, you should favor a dashboard that monitors all ongoing subcritical problems for the sort of information that typically ends up in email alerts. A dashboard might also be paired with a log, in order to analyze historical correlations.
+Email alerts are of very limited value and tend to easily become overrun with noise; instead, you should favor a dashboard that monitors all ongoing subcritical problems for the sort of information that typically ends up in email alerts.
 
 Eメール警告は、非常に制限された価値をもち、容易に、ノイズがはびこる傾向がある；
-代わりに、
+代わりに、あなたはダッシュボードを支持するべきで、Eメール警告を終わらせるための、すべての進行中で露出前の問題を監視します
 
-あなたはダッシュボードを賛成するべき
-それは情報のソートのためのすべての進行中の臨界前の問題を監視する
-それはEメール警告に終わらせる
+A dashboard might also be paired with a log, in order to analyze historical correlations.
 
-ダッシュボードはまた歴史の相互関係を分析するために、ログとともに一対で構成されるべき
+ダッシュボードはまた歴史の相互関係を分析するために、ログとともにペアで構成しても良い
 
 Over the long haul, achieving a successful on-call rotation and product includes choosing to alert on symptoms or imminent real problems, adapting your targets to goals that are actually achievable, and making sure that your monitoring supports rapid diagnosis.
 
-長い目で見れば、
-on-call rotationの成功を実現
-徴候または差し迫っている本当の問題において警報を出すことを選ぶことを含む製品
-実際達成可能なゴールのために、あなたの目標を適応させる
-あなたの監視の急速診断をサポートすることを確かめさせる。
+長い目で見れば、on-call ローテーションの成功の実現と
+徴候または差し迫っている本当の問題のアラートの選択を含む製品は
+実際達成可能なゴールのために、あなたの目標を適応させ、
+あなたの監視の急速診断をサポートすることを確実にします。
 
 <hr>
 
@@ -489,24 +485,25 @@ Besides black art, there is only automation and mechanization.
 Federico García Lorca (1898–1936), Spanish poet and playwright
 
 For SRE, automation is a force multiplier, not a panacea.
+
 SRE にとって、自動化は力を増強させる食べ物であるが万能薬ではない
 
 Of course, just multiplying force does not naturally change the accuracy of where that force is applied:
 
-もちろん力を増強させる食べ物は、自然にその力が作用した場合の精度を変更しない
+もちろん力を増強させる食べ物は、自然にその力が作用した場合の精度は変わらない
 
 doing automation thoughtlessly can create as many problems as it solves.
 
-自動化することは、なまじ、多くの問題として作成し、解決することができる。
+自動化することは、なまじ、多くの問題として作成し、解決することができます。
 
 Therefore, while we believe that software-based automation is superior to manual operation in most circumstances, better than either option is a higher-level system design requiring neither of them—an autonomous system.
 
 したがって、我々はそのソフトウェア・ベースの自動化は、ほとんどの状況では、手動操作よりも優れていると考えている一方で、
-それら(自律システム)のどちらを必要とする、より高いレベルのシステム設計は、それがいずれかのオプションよりも優れています
+それら(自律システム)のどちらを必要とする、より高いレベルのシステム設計は、いずれのオプションよりも優れています
 
 Or to put it another way, the value of automation comes from both what it does and its judicious application. We’ll discuss both the value of automation and how our attitude has evolved over time.
 
-あるいは別の言い方をするために、自動化の価値は、それが何をするかとその賢明なアプリケーションの両方から来ています。
+あるいは別の言い方をすると、自動化の価値は、それが何をするかとその賢明なアプリケーションの両方から来ています。
 私たちは、自動化の価値と　どのように私たちの姿勢を時間をかけて進化してきたのか　の両方を説明します。
 
 ### The Value of Automation
@@ -519,34 +516,37 @@ What exactly is the value of automation?1
 一貫性
 
 Although scale is an obvious motivation for automation, there are many other reasons to use it.
+
 スケールは自動化のための明白な動機ですが、それを使用する他の多くの理由があります
 
 Take the example of university computing systems, where many systems engineering folks started their careers.
-多くのシステムエンジニアリングの人々が自分のキャリアを始めた大学のコンピューティング・システムの例を見てみましょう
+
+多くのシステムエンジニアリングの人々がキャリアを始めた大学のコンピューティング・システムの例を見てみましょう
 
 Systems administrators of that background were generally charged with running a collection of machines or some software, and were accustomed to manually performing various actions in the discharge of that duty.
 
-その背景のシステム管理者は、一般的にマシンの集合またはいくつかのソフトウェアの実行することを引き受け
-そして、手動でさまざまなアクションを実行するのに慣れました
+その背景のシステム管理者は、一般的にマシンの集合またはいくつかのソフトウェアの実行することを引き受け、そして、手動でさまざまなアクションを実行するのに慣れました
 
 One common example is creating user accounts;
 
 1つの一般的な例は、ユーザーアカウントの作成
 
 others include purely operational duties like making sure backups happen, managing server failover, and small data manipulations like changing the upstream DNS servers’ resolv.conf, DNS server zone data, and similar activities.
-・たしかなバックアップファイルを作成するような運用業務
+
+他の人が純粋に運用業務に含むような
+・たしかなバックアップファイルを作成
 ・サーバーのフェイルオーバーの管理
-・上流のDNSサーバーのresolv.confを変更するような小さなデータ操作、
+・上流のDNSサーバーのresolv.confを変更するような小さなデータ操作
 ・DNSサーバーのゾーンデータ
 ・そして似たような活動
 
 Ultimately, however, this prevalence of manual tasks is unsatisfactory for both the organizations and indeed the people maintaining systems in this way.
 
-最終的に、しかしながら手動タスクの普及は、組織、およびシステムを維持する人々両方に満足できるものではありません
+結局、しかしながら、手動タスクの普及は、組織、およびシステムを維持する人々両方に満足できるものではありません
 
 For a start, any action performed by a human or humans hundreds of times won’t be performed the same way each time:
 
-スタートのために、人々によって実行されたアクションは、同じ方法を毎回実行されません。
+まず第一に、人々によって実行されたアクションは、同じ方法で毎回実行されません。
 
 even with the best will in the world, very few of us will ever be as consistent as a machine.
 
@@ -554,57 +554,54 @@ even with the best will in the world, very few of us will ever be as consistent 
 
 This inevitable lack of consistency leads to mistakes, oversights, issues with data quality, and, yes, reliability problems.
 
-一貫性のこの避けられないことは、データ品質、信頼性の問題でミス、見落とし、問題につながります。
+一貫性の欠如は、データ品質、信頼性の問題でミス、見落とし、問題につながります。
 
 In this domain—the execution of well-scoped, known procedures—the value of consistency is in many ways the primary value of automation.
 
-よくスコープ、知られているこのドメイン実行の手順、一貫性の値は、自動化の主要な価値は、多くの方法です。
+このドメインでの一貫性の良いスコープでの実行？、既知の手順値である点は、多くの点で自動化の主要な価値です
 
 #### A Platform
 プラットフォーム
 
 Automation doesn’t just provide consistency.
-自動化は、単に一貫性を提供していません。
+自動化は、単に一貫性だけを提供していません。
 
 Designed and done properly, automatic systems also provide a platform that can be extended, applied to more systems, or perhaps even spun out for profit.
+
+設計され、正しく行われた自動化システムは、また、拡張可能なプラットフォームを提供し、より多くのシステムに適用され、またはおそらく利益のために長く保たれます
+
 (The alternative, no automation, is neither cost effective nor extensible: it is instead a tax levied on the operation of a system.)
 
-設計され、正しく行われる
-自動システムは、また、拡張可能なプラットフォームを提供します
-より多くのシステムに適用される、またはおそらく利益のために長く保たれる
-
-（代替、自動化でない　どちらのコストが効果的でも拡張可能です。
-　それは代わりに、システムの動作に課される税金です）
+（代代替案の、自動化しないことは　いずれも費用対効果が高くもなく、拡張可能でもありません：システムへのオペレーションに課される税金がその代わりとして残ります）
 
 A platform also centralizes mistakes.
 プラットフォームは、間違いを一元化します。
 
 In other words, a bug fixed in the code will be fixed there once and forever, unlike a sufficiently large set of humans performing the same procedure, as discussed previously.
 
-つまり、コードでのバグFixは、一度の修正で、永遠に修正されます
-前述したように、同じ手順を実行する人間の十分に大きなセットとは異なり。
+言い換えれば、コードのバグFixは、一度の修正で永遠に修正されます。
+前述したように、同じ手順を実行する人間の十分に大きなセット？とは異なり。
 
 A platform can be extended to perform additional tasks more easily than humans can be instructed to perform them (or sometimes even realize that they have to be done).
 
-プラットフォームは、それらを実行するために、より容易に人間が指示することができるよりも、
-追加のタスクを実行するように拡張することができる（または時には彼らが行わなければならないことを実現）
+プラットフォームは、それらを実行するために、より容易に人間が指示することが
+できるよりも、追加のタスクを実行するように拡張することができます。
+（または時には彼らが行わなければならないことを実現）
 
 Depending on the nature of the task, it can run either continuously or much more frequently than humans could appropriately accomplish the task, or at times that are inconvenient for humans.
 
-タスクの性質に応じて、それは人間が適切にタスクを達成できたよりも頻繁に連続的に又は多くの実行
-時として人間には不便
+タスクの性質に応じて、それは人間が適切にタスクを達成できたよりも頻繁に連続的に又は多くの実行することができます。時として人間には不便な時間にも実行できます。
 
 Furthermore, a platform can export metrics about its performance, or otherwise allow you to discover details about your process you didn’t know previously, because these details are more easily measurable within the context of a platform.
 
-これらの詳細は、より簡単に、プラットフォームのコンテキスト内で測定可能であるため、
-また、プラットフォームは、あなたが以前に知らなかったあなたのプロセスについての詳細を発見することができそうでなければ、
-その性能についてのmetricsをエクスポートすることができます
+その上、プラットフォームは、その性能についてのメトリックをエクスポートすることができます。またはそうでなければ、あなたが以前に知らなかったあなたのプロセスについての詳細を発見することができます。なぜなら、これらの詳細は、より簡単に、プラットフォームのコンテキスト内で測定可能であるからです。
 
 #### Faster Repairs
 より早く修理する
 
 There’s an additional benefit for systems where automation is used to resolve common faults in a system
-自動化は、システムに共通の障害を解決するために使用されるシステムのための付加的な利点があります
+
+システムに共通の障害を解決するために、自動化が使用されたシステムには付加価値があります
 
 (a frequent situation for SRE-created automation).
 
@@ -612,306 +609,308 @@ SREが作成した自動化の頻繁な状況
 
 If automation runs regularly and successfully enough, the result is a reduced mean time to repair (MTTR) for those common faults.
 
-自動化が定期的に、正常に十分に実行された場合、結果はMTTR（平均復旧時間）を減らせること
+自動化が定期的に正常に十分に実行された場合、結果として、共通の失敗によるMTTR（平均復旧時間）が減少します
 
 You can then spend your time on other tasks instead, thereby achieving increased developer velocity because you don’t have to spend time either preventing a problem or (more commonly) cleaning up after it.
 
-あなたはそれの後にクリーンアップ（より一般的に）時間のいずれかの問題を防止またはを費やす必要はありませんので、
-あなたは、それによって増加した開発者の速度を達成し、代わりに他のタスクにあなたの時間を過ごすことができます。
+問題の防止と、その後の（より一般的な）クリーンアップの時間いずれも費やす必要がないので、それによって増加した開発者の開発速度を達成し、代わりに他のタスクに時間を費やすことができます。
 
 As is well understood in the industry, the later in the product lifecycle a problem is discovered, the more expensive it is to fix;
 
-当業界で理解されているように、製品ライフサイクルの問題の後で発見された場合、それを修正するのはよく高価です
+当業界で理解されているように、製品ライフサイクルの後で問題が発見された場合、それを修正するのはとても高額です
 
 Generally, problems that occur in actual production are most expensive to fix, both in terms of time and money, which means that an automated system looking for problems as soon as they arise has a good chance of lowering the total cost of the system, given that the system is sufficiently large.
 
-一般的に、実際の生産で発生する問題は、修正するのが最も高価であり、
-時間とお金の両方で、
-自動化されたシステムは、システムの総コストを下げるのに良いチャンスがあります
-システムが十分に大きいことを考えます。
+一般的に、実生産で発生する問題は、修正するのに最も高額であり、時間とお金の両方で、自動化されたシステムは、システムの総コストを下げるのに良い機会を持っています
 
 #### Faster Action
 
 早いアクション
 
 In the infrastructural situations where SRE automation tends to be deployed, humans don’t usually react as fast as machines.
+
 SREの自動化が展開される傾向にあるインフラの状況では、人間は通常、マシンほど速く反応しません
 
 In most common cases, where, for example, failover or traffic switching can be well defined for a particular application, it makes no sense to effectively require a human to intermittently press a button called “Allow system to continue to run.”
 
-最も一般的な例では、
-例えば、フェイルオーバーまたはトラフィック切り替えが特定のアプリケーションのためによく定義される
-
-それが
-効果的に人間を必要とし
-“Allow system to continue to run.” と呼ばれるボタンを断続的にボタンを押すのは
-意味がありません
+最も一般的な例では、例えば、フェイルオーバーまたはトラフィック切り替えが特定のアプリケーションのためによく定義され、それが人間を必要とし
+“Allow system to continue to run.” と呼ばれるボタンを断続的にボタンを押すのは無意味（無駄）です。
 
 (Yes, it is true that sometimes automatic procedures can end up making a bad situation worse, but that is why such procedures should be scoped over well-defined domains.)
-(はい、時々自動手続きが悪化悪い状況を作ってしまうことは事実です
-このような手順は、明確に定義された領域を渡ってスコープされるべき理由がある)
+
+(はい、時々自動手続きが悪化する状況を作ってしまうことは事実です。
+このような手順は、明確に定義された領域を渡ってスコープされるべき理由があります)
 
 Google has a large amount of automation; in many cases, the services we support could not long survive without this automation because they crossed the threshold of manageable manual operation long ago.
-Googlaは、自動化の量が多いです。多くの場合、
-彼らはずっと前に管理可能な手動操作のしきい値を超えているため、我々がサポートするサービスは
-長い間、この自動化せずに生き残ることができませんでした。
+
+Googleは、自動化の量が多いです。多くの場合、彼らはずっと前に管理可能な手動操作のしきい値を超えているため、我々がサポートするサービスでは長い間、この自動化せずに生き残ることができませんでした。
 
 #### Time Saving
 時間の節約
 
 Finally, time saving is an oft-quoted rationale for automation.
+
 最後に、時間の節約には、自動化のためのよく引き合いに出される根拠があります。
 
 Although people cite this rationale for automation more than the others, in many ways the benefit is often less immediately calculable.
+
 人々はより多くの他のものよりも自動化のため、この理論的根拠を引用しているが、
-多くの点で利点は、あまりすぐに計算可能です。
+多くの点で、この利点はあまりすぐに計算可能です。
 
 Engineers often waver over whether a particular piece of automation or code is worth writing, in terms of effort saved in not requiring a task to be performed manually versus the effort required to write it.
 
-エンジニアはしばしば、自動化やコードの特定の部分が価値がある書き込みかどうかを迷う
-それを書くために必要な努力に対して手動で行うことができるため
-タスクが必要でないと思う？
+エンジニアはしばしば、自動化やコードの特定の部分が価値がある書き込みかどうかを迷う。それを書くための必要な努力が手動で行うことができるため、そのタスクが必要でないと思う？
 
- It’s easy to overlook the fact that once you have encapsulated some task in automation, anyone can execute the task.
-それはあなたが自動でいくつかのタスクをカプセル化した後、誰がタスクを実行することができるという事実を見落とすことは簡単です
+It’s easy to overlook the fact that once you have encapsulated some task in automation, anyone can execute the task.
 
- Therefore, the time savings apply across anyone who would plausibly use the automation.
-そのため、時間の節約がもっともらしく、オートメーションを使用することになり、誰もがに適用されます
+それはあなたが自動でいくつかのタスクをカプセル化した後、誰がタスクを実行することができるという事実を見落としがちです
 
- Decoupling operator from operation is very powerful.
+Therefore, the time savings apply across anyone who would plausibly use the automation.
+
+そのため、時間の節約はおそらく自動化を使用することになり、誰もがに適用されます
+
+Decoupling operator from operation is very powerful.
+
 操作からオペレータを切り離すことは非常に強力です。
 
 #### WARNING
 
 Joseph Bironas, an SRE who led Google’s datacenter turnup efforts for a time, forcefully argued:
-Joseph Bironas Googleのデータセンターを率いるSREは時間のために努力をやってのける　強制的に主張します
+
+Joseph Bironas Googleのデータセンターを率いるSREは時間のために努力をやってのけます。次のことを強制的に主張します
 
 “If we are engineering processes and solutions that are not automatable, we continue having to staff humans to maintain the system.
-私たちは、エンジニアリング・プロセスと自動化されない解決策がある場合は、
-我々は、システムを維持するために人間をスタッフに持ち続けます。
+
+エンジニアリング・プロセスと自動化されない解決策がある場合は、我々はシステムを維持するために人間をスタッフに持ち続けます。
 
 If we have to staff humans to do the work, we are feeding the machines with the blood, sweat, and tears of human beings.
-私たちが仕事をする人間をスタッフに持っている場合は、
-私たちは、人間の血、汗、そして涙を用いて、マシンを運用しています。
+
+もし仕事をする人間をスタッフに持っている場合、私たちは、人間の血、汗、そして涙を用いて、マシンを運用しています。
 
 Think The Matrix with less special effects and more pissed off System Administrators.”
 
-特別な効果が少ないマトリックス？行列？を考えて、より多くのシステム管理者が去りました
+特別な効果が少ないマトリックス？を考え、そして、より多くのシステム管理者が去りました
 
 ### The Value for Google SRE
 GoogleのSREのための価値
 
 All of these benefits and trade-offs apply to us just as much as anyone else, and Google does have a strong bias toward automation.
 
-これらの利点とトレードオフのすべてが、同じくらい他の誰として私たちに適用されます
+これらの利点とトレードオフのすべてが、私たちと同様に他の誰もがに適用されます。
 そして、Googleは、自動化に向けた強いバイアスを持っています。
 
 Part of our preference for automation springs from our particular business challenges:
 
-当社の特定のビジネス上の課題から自動化？のための私達の優先する部分
+当社の特定のビジネス上の課題から、自動化のために私達が優先する部分
 
 the products and services we look after are planet-spanning in scale, and we don’t typically have time to engage in the same kind of machine or service hand-holding common in other organizations.4
 
-私たちの製品とサービスは、地球にまたがる規模であり
-私たちは一般的に従事する時間がありません
-・マシンの同じ種類で
-・サービスの手作業での保持
+私たちの製品とサービスは地球にまたがる規模であり、基本的に、マシンあるいはサービスを手作業で保持することに従事する時間がありません
 
 For truly large services, the factors of consistency, quickness, and reliability dominate most conversations about the trade-offs of performing automation.
-本当に大規模なサービスの場合、
-自動化を行う、行わないのトレードオフについてのほとんどの会話が
-一貫性、迅速性、および信頼性の要因に支配されている。
+
+本当に大規模なサービスのために、一貫性、迅速性、および信頼性の要因が
+自動化を行う、行わないのトレードオフについての会話のほとんどを占めています。
 
 Another argument in favor of automation, particularly in the case of Google, is our complicated yet surprisingly uniform production environment, described in Chapter 2.
 
-自動化を支持する別のargument、特にグーグルの場合には、
-私達の複雑さ、また驚くほど均一な生産環境である　Chapter 2で述べる
+自動化を支持する別の議論、特にグーグルの場合には、私達はまだ複雑で、驚くほど均一な生産環境です（これはChapter 2で述べました
 
- While other organizations might have an important piece of equipment without a readily accessible API, software for which no source code is available, or another impediment to complete control over production operations, Google generally avoids such scenarios.
+While other organizations might have an important piece of equipment without a readily accessible API, software for which no source code is available, or another impediment to complete control over production operations, Google generally avoids such scenarios.
 
-他の組織は、容易にアクセス可能なAPIなしに装置の重要な部分を持っているかもしれませんが、
-・ソースコードが使用できないソフトウェア
-・または生産活動の制御を完了するための別の障害
-グーグルは、一般的にそのようなシナリオを回避します
+他の組織は、容易にアクセス可能なAPIなしに装置の重要な部分を持っているかもしれませんが、ソースコードが使用できないソフトウェア、あるいは生産活動の制御を完了するための別の妨害。グーグルは、一般的にそのようなシナリオを回避します
 
  We have built APIs for systems when no API was available from the vendor.
+
 ベンダーから利用可能なAPIを入手できなかったとき、私たちは、システム用のAPIを構築しています
 
  Even though purchasing software for a particular task would have been much cheaper in the short term, we chose to write our own solutions, because doing so produced APIs with the potential for much greater long-term benefits.
 
-短期的かつはるかに安価な　　特定のタスクのためのソフトウェアを購入するよりも
-我々は我々自身のソリューションを書くことを選びました、はるかに大きな長期的な利益が潜在的するAPIにするため
+短期的かつはるかに安価な、特定のタスクのためのソフトウェアを購入するよりも
+我々自身のソリューションを書くことを選びました。はるかに大きな長期的な利益が潜在的するAPIにするためです。
 
  We spent a lot of time overcoming obstacles to automatic system management, and then resolutely developed that automatic system management itself.
 
 我々は、自動システム管理の障害を克服するのに多くの時間を費やし、その後、あえてその自動システム管理自体を開発しました。
 
- Given how Google manages its source code [Pot16], the availability of that code for more or less any system that SRE touches also means that our mission to “own the product in production” is much easier because we control the entirety of the stack.
+Given how Google manages its source code [Pot16], the availability of that code for more or less any system that SRE touches also means that our mission to “own the product in production” is much easier because we control the entirety of the stack.
 
- Googleは、そのソースコード[Pot16]はどのように管理するかを考えると、
-
-だいたいまた、SREが触れるどんなシステムのためのそのコードの入手可能性でも、我々がスタックの全部を支配するので、
-"own the product in production" ??? 我々の任務が非常により簡単なことを意味します。
+Googleがそのソースコード[Pot16]をどのように管理するかを考えると、
+SREが触れるいかなるシステムのコードを利用できることは、
+我々がスタックの全部を支配するので、"own the product in production"  
+我々の任務が非常により簡単なことを意味します。
 
 Of course, although Google is ideologically bent upon using machines to manage machines where possible, reality requires some modification of our approach.
-当然のことながら、可能な所でGoogleが機械を管理するために機械を使うことに観念的に心を傾けているが、
-現実は我々のアプローチのいくらかの修正を必要とします。
+
+当然のことながら、可能な限り、Googleがマシンを管理するためにマシンを使うことに観念的に心を傾けているが、現実は我々のアプローチのいくらかの修正を必要とします。
 
 It isn’t appropriate to automate every component of every system, and not everyone has the ability or inclination to develop automation at a particular time.
 
-すべてのシステムのすべてのコンポーネントを自動化することは適切ではありません
-そして、誰もが、特定時間に自動化を開発する能力や傾きを持っています。
+すべてのシステムのすべてのコンポーネントを自動化することは適切ではありません。
+そして、すべての人が特定時間に自動化を開発する能力や傾きを持っていることはありません。
 
-Some essential systems started out as quick prototypes, not designed to last or to interface with automation. The previous paragraphs state a maximalist view of our position, but one that we have been broadly successful at putting into action within the Google context.
+Some essential systems started out as quick prototypes, not designed to last or to interface with automation.
 
 いくつかの重要なシステムでは、迅速なプロトタイプとしてスタートし
 最終的にもしくは自動化のインタフェースとして設計されていませんでした
 
-前項は、我々の最大限要求主義者の見解を述べましたが
-我々は、Googleコンテキスト内で行動に入れることに広く成功していました
+The previous paragraphs state a maximalist view of our position, but one that we have been broadly successful at putting into action within the Google context.
+
+前項は我々の最大限要求の見解を述べましたが、Googleコンテキスト以内で行動に入れることに広く成功していました？
 
 In general, we have chosen to create platforms where we could, or to position ourselves so that we could create platforms over time.
 
 一般的に、私たちは以下のプラットフォームを作成することを選択してきました
-　私達が可能、もしくは自身を配置すること
-　我々が時間をかけてのプラットフォームを作成することができるように。
+私達が可能、もしくは自身を配置できること
+そして、我々が時間をかけてのプラットフォームを作成することができること
 
 We view this platform-based approach as necessary for manageability and scalability.
-私たちは、管理性と拡張性のために、必要に応じてこのplatform-basedのアプローチを表示します
+
+私たちは、管理性と拡張性のために、必要に応じてこのplatform-basedのアプローチを検討します
 
 ### The Use Cases for Automation
 自動化のためのユースケース
 
 In the industry, automation is the term generally used for writing code to solve a wide variety of problems, although the motivations for writing this code, and the solutions themselves, are often quite different.
-業界では、自動化は、一般的に、問題の様々を解決するコードを書くために使用される用語であり、
-だけれども、このコードを書くための動機、およびソリューション自体が、しばしば非常に異なっています。
+
+この業界では、自動化は一般的に、問題の様々を解決するコードを書くために使用される用語であり、だけれども、このコードを書くための動機、およびソリューション自体は、しばしば非常に異なっています。
 
 More broadly, in this view, automation is “meta-software”—software to act on software.
 
-より広く、このviewでは、自動化は、ソフトウェアに基づいて行動する"meta-software"です
+より広くこのviewでは、自動化は、ソフトウェアに基づいて行動する"meta-software"です
 
 As we implied earlier, there are a number of use cases for automation. Here is a non-exhaustive list of examples:
 
-我々は以前に示唆されるように、自動化のためのユースケースがいくつかあります。ここでの例の非網羅的なリストであります
+我々は以前に示唆されるように、自動化のためのユースケースがいくつかあります。
+ここでの例の非網羅的なリストです
 
 * User account creation
+
 ユーザアカウントの作成
 
 * Cluster turnup and turndown for services
+
 クラスタのturnup/turndown
 
 * Software or hardware installation preparation and decommissioning
+
 ソフトウェアまたはハードウェアのインストール準備と廃止
 
 * Rollouts of new software versions
+
 新しいソフトウェアバージョンのロールアウト
 
 * Runtime configuration changes
+
 ランタイム構成の変更
 
 * A special case of runtime config changes: changes to your dependencies
-ランタイム構成変更の特殊なケース：あなたの依存関係の変更
+
+ランタイム構成変更の特殊なケース：依存関係の変更
 
 This list could continue essentially ad infinitum.
+
 このリストは、本質的に無限に続けることができました。
 
 #### Google SRE’s Use Cases for Automation
 自動化のためのGoogle SREのユースケース
 
 In Google, we have all of the use cases just listed, and more.
+
 グーグルでは、私たちは記載されている使用例を多く持っています。
 
 However, within Google SRE, our primary affinity has typically been for running infrastructure, as opposed to managing the quality of the data that passes over that infrastructure.
 
-しかし、Google SRE内で、
-私たちの主な親和性は、典型的には、インフラストラクチャを実行するためにされ
-そのインフラストラクチャ上を通過するデータの品質を管理することとは対照的です。
+しかしながら、Google SRE内で、私たちの主な親和性は典型的には、インフラストラクチャを実行するためにあり、そのインフラストラクチャ上を通過するデータの品質を管理することとは対照的です。
 
 This line isn’t totally clear—for example, we care deeply if half of a dataset vanishes after a push, and therefore we alert on coarse-grain differences like this, but it’s rare for us to write the equivalent of changing the properties of some arbitrary subset of accounts on a system.
 
-この行は全く明確ではありません
-例えば
-データセットの半分がプッシュした後に消滅した場合、我々は深く心配する
-そのため私たちは、このような粗粒度の違い？に警告します
+この行は全く明確ではありません。例えば
+データセットの半分がプッシュした後に消滅した場合、我々は深く心配します
+そして私たちは、このような粗粒度の違い？を警告します
 しかし、システム上のアカウントのいくつかの任意のサブセットの特性を変化させると同等のものを書くのは稀です　？？？
 
-Therefore, the context for our automation is often automation to manage the lifecycle of systems, not their data: for example, deployments of a service in a new cluster.
-したがって、私たちの自動化のためのコンテキストはシステムのライフサイクルを管理するために、多くの場合、自動化され、
-それらのデータではない？
+Therefore, the context for our automation is often automation to manage the lifecycle of systems, not their data:
 
-例えば新クラスタ上のサービスの配備
+したがって、私たちの自動化のためのコンテキストはシステムのライフサイクルを管理するために、多くの場合自動化され、それらのデータではありません？
+
+for example, deployments of a service in a new cluster.
+
+例えば、新クラスタ上のサービスの配備
 
 To this extent, SRE’s automation efforts are not far off what many other people and organizations do, except that we use different tools to manage it and have a different focus (as we’ll discuss).
 
-この範囲まで
-SREの自動化の取り組みは、これまで他の多くの人々や組織が何をするか、はるかかなたではありません
+この範囲まで、SREの自動化の取り組みは、多くの他の人々や組織が行うような？、
+はるかかなたのことではありません。
 それを管理し、異なる焦点を持つために、異なるツールを使用することを除いて
 （as we’ll discuss）
 
 Widely available tools like Puppet, Chef, cfengine, and even Perl, which all provide ways to automate particular tasks, differ mostly in terms of the level of abstraction of the components provided to help the act of automating.
 
-Puppet, Chef, cfengine, Perlのような広く利用可能なツール
-そのすべてが、特定のタスクを自動化する方法を提供します
-自動化の行為を助けるために提供されるコンポーネントの抽象化のレベルに関して、主に異なります。
+Puppet, Chef, cfengine, Perlのような広く利用可能なツールそのすべてが、
+特定のタスクを自動化する方法を提供します。
+自動化の行為を助けるために提供されるコンポーネントの抽象化のレベルが主に異なります。
 
-A full language like Perl provides POSIX-level affordances, which in theory provide an essentially unlimited scope of automation across the APIs accessible to the system,5 whereas Chef and Puppet provide out-of-the-box abstractions with which services or other higher-level entities can be manipulated. The trade-off here is classic:
-Perlのような完全な言語は、POSIXレベルのアフォーダンス（環境は内包している力）？を提供し、
-システムにアクセスするAPI全体で自動化の本質的に無制限の範囲を提供する理論的上は
-ChefやPuppetは、サービスまたは他の上位レベルのエンティティを操作することが可能な、枠を超える抽象化を提供するに反して
+A full language like Perl provides POSIX-level affordances, which in theory provide an essentially unlimited scope of automation across the APIs accessible to the system,　5 whereas Chef and Puppet provide out-of-the-box abstractions with which services or other higher-level entities can be manipulated.
+
+Perlのような完全な言語は、理論的にはシステムにアクセスするAPI全体で自動化の本質的に無制限の範囲を提供するPOSIXレベルのaffordances（環境は内包している力）？を提供します
+ChefやPuppetが、サービスまたは他の上位レベルのエンティティを操作することが可能な、枠を超える抽象化を提供する一方。
+
+The trade-off here is classic:
+
 ここでのトレードオフは古典的です
 
 higher-level abstractions are easier to manage and reason about, but when you encounter a “leaky abstraction,” you fail systemically, repeatedly, and potentially inconsistently.
 
-より高いレベルの抽象化は、管理し、それについての理由は容易です
+より高いレベルの抽象化は、管理とそれについての理由は簡単です
 しかし、あなたが“leaky abstraction,”（漏れやすい抽象化？？？）遭遇したときに
-あなたは損なう
-・全身的に
-・繰り返して
-・潜在的に
-・無節操に
+あなたは、全身的に、繰り返して、潜在的に、無節操に失敗する
 
 For example, we often assume that pushing a new binary to a cluster is atomic; the cluster will either end up with the old version, or the new version.
 
-たとえば
-私たちはしばしばクラスタに新しいバイナリをプッシュすることはatomicであることを前提としています。
+たとえば、しばしばクラスタに新しいバイナリをプッシュすることはatomicであることを前提とします
  atomic - すべて完了するか、しないか　原子性
- クラスタは、いずれかの古いバージョン、または新しいバージョンになる
+クラスタは、いずれかの古いバージョン、または新しいバージョンになる
 
 However, real-world behavior is more complicated:
 
 しかし、実世界の挙動はより複雑です。
 
 that cluster’s network can fail halfway through;
+
 そのクラスタのネットワークは途中で失敗する可能性があります。
 
 machines can fail;
+
 マシンが失敗する場合があります。
 
 communication to the cluster management layer can fail, leaving the system in an inconsistent state;
+
 クラスタ管理層への通信は、失敗する可能性があり、一貫性のない状態でシステムを残ります。
 
 depending on the situation, new binaries could be staged but not pushed, or pushed but not restarted, or restarted but not verifiable.
-状況に応じて、新しいバイナリがstageされるがpushされていない、あるいはプッシュされるが再起動されない
-再起動するが検証可能ではない
+
+状況に応じて、新しいバイナリがstageされるがpushされていない、あるいはプッシュされるが再起動されない、あるいは再起動するが検証可能ではない
 
 Very few abstractions model these kinds of outcomes successfully, and most generally end up halting themselves and calling for intervention.
+
 非常に少数の抽象化は、成功した結果のこれらの種類をモデル化します
 そして、最も一般的に自身を停滞させ、介入を求めます。
 
 Truly bad automation systems don’t even do that.
-真に悪い自動化システムはそうすることでさせしない
+
+真に悪い自動化システムはそうすることでさえしない
 
 SRE has a number of philosophies and products in the domain of automation, some of which look more like generic rollout tools without particularly detailed modeling of higher-level entities, and some of which look more like languages for describing service deployment (and so on) at a very abstract level.
 
-SREは、自動化のドメインでいくつかの哲学や製品をもっている
+SREは、自動化のドメインでいくつかの哲学や製品をもっています
 そのうちのいくつかは、より高いレベルのエンティティの特に詳細なモデリングなしに、
 より一般的なロールアウトツールのように見えます
 そしてそのうちのいくつかは、非常に抽象的なレベルで（など）サービスの展開を記述するための言語のように、よりに見えます。
 
 Work done in the latter tends to be more reusable and be more of a common platform than the former, but the complexity of our production environment sometimes means that the former approach is the most immediately tractable option.
 
-後者で行われた作業をより再利用可能で、元よりも共通のプラットフォームをより多くなる傾向があり、
-しかし、当社の生産環境の複雑さは、時には前者のアプローチは、ほとんどすぐに扱いやすい選択肢であることを意味しています。
+後者で行われた作業をより再利用可能で、元よりも共通のプラットフォームをより多くなる傾向があり、しかし、当社の生産環境の複雑さは、時には前者のアプローチは、ほとんどすぐに扱いやすい選択肢であることを意味しています。
 
 #### A Hierarchy of Automation Classes
 
@@ -920,54 +919,49 @@ Work done in the latter tends to be more reusable and be more of a common platfo
 Although all of these automation steps are valuable, and indeed an automation platform is valuable in and of itself, in an ideal world, we wouldn’t need externalized automation.
 
 これらの自動化手順のすべてが貴重であるが、
-実際オートメーションプラットフォームは、それ自体の価値があります
+実際、自動化のプラットフォームは、それ自体に価値があります
 理想的な世界では、我々は客観化する自動化を必要としないであろう。
 
 In fact, instead of having a system that has to have external glue logic, it would be even better to have a system that needs no glue logic at all, not just because internalization is more efficient (although such efficiency is useful), but because it has been designed to not need glue logic in the first place.
 
-実際には、代わりに外部のglue logic？？を有していなければならないシステムを有します
+実際には、代わりに外部のglue logic？を有していなければならないシステムを有します
 　glue logic = 複数の集積回路を相互に接続する際に、外付けする論理回路
 
 それは全くglue logicを必要としないシステムを持っていることも良いだろう、
-内在化はより効率的であるため
-（このような効率は便利ですが）
+内在化はより効率的でないという理由だけで（このような効率は便利ですが）
 しかし、それは最初にglue logicを必要としないように設計されているため。
 
 Accomplishing that involves taking the use cases for glue logic—generally “first order” manipulations of a system, such as adding accounts or performing system turnup—and finding a way to handle those use cases directly within the application.
 
-それを遂行することは、glue logicのためのユースケースを取ることを伴っている
-
-一般に、システムの「一次」の操作、？？
-このようなアカウントの追加やシステムの折り返し（turnup）を行うなど
+それを達成することは、glue logic、一般的にシステムの「一次」の操作？のためのユースケースを取ることを含んでいて、このようなアカウントの追加やシステムのturnupを行うなど
 およびアプリケーション内で直接それらのユースケースを処理するための方法を見つけます。
+？？？
 
 As a more detailed example, most turnup automation at Google is problematic because it ends up being maintained separately from the core system and therefore suffers from “bit rot,” i.e., not changing when the underlying systems change.
 
 より詳細な例として、Googleの最もturnupな自動化は問題があります
-なぜならそれは、中心的なシステムから別々に維持されることを最終的にし、「bit rot」に苦しむ
+なぜならそれは、中心的なシステムから別々に維持されることを最終的にし、
+「bit rot」に苦しんでる？？
+
 すなわち、基盤となるシステムが変更されたときに変化していません。
 
 Despite the best of intentions, attempting to more tightly couple the two (turnup automation and the core system) often fails due to unaligned priorities, as product developers will, not unreasonably, resist a test deployment requirement for every change.
 
-最善の意図にもかかわらず、
-その2つをより堅く結合することを試みる
-（turnup automationとコアシステム）
-
-しばしば　非整列の優先順位に従い失敗する
-製品開発者として　不合理ではなく
-すべての変更のためのテスト展開の要件に反対する
+最善の意図にもかかわらず、その2つをより堅く結合することを試み
+（turnup 自動化コアシステム）しばしば　非整列の優先順位に従い失敗する
+製品開発者として、不合理ではなくすべての変更のためのテスト展開の要件に反対する？
 
 Secondly, automation that is crucial but only executed at infrequent intervals and therefore difficult to test is often particularly fragile because of the extended feedback cycle.
 
-第２に、重大であるが、たまにしか実行されない、テストが難しい自動化は特に壊れやすい
+第２に、重大であるが、たまにしか実行されない、テストが難しい自動化は特に壊れやすい。
 拡張されたフィードバックサイクルのため、
 
 Cluster failover is one classic example of infrequently executed automation: failovers might only occur every few months, or infrequently enough that inconsistencies between instances are introduced.
 
-クラスタフェールオーバーが頻繁に実行されない自動化の一典型的な例です：
+クラスタフェールオーバーが頻繁に実行されない自動化の典型的な例です：
 
-フェイルオーバーは、数ヶ月ごとに発生する可能性があります
-または、まれに十分なインスタンス間で不整合を引き合わせる
+フェイルオーバーは、数ヶ月ごとに発生する可能性があります。
+または、まれに十分なインスタンス間で不整合を引き合わせる。
 
 The evolution of automation follows a path:
 
@@ -979,7 +973,7 @@ Database master is failed over manually between locations.<br>
 
 2. Externally maintained system-specific automation 外部で管理されている特別なシステムの自動化<br>
 An SRE has a failover script in his or her home directory.<br>
-SREは彼/彼女のホームディレクトリにフェイルオーバースクリプトを保有している
+SREは彼/彼女（個人）のホームディレクトリにフェイルオーバースクリプトを保有しています。
 
 3. Externally maintained generic automation 外部で管理されている汎用的な自動化<br>
 The SRE adds database support to a “generic failover” script that everyone uses.<br>
@@ -987,7 +981,7 @@ SREは誰もが使用する「汎用的なフェールオーバー」スクリ�
 
 4. Internally maintained system-specific automation 内部で管理されている特別なシステムの自動化<br>
 The database ships with its own failover script.<br>
-データベースは自身のフェールオーバースクリプトを保有している
+データベースは自身のフェールオーバースクリプトを保有しています。
 
 5. Systems that don’t need any automation<br>
 任意の自動化を必要としないシステム<br>
@@ -1000,34 +994,27 @@ SREは、手動操作が嫌い、私たちは、明らかにそれらを必要�
 
 However, sometimes manual operations are unavoidable.
 
-しかし、時々手動操作が避けられません。
+しかし、時々手動での操作が避けられません。
 
 There is additionally a subvariety of automation that applies changes not across the domain of specific system-related configuration, but across the domain of production as a whole.
 
-自動化にはさらに亜種がある
-　特定の関係するシステムの設定のドメインに向かってではなく
-　全体としてproductionのドメインに向かって
-変更を適用する
+さらに、具体的なシステム関連のコンフィギュレーションのドメインではなく、全体としての生産のドメインを横切って変化を適用する自動化の亜種があります。
 
 In a highly centralized proprietary production environment like Google’s, there are a large number of changes that have a non–service-specific scope—e.g.,
 
-Googleのような高度に中央集権独自の本番環境では、
-非サービス固有のスコープを持っている多数の変更があります　例えば。。
+Googleのような高度に中央集権独自の本番環境では、非サービス固有のスコープを持っている多数の変更があります　例えば。。
 
 changing upstream Chubby servers, a flag change to the Bigtable client library to make access more reliable, and so on—which nonetheless need to be safely managed and rolled back if necessary.
 
-upstream Chubby servers　の変更
-アクセスの信頼性を高めるために、Bigtableのクライアントライブラリへのフラグの変更　など
+upstream Chubby servers　の変更。
+アクセスの信頼性を高めるために、Bigtableのクライアントライブラリへのフラグの変更など。
 これはそれにもかかわらず、安全に管理し、必要に応じてロールバックする必要があります。
 
 Beyond a certain volume of changes, it is infeasible for production-wide changes to be accomplished manually, and at some time before that point, it’s a waste to have manual oversight for a process where a large proportion of the changes are either trivial or accomplished successfully by basic relaunch-and-check strategies.
 
-変更の一定量を超えて、
-生産規模の変更は手動で達成することは、不可能で
-その時点の前にいくつかの時点で、
-
-変更の大部分は、いずれかの些細なことや、
-基本的なrelaunch-and-checkの戦略によって正常に達成されているプロセスのための手動の監視を持つことは、無駄です。
+変更の一定量を超えて、production-wideな変更は手動で達成することは不可能で
+その時点の前のいくつかの時点で、変更の大部分はいずれかの些細なことや、
+基本的なrelaunch-and-checkの戦略によって正常に達成されているプロセスのための手動の監視を持つことは、無駄です。？？
 
 Let’s use internal case studies to illustrate some of the preceding points in detail.
 
@@ -1039,7 +1026,8 @@ The first case study is about how, due to some diligent, far-sighted work,
 
 we managed to achieve the self-professed nirvana of SRE: to automate ourselves out of a job.
 
-私たちは、SREの自称：安息の境地を達成するために管理しました：ジョブの中から、私達自身を自動化します。
+私たちは、SREの自称：安息の境地（nirvana）を達成するために管理しました：
+ジョブの中から、私達自身を自動化します。
 
 ### Automate Yourself Out of a Job: Automate ALL the Things!
 
@@ -1047,7 +1035,7 @@ we managed to achieve the self-professed nirvana of SRE: to automate ourselves o
 
 For a long while, the Ads products at Google stored their data in a MySQL database.
 
-長い間、Googleの広告製品は、MySQLデータベース内のデータを格納されています
+長い間、Googleの広告プロダクトは、MySQLデータベース内のデータを格納されていました
 
 Because Ads data obviously has high reliability requirements, an SRE team was charged with looking after that infrastructure.
 
@@ -1055,24 +1043,25 @@ Because Ads data obviously has high reliability requirements, an SRE team was ch
 
 From 2005 to 2008, the Ads Database mostly ran in what we considered to be a mature and managed state.
 
-2005年から2008年まで、広告データベースは、成熟で状態が管理されていると考えて実行されていました
+2005年から2008年まで、広告データベースは、成熟で状態が管理されている。と考えて実行されていました
 
 For example, we had automated away the worst, but not all, of the routine work for standard replica replacements.
 
-たとえば、私たちは最悪を考えないで？自動化した
-　すべてではないが、標準的なレプリカの交換のためのルーチンワーク
+たとえば、私たちは最悪なケースを考えないで自動化しました。
+すべてではないが、標準的なレプリカの交換のためのルーチンワークを持ちました
 
 We believed the Ads Database was well managed and that we had harvested most of the low-hanging fruit in terms of optimization and scale.
 
-私たちは、広告データベースは、よく管理されたと信じた
-最適化と規模の点から、手に取りやすいフルーツだけを採取する？？？
+私たちは、広告データベースは、よく管理されたと信じ、
+最適化と規模の点から、手に取りやすいフルーツだけを採取しました？
 
 However, as daily operations became comfortable, team members began to look at the next level of system development:
 
-しかしながら、日常業務は、快適になりました
+しかしながら、日常業務は、快適になりました。
 チームのメンバーは、システム開発の次のレベルを見始めました。
 
 migrating MySQL onto Google’s cluster scheduling system, Borg.
+
 Googleのクラスタ・スケジューリング・システム(Borg)にMySQLを移行します
 
 We hoped this migration would provide two main benefits:
@@ -1086,7 +1075,7 @@ Borgは自動的にnew とbroken tasksのsetup/restartを処理します。
 
 * Enable bin-packing of multiple MySQL instances on the same physical machine: Borg would enable more efficient use of machine resources via Containers.
 
-同じ物理マシン上で複数のMySQLインスタンスのbin-packing??(荷をつめる箱の最小数を求める)を有効にします。
+同じ物理マシン上で複数のMySQLインスタンスのbin-packing？(荷をつめる箱の最小数を求める)を有効にします。
 Borgは、コンテナを介してマシンのリソースのより効率的な使用を可能にします。
 
 In late 2008, we successfully deployed a proof of concept MySQL instance on Borg.
@@ -1116,8 +1105,7 @@ At that time, the process for master failover took 30–90 minutes per instance.
 
 Simply because we ran on shared machines and were subject to reboots for kernel upgrades, in addition to the normal rate of machine failure, we had to expect a number of otherwise unrelated failovers every week.
 
-私たちは共有マシン上で実行し、カーネルのアップグレードのために再起動する対象となったという理由だけで、
-機械の故障の通常速度に加えて、毎週関係のないフェイルオーバーの数を予期しなければならなかった
+私たちは共有マシン上で実行し、カーネルのアップグレードのために再起動する対象となったという理由だけで、マシンの故障の通常速度に加えて、毎週関係のないフェイルオーバーの数を予期しなければなりませんでした
 
 This factor, in combination with the number of shards on which our system was hosted, meant that:
 
@@ -1136,16 +1124,16 @@ This factor, in combination with the number of shards on which our system was ho
 Therefore, our only choice was to automate failover. Actually, we needed to automate more than just failover.
 
 したがって、私たちの唯一の選択肢は、フェールオーバーを自動化することでした。
-実際は、私たちはフェイルオーバーよりも多くを自動化する必要があった
+実際は、私たちはフェイルオーバーよりも多くを自動化する必要がありました
 
 In 2009 Ads SRE completed our automated failover daemon, which we dubbed “Decider.”
 
 2009年に広告SREは、当社の自動フェイルオーバーデーモンを完了しました
-私たちは「Decider」と称した
+私たちは「Decider」と称しました
 
 Decider could complete MySQL failovers for both planned and unplanned failovers in less than 30 seconds 95% of the time.
 
-Deciderは、95%が30秒未満の時間で
+Deciderは95%が30秒未満の時間で、
 計画的および計画外両方のフェールオーバーのためのMySQLのフェイルオーバーを完了することができます。
 
 With the creation of Decider, MySQL on Borg (MoB) finally became a reality.
@@ -1155,20 +1143,19 @@ Deciderの作成をもって、MySQL on Borg (MoB)はついに現実のものと
 We graduated from optimizing our infrastructure for a lack of failover to embracing the idea that failure is inevitable, and therefore optimizing to recover quickly through automation.
 
 私たちは、障害が不可避であるという考えを受け入れるため、
-自動化により迅速に回復するため、
-フェイルオーバーの欠如のためのインフラストラクチャ最適化を卒業しました
+自動化により迅速に回復するため、フェイルオーバーの欠如のためのインフラストラクチャ最適化を卒業しました
 
 While automation let us achieve highly available MySQL in a world that forced up to two restarts per week, it did come with its own set of costs.
-自動化は、私たちは週に2回再起動までアップし  世界で可用性の高いMySQLを実現させているが、それはコストのそれ自身のセットと来た？（コストが独自にかかっている？）
+
+自動化は、私たちは週に2回再起動までアップし  世界で可用性の高いMySQLを実現させているが、コストが独自にかかりました
 
 All of our applications had to be changed to include significantly more failure-handling logic than before.
-我々のアプリケーションのすべては、以前よりもかなり多くの障害処理ロジックを含むように変更しなければなりませんでした
 
+我々のアプリケーションのすべては、以前よりもかなり多くの障害処理ロジックを含むように変更しなければなりませんでした
 
 Given that the norm in the MySQL development world is to assume that the MySQL instance will be the most stable component in the stack, this switch meant customizing software like JDBC to be more tolerant of our failure-prone environment.
 
 MySQLの開発の世界では当たり前のこと、MySQLインスタンスがスタックの中で最も安定した成分であると仮定すると、
-
 このスイッチは、故障が発生しやすい環境をよりtolerantとする為
 JDBCのようなソフトウェアをカスタマイズすることを意味します
 
@@ -1177,12 +1164,15 @@ However, the benefits of migrating to MoB with Decider were well worth these cos
 しかしながら、DeciderでMOBへの移行の利点は、価値があるコストでした
 
 Once on MoB, the time our team spent on mundane operational tasks dropped by 95%.
+
 かつてMOB上で、私たちのチームは、日常的な運用タスクに費やす時間を95％減少しました。
 
 Our failovers were automated, so an outage of a single database task no longer paged a human.
-私たちのフェイルオーバーは、自動化されました、単一のデータベースタスクの停止で人への通知はもはやありません。
+
+私たちのフェイルオーバーは、自動化されました。単一のデータベースタスクの停止で人への通知はもはやありません。
 
 The main upshot of this new automation was that we had a lot more free time to spend on improving other parts of the infrastructure.
+
 この新しい自動化の主な結論は、我々は多くをインフラストラクチャの他の部分を改善することに費やすために、多くの自由な時間を持っていたことでした。
 
 Such improvements had a cascading effect: the more time we saved, the more time we were able to spend on optimizing and automating other tedious work.
@@ -1192,9 +1182,7 @@ Such improvements had a cascading effect: the more time we saved, the more time 
 
 Eventually, we were able to automate schema changes, causing the cost of total operational maintenance of the Ads Database to drop by nearly 95%.
 
-最終的に
-我々は、Adsデータベースの総運用保守のコストの原因であった
-スキーマの変更を自動化することができました（コストをほど95%低下した？）
+最終的に我々は、広告データベースの総運用保守のコストの原因であったスキーマの変更を自動化することができました（コストをほど95%低下した？）
 
 Some might say that we had successfully automated ourselves out of this job.
 
@@ -1207,7 +1195,7 @@ The hardware side of our domain also saw improvement.
 Migrating to MoB freed up considerable resources because we could schedule multiple MySQL instances on the same machines, which improved utilization of our hardware.
 
 私たちは、同じマシン上で複数のMySQLインスタンスをスケジュールすることができ、私たちのハードウェアの使用率を改善したので
-MoBにMigratingすることは、かなりのresourcesを解放しました
+MoBにMigratingすることは、かなりのリソースを解放しました
 
 In total, we were able to free up about 60% of our hardware.
 
@@ -1215,7 +1203,7 @@ In total, we were able to free up about 60% of our hardware.
 
 Our team was now flush with hardware and engineering resources.
 
-我々のチームは、その時ハードウェアとエンジニアリングresourcesをあり余るほど持っていました。
+我々のチームは、その時ハードウェアとエンジニアリングリソースをあり余るほど持っていました。
 
 This example demonstrates the wisdom of going the extra mile to deliver a platform rather than replacing existing manual procedures.
 
