@@ -104,48 +104,49 @@ This strategy allows you to observe brief CPU hotspots without incurring very hi
 
 Piling all these requirements on top of each other can add up to a very complex monitoring system—your system might end up with the following levels of complexity:
 
-互いに加えてすべてのこれらの要件を積み上げることは、合計で非常に複雑な監視システムになっているかもしれない
-あなたのシステムは以下のレベルの複雑さに行きつくかもしれない
+すべてのこれらの要件を積み上げると、非常に複雑な監視システムになっているかもしれない.あなたのシステムは以下のレベルの複雑さに行きつくかもしれない
 
 * Alerts on different latency thresholds, at different percentiles, on all kinds of different metrics
 
 ・待ち時間がしきい値と異なる<br>
 ・パーセンタイルが異なる<br>
 ・すべての種類の異なるメトリックス<br>
-にアラートを発する
+の場合にアラートを発する
 
 * Extra code to detect and expose possible causes
 
-検出し、考えられる原因を露出するためのExtra code
+検出し、考えられる要因を露出するための余分なコード
 
 * Associated dashboards for each of these possible causes
 
-これらの原因のそれぞれについて、関連するダッシュボード
+これらの考えられる要因のそれぞれについての関連するダッシュボード
 
-The sources of potential complexity are never-ending. Like all software systems, monitoring can become so complex that it’s fragile, complicated to change, and a maintenance burden.
+The sources of potential complexity are never-ending.
 
-複雑な潜在するソースは終わることがない
-すべてのソフトウェアシステムと同様
-監視はとても複雑になる
-それは壊れやすい、変更が複雑、保守の負担
+潜在的な複雑さの源は終わることがない
 
-Therefore, design your monitoring system with an eye toward simplicity. In choosing what to monitor, keep the following guidelines in mind:
+Like all software systems, monitoring can become so complex that it’s fragile, complicated to change, and a maintenance burden.
 
-したがって、単純化に向けた目であなたの監視システムを設計します。監視するために何を選択する際には、次のガイドラインに従ってください
+すべてのソフトウェアシステムと同様、監視はとても複雑になる.それは壊れやすく、変更が複雑で、保守の負担がある
+
+Therefore, design your monitoring system with an eye toward simplicity.
+したがって、単純化に向けてあなたの監視システムを設計します。
+
+In choosing what to monitor, keep the following guidelines in mind:
+
+監視するために何を選択するかは、次のガイドラインに従ってください
 
 * The rules that catch real incidents most often should be as simple, predictable, and reliable as possible.
 
-ほとんどの場合、実際の出来事をキャッチするルールは、可能な限り、シンプルな予測可能、かつ信頼できるものでなければなりません
+ほとんどの場合、実際の出来事をキャッチするルールは、可能な限り、シンプルで予測可能、かつ信頼できるものであるべき
 
 * Data collection, aggregation, and alerting configuration that is rarely exercised (e.g., less than once a quarter for some SRE teams) should be up for removal.
 
-めったに実施されていないデータの収集、集約、およびアラート構成
-（例えば、いくつかのSREチームのために四半期に一度以下）は除去のために優先すべきです。
+めったに実施されていないデータの収集、集約、およびアラート構成はできれば除去すべきです（例えば、四半期に一度以下）
 
 * Signals that are collected, but not exposed in any prebaked dashboard nor used by any alert, are candidates for removal.
 
-収集したがprebakedダッシュボートに露出していない、
-任意の警告で使用されていないシグナルは除去の候補です。
+収集したが、prebake？されたダッシュボートに露出していない、任意の警告で使用されていないシグナルは、除去の候補です。
 
 In Google’s experience, basic collection and aggregation of metrics, paired with alerting and dashboards, has worked well as a relatively standalone system.
 
@@ -153,27 +154,26 @@ Googleの経験では、アラートおよびダッシュボードとペアに�
 
 (In fact Google’s monitoring system is broken up into several binaries, but typically people learn about all aspects of these binaries.)
 
-実際には、Googleの監視システムは、いくつかのバイナリに分割されている　が、一般的に人々
-これらのバイナリのすべての側面について学ぶ
+実際に、Googleの監視システムはいくつかのバイナリに分割されているが、一般的に使用者はこれらのバイナリのすべての側面について学ぶ
 
 It can be tempting to combine monitoring with other aspects of inspecting complex systems, such as detailed system profiling, single-process debugging, tracking details about exceptions or crashes, load testing, log collection and analysis, or traffic inspection.
 
-複雑なシステムの検査の他の側面での監視を組み合わせて誘惑することができます
+監視と複雑なシステムを調べる、より別の側面を組み合わせて、魅力的なことができます
 
-このような詳細なシステムプロファイリング、シングルプロセスのデバッグ、例外またはクラッシュについての
-詳細なtracking、テストのロード、ログの収集・分析、トラフィックの検査
+詳細なシステムプロファイリング、シングルプロセスのデバッグ、例外またはクラッシュについての詳細なtracking、テストのロード、ログの収集・分析、トラフィックの検査 など
 
 While most of these subjects share commonalities with basic monitoring, blending together too many results in overly complex and fragile systems.
 
-これらの被験者のほとんどは基本的な監視と共通点を共有しながら、過度に複雑で壊れやすいシステムの多くの結果を一緒に混在する
+これらの主題のほとんどは基本的な監視と共通点を共有しながら、過度に複雑で壊れやすいシステムの多くの結果を一緒に混在する
 
 As in many other aspects of software engineering, maintaining distinct systems with clear, simple, loosely coupled points of integration is a better strategy
 
-ソフトウェア工学の他の多くの側面と同様に、統合の明確な、単純な、疎結合の点で明確なシステムを維持することは、より良い戦略であります
+ソフトウェアエンジニアリングの他の側面と同様に、
+明確で、単純で、疎結合なシステムを維持することはより良い戦略です
 
 (for example, using web APIs for pulling summary data in a format that can remain constant over an extended period of time).
 
-例えば、任意のフォーマットで要約をpullするweb apiを使用すること。長期間にわたって一定に維持することができます
+例えば、任意のフォーマットで要約をpullするweb apiを使用することは、長期間にわたって一定に維持することができる？？？
 
 ### Tying These Principles Together
 
@@ -181,57 +181,57 @@ As in many other aspects of software engineering, maintaining distinct systems w
 
 The principles discussed in this chapter can be tied together into a philosophy on monitoring and alerting that’s widely endorsed and followed within Google SRE teams.
 
-この章で説明する原則は、監視とアラートの哲学に一緒に結ぶことができる
-それが広くGoogleのSREチーム内で承認し、続いている
+この章で説明する原則は、監視とアラートの哲学のつじつまを合わせることができる. それが広くGoogleのSREチーム内で承認し、続いている
 
  While this monitoring philosophy is a bit aspirational, it’s a good starting point for writing or reviewing a new alert, and it can help your organization ask the right questions, regardless of the size of your organization or the complexity of your service or system.
 
-この監視の哲学は少し野心的、
-それは、書き込みや新しいアラートを見直すための良い出発点
-それはあなたの組織は、組織の規模やサービスやシステムの複雑さにかかわらず、
-正しい質問を尋ねることを助けることができる
+この監視の哲学は少し意欲的と同時に、書き込みや新しいアラートを見直すための良い出発点で、組織の規模やサービスやシステムの複雑さにかかわらず、
+あなたの組織が正しい質問を尋ねることを助けることができる
 
 When creating rules for monitoring and alerting, asking the following questions can help you avoid false positives and pager burnout:3
 
-監視とアラートのルールを作成するとき
-以下の質問をするとfalse positivesとpager burnoutを避けるのを助けることができる
+監視とアラートのルールを作成するとき、以下の質問をすると
+false positivesとpager burnoutを避けるのを助けることができる
+
+false positives・・・誤った警告メッセージ/誤ったパターンにマッチした
+pager burnout・・・呼び出しに疲労する
 
 * Does this rule detect an otherwise undetected condition that is urgent, actionable, and actively or imminently user-visible?
 
-このルールは以下の場合は検出されない状態ですか？
-緊急 現在有効？ またはuser-visibleに差し迫っている
+このルールはそれ以外は検出されない状態ですか？
+緊急. 訴訟になる.　現在有効. ユーザの目に見えていて差し迫っている.
 
 * Will I ever be able to ignore this alert, knowing it’s benign? When and why will I be able to ignore this alert, and how can I avoid this scenario?
 
-この警告は無視することができ、良性と知っている
-いつ、そしてなぜこの警告を無視することができ、どのように私はこのシナリオを回避することができますか？
+この警告は無視することができ、良性と知っているか？
+いつ、そしてなぜこの警告を無視することができ、どのようにこのシナリオを回避することができますか？
 
-* Does this alert definitely indicate that users are being negatively affected? Are there detectable cases in which users aren’t being negatively impacted, such as drained traffic or test deployments, that should be filtered out?
+* Does this alert definitely indicate that users are being negatively affected?
+Are there detectable cases in which users aren’t being negatively impacted, such as drained traffic or test deployments, that should be filtered out?
 
 この警告は間違いなく、ユーザーがマイナスの影響を受けていることを示していますか？
-
-検知できるケース
-ユーザに影響があるかどうか/排出されるトラフィック/フィルタアウトされるべきか？
+ユーザーが否定的に影響を受けないか、
+トラフィックが排出され、試しに配備可能かなどフィルタアウトされるべきか？
 
 * Can I take action in response to this alert? Is that action urgent, or could it wait until morning? Could the action be safely automated? Will that action be a long-term fix, or just a short-term workaround?
 
 私は、この警告に応答して行動を取ることはできますか？
-そのアクションが急務となっている、またはそれは朝まで待つことができますか？
+そのアクションが急務となっているか、またはそれは朝まで待つことができますか？
 アクションは安全に自動化することができますか？
 そのアクションは、長期的な修正、または単に短期的な回避策になりますか？
 
 * Are other people getting paged for this issue, therefore rendering at least one of the pages unnecessary?
 
-他の人々はこのissueのために呼び出しを得る
-したがって、不要な呼び出しのうち少なくとも一つを表示する？
+他の人々はこのissueのために呼び出されるか？
+それによって、呼び出しの少なくとも一つは不益か？
 
 These questions reflect a fundamental philosophy on pages and pagers:
 
-これらの質問は、呼び出し(page)やポケベルに基本的な考え方を反映します：
+これらの質問は、呼び出しやポケベルに基本的な哲学を示します：
 
 * Every time the pager goes off, I should be able to react with a sense of urgency. I can only react with a sense of urgency a few times a day before I become fatigued.
 
-呼び出しがオフになるたびに、私は切迫感と反応することができる必要があります。私は疲労になる前に、私は切迫感で数回一日を反応させることができます。
+呼び出しが鳴り出すたびに、私は切迫感を感じる必要があります。私は疲労する前に、一日数回切迫感を感じることができます。
 
 * Every page should be actionable.
 
@@ -246,165 +246,197 @@ These questions reflect a fundamental philosophy on pages and pagers:
 
 呼び出しは、新規の問題か前に見られていないイベントであるべき
 
-Such a perspective dissipates certain distinctions: if a page satisfies the preceding four bullets, it’s irrelevant whether the page is triggered by white-box or black-box monitoring. This perspective also amplifies certain distinctions: it’s better to spend much more effort on catching symptoms than causes; when it comes to causes, only worry about very definite, very imminent causes.
+Such a perspective dissipates certain distinctions: if a page satisfies the preceding four bullets, it’s irrelevant whether the page is triggered by white-box or black-box monitoring.
 
-このような視点は、特定の判定を散らすdissipates：
+このような見通しは、特定の判定を分散させる：
+呼び出しが前の4つを満たしていれば、その呼び出しがホワイトボックスまたはブラックボックスの監視によってトリガされるかどうかは見当違いです。
 
-呼び出しが前の4つを満たしていれば、それは呼び出しがホワイトボックスまたはブラックボックスの監視によってトリガされるかどうかは無関係です。
+This perspective also amplifies certain distinctions: it’s better to spend much more effort on catching symptoms than causes; when it comes to causes, only worry about very definite, very imminent causes.
 
-この見通しは、特定の判断を広めるamplifies：
-
-それは原因よりも症状を引くにはるかに労力を費やす方が良いでしょう。
-それが原因となると、非常に明確な、非常に切迫した原因だけを心配する
+この見通しは、特定の判断を増幅する：
+それは原因よりも、症状をとらえることにはるかに労力を費やす方が良いでしょう。
+それが原因となると、非常に明確な、非常に切迫した原因だけを心配する？？
 
 ### Monitoring for the Long Term
 
 長期的な監視
 
-In modern production systems, monitoring systems track an ever-evolving system with changing software architecture, load characteristics, and performance targets. An alert that’s currently exceptionally rare and hard to automate might become frequent, perhaps even meriting a hacked-together script to resolve it. At this point, someone should find and eliminate the root causes of the problem; if such resolution isn’t possible, the alert response deserves to be fully automated.
+In modern production systems, monitoring systems track an ever-evolving system with changing software architecture, load characteristics, and performance targets.
 
 近代的な生産システムでは、監視システムは、
-変化するソフトウェア・アーキテクチャー
-負荷特性
-パフォーマンスターゲット
+* 変化するソフトウェア・アーキテクチャ
+* 負荷特性
+* パフォーマンスターゲット
+
 とともに、進化し続けるシステムを追跡します。
 
-非常に稀で、自動化が難しいアラートは頻繁になるかもしれない
-おそらく　それを解決するためにa hacked-together script に値する
-この時点で、誰かが見つけると、問題の根本原因を排除する必要があります。
-そのような解決ができない場合、アラート応答は、完全に自動化されるに値します。
+An alert that’s currently exceptionally rare and hard to automate might become frequent, perhaps even meriting a hacked-together script to resolve it.
 
-It’s important that decisions about monitoring be made with long-term goals in mind. Every page that happens today distracts a human from improving the system for tomorrow, so there is often a case for taking a short-term hit to availability or performance in order to improve the long-term outlook for the system. Let’s take a look at two case studies that illustrate this trade-off.
+非常に稀で自動化が難しいアラートは頻繁になるかもしれない
+もしかすると、それを解決するためのhacked-together script に値する？？
+
+At this point, someone should find and eliminate the root causes of the problem; if such resolution isn’t possible, the alert response deserves to be fully automated.
+
+この時点で、見つけ、問題の根本原因を排除するべきです。
+そのような解決ができない場合、アラートへの応答は、完全に自動化されるに値します。
+
+It’s important that decisions about monitoring be made with long-term goals in mind. Every page that happens today distracts a human from improving the system for tomorrow, so there is often a case for taking a short-term hit to availability or performance in order to improve the long-term outlook for the system.
 
 これは、監視に関する決定を念頭に置いて長期的な目標となることが重要です。
-今日起こるすべての通知が明日のシステムを改善するから人間をそらす
+今日起こるすべての通知が、明日のシステムを改善することから人間をそらします
 システムの長期的な見通しを改善するために、可用性やパフォーマンスへの短期的な成功を取るケースがしばしばあります。
+
+Let’s take a look at two case studies that illustrate this trade-off.
+
 このトレードオフを示している2つのケーススタディを見てみましょう。
 
 #### Bigtable SRE: A Tale of Over-Alerting
 Bigtable SRE　多すぎるアラートの逸話
 
-Google’s internal infrastructure is typically offered and measured against a service level objective (SLO; see Chapter 4). Many years ago, the Bigtable service’s SLO was based on a synthetic well-behaved client’s mean performance. Because of problems in Bigtable and lower layers of the storage stack, the mean performance was driven by a “large” tail: the worst 5% of requests were often significantly slower than the rest.
+Google’s internal infrastructure is typically offered and measured against a service level objective (SLO; see Chapter 4). Many years ago, the Bigtable service’s SLO was based on a synthetic well-behaved client’s mean performance.
 
-Googleの内部インフラストラクチャは、一般的に提供され、サービスレベルの目標（=SLO）が考慮された
-何年も前に、BigtableのサービスのSLOは、総合的に行儀の良いのクライアントの平均パフォーマンスに基づいていました。
-Bigtableやストレージ・スタックの下位層の問題がよって、平均性能は“large” tail ???? で駆動していた
-リクエストのワースト5％は、多くの場合、他の部分よりも大幅に遅くなりました。
+Googleの内部インフラストラクチャは、通常は提供され、サービスレベルの目標（=SLO）が考慮されています
+何年も前に、BigtableのサービスのSLOは、総合的で正常に動作するクライアントの平均パフォーマンスに基づいていました。
 
-Email alerts were triggered as the SLO approached, and paging alerts were triggered when the SLO was exceeded. Both types of alerts were firing voluminously, consuming unacceptable amounts of engineering time: the team spent significant amounts of time triaging the alerts to find the few that were really actionable, and we often missed the problems that actually affected users, because so few of them did. Many of the pages were non-urgent, due to well-understood problems in the infrastructure, and had either rote responses or received no response.
+Because of problems in Bigtable and lower layers of the storage stack, the mean performance was driven by a “large” tail: the worst 5% of requests were often significantly slower than the rest.
 
-SLOが近づくと電子メールアラートがトリガされ、SLOを超えたときにpagingアラートがトリガされました。
-アラートの両方のタイプは、エンジニアリング時間の許容できない量を消費し、多量に発射しました。
-チームは　わずかな実用的な事象を見つけるためのアラートの分類にかなりの時間を費やした
-そして私たちはしばしば、実際にユーザーに影響を与えた問題を逃しました
+Bigtableやストレージ・スタックの下位層の問題がよって、平均性能は大きなしっぽによって駆動していました
+リクエストのワースト5％はしばしば、停止よりも著しく遅かった
 
-多くの通知が緊急ではなかった
-インフラではよくわからない問題だった
-rote responses　または　NOレスポンスの受領のどちらかだった
+Email alerts were triggered as the SLO approached, and paging alerts were triggered when the SLO was exceeded.
 
-To remedy the situation, the team used a three-pronged approach: while making great efforts to improve the performance of Bigtable, we also temporarily dialed back our SLO target, using the 75th percentile request latency. We also disabled email alerts, as there were so many that spending time diagnosing them was infeasible.
+SLOが近づくと電子メールのアラートがトリガされ、SLOを超えたときにポケベルへの通知がトリガされました。
+
+Both types of alerts were firing voluminously, consuming unacceptable amounts of engineering time: the team spent significant amounts of time triaging the alerts to find the few that were really actionable, and we often missed the problems that actually affected users, because so few of them did.
+
+アラートの両方のタイプは大量に発射され、エンジニアが許容できない量を消費しました
+チームは　わずかな実用的な事象を見つけるためのアラートの分類にかなりの時間を費やしました
+そして、しばしば、実際にユーザーに影響を与えた問題を逃しました
+
+Many of the pages were non-urgent, due to well-understood problems in the infrastructure, and had either rote responses or received no response.
+
+多くの通知が緊急ではなく、インフラではよくわからない問題で
+それに対してのレスポンスは決まりきったもの、またはレスポンスを返さないのどちらかでした
+
+To remedy the situation, the team used a three-pronged approach: while making great efforts to improve the performance of Bigtable, we also temporarily dialed back our SLO target, using the 75th percentile request latency.
 
 状況を改善するために、チームは3方面からのアプローチを使用しました。
 Bigtableのパフォーマンスを向上させるために大きな努力をしながら、
-我々はまた、一時的に75パーセンタイルのlatencyを使用して、私たちのSLO目標をdialed backされました。
+我々はまた、一時的に私たちのSLO目標を下方修正（dialed back）し、
+75パーセンタイルの待ち時間を使用しました
 
-私たちはemail alertsを無効化した
+We also disabled email alerts, as there were so many that spending time diagnosing them was infeasible.
+
 多くの時間を費やし、アラートを診断することが不可能だったので
+私たちはEメールでのアラートを無効化しました
 
-This strategy gave us enough breathing room to actually fix the longer-term problems in Bigtable and the lower layers of the storage stack, rather than constantly fixing tactical problems. On-call engineers could actually accomplish work when they weren’t being kept up by pages at all hours. Ultimately, temporarily backing off on our alerts allowed us to make faster progress toward a better service.
+This strategy gave us enough breathing room to actually fix the longer-term problems in Bigtable and the lower layers of the storage stack, rather than constantly fixing tactical problems. On-call engineers could actually accomplish work when they weren’t being kept up by pages at all hours.
 
-この戦略は、私たちに実際にBigtableの中で長期的な問題やストレージスタックの下位層を固定するのではなく、常に戦術的な問題を解決するのに十分な余裕を与えました。
+この戦略は、私たちに実際にBigtableの長期的な問題やストレージスタックの下位層を修正するだけでなく、常に戦術的な問題を解決するのに十分な余裕を与えました。
+彼らはすべての時間帯で通知に追いついていなかったが、
+この改善によりオンコールエンジニアが実際に作業を行うことができました。
 
-彼らはすべての時間帯でのページから追いついていなかったが、
-この改善によりオンコールエンジニアが実際に作業を行うことができます。
+Ultimately, temporarily backing off on our alerts allowed us to make faster progress toward a better service.
+
 最終的には、一時的に私たちの警告にバックオフすると、私たちはより良いサービスに向けてより速く進歩を遂げることができました。
 
 #### Gmail: Predictable, Scriptable Responses from Humans
-人間から予測可能、スクリプト可能なレスポンス
+人間から予測可能、スクリプト化が可能なレスポンス
 
-In the very early days of Gmail, the service was built on a retrofitted distributed process management system called Workqueue, which was originally created for batch processing of pieces of the search index. Workqueue was “adapted” to long-lived processes and subsequently applied to Gmail, but certain bugs in the relatively opaque codebase in the scheduler proved hard to beat.
+In the very early days of Gmail, the service was built on a retrofitted distributed process management system called Workqueue, which was originally created for batch processing of pieces of the search index.
 
-Gmailの非常に初期の頃、Workqueueと呼ばれるプロセス管理システムに構築された
-それはもともと、検索インデックスの一部のバッチ処理のために作成されました。
+Gmailの非常に初期の頃、Workqueueと呼ばれるプロセス管理システム上に構築されていました。
+それは元々、検索インデックスの一部のバッチ処理のために作成されました。
+
+Workqueue was “adapted” to long-lived processes and subsequently applied to Gmail, but certain bugs in the relatively opaque codebase in the scheduler proved hard to beat.
+
 Workqueueは、long-livedのプロセスに「改造」され
-その後、Gmailに適用され、
-しかし、比較的不透明なコードベースで
-スケジューラと連動が難しいバグが確証された
+その後、Gmailに適用されましたが、他に負けないことが証明されたスケジューラで
+比較的不透明なコードベースのため、バグが確証されました？？
 
-At that time, the Gmail monitoring was structured such that alerts fired when individual tasks were “de-scheduled” by Workqueue. This setup was less than ideal because even at that time, Gmail had many, many thousands of tasks, each task representing a fraction of a percent of our users. We cared deeply about providing a good user experience for Gmail users, but such an alerting setup was unmaintainable.
+At that time, the Gmail monitoring was structured such that alerts fired when individual tasks were “de-scheduled” by Workqueue.
 
-その時点で、Gmailの監視は
-Workqueueによって個々のタスクが「de-scheduled」になったとき
-アラートを発火するよう、構築された
+その時点でGmailの監視は、Workqueueによって個々のタスクが「de-scheduled」になったとき、アラートを発火するよう、構築されました
 
-この設定は理想よりも少なかった
-なぜならその時にGamailはたくさん、何千のタスク、我々のユーザの1%のさらに端数のタスク
-を持っていた
-私たちは、Gmailユーザーのための優れたユーザーエクスペリエンスの提供を深く世話したが
-そのようなalertingセットアップは保守できなかった
+This setup was less than ideal because even at that time, Gmail had many, many thousands of tasks, each task representing a fraction of a percent of our users.
 
-To address this problem, Gmail SRE built a tool that helped “poke” the scheduler in just the right way to minimize impact to users. The team had several discussions about whether or not we should simply automate the entire loop from detecting the problem to nudging the rescheduler, until a better long-term solution was achieved, but some worried this kind of workaround would delay a real fix.
+この設定は理想よりも少なかった。なぜならその時にGmailはたくさん、何千のタスク、我々のユーザの1%のさらに端数のタスクを持っていました。
+
+We cared deeply about providing a good user experience for Gmail users, but such an alerting setup was unmaintainable.
+
+私たちは、Gmailユーザーのための優れたユーザーエクスペリエンスの提供を深く世話しましたが、そのようなalertingセットアップは保守できませんでした
+
+To address this problem, Gmail SRE built a tool that helped “poke” the scheduler in just the right way to minimize impact to users.
 
 この問題に対処するには、GmailのSREは、ユーザーへの影響を最小限にするために
-適切な方法で“poke” the schedulerを助けるツールを構築しました。
+適切な方法で、schedulerを「poke」（突っつく） を助けるツールを構築しました。
 
-チームはいくつかの議論をしました
-私たちは問題の検出からreschedulerを実行するまでの全ループをシンプルに自動化すべきかどうか
-しかし、これらの回避策は、実際の修正を遅らせる心配しました。
+The team had several discussions about whether or not we should simply automate the entire loop from detecting the problem to nudging the rescheduler, until a better long-term solution was achieved, but some worried this kind of workaround would delay a real fix.
 
-This kind of tension is common within a team, and often reflects an underlying mistrust of the team’s self-discipline: while some team members want to implement a “hack” to allow time for a proper fix, others worry that a hack will be forgotten or that the proper fix will be deprioritized indefinitely. This concern is credible, as it’s easy to build layers of unmaintainable technical debt by patching over problems instead of making real fixes. Managers and technical leaders play a key role in implementing true, long-term fixes by supporting and prioritizing potentially time-consuming long-term fixes even when the initial “pain” of paging subsides.
+チームはいくつかの議論をしました。
+私たちは問題の検出からreschedulerを実行するまでの全ループをシンプルに自動化すべきかどうか。しかし、これらの回避策は、実際の修正を遅らせる心配がありました。
 
-この種の緊張のは、チーム内で一般的であり、多くの場合、チームの自己規律の根底にある不信感を反映しています：
+This kind of tension is common within a team, and often reflects an underlying mistrust of the team’s self-discipline:
 
-いくつかのチームメンバーが適切な修正のための "ハック"を許可する時間を実装する一方で、
-他の人がハックを忘れされることや、適切な修正が無期限に優先されないことを心配します。
+この種の緊張はチーム内で共通であり、多くの場合、チームの自己規律の根底にある不信感を反映しています：
 
-この懸念が信用できる
-保守不可能な技術的負債の層を構築するのが簡単なように
-問題点を超えるパッチ適用の代わりに実際の修正を行うこともできます。
+while some team members want to implement a “hack” to allow time for a proper fix, others worry that a hack will be forgotten or that the proper fix will be deprioritized indefinitely.
 
-マネージャーやテクニカルリーダーは真の実現に重要な役割を果たしています
+いくつかのチームメンバーが適切な修正のための "ハック"を許可する時間を実装する間、一方で他の人がハックを忘れさせることや適切な修正が無期限に優先されないことを心配します。
 
-通知の初期の「痛み」が収まった時
-潜在的に優先順位を付けることであっても、長期的な修正を時間がかかります
+This concern is credible, as it’s easy to build layers of unmaintainable technical debt by patching over problems instead of making real fixes.
 
-Pages with rote, algorithmic responses should be a red flag. Unwillingness on the part of your team to automate such pages implies that the team lacks confidence that they can clean up their technical debt. This is a major problem worth escalating.
+この懸念は確かで、実際の修正の代わりに問題点へのパッチ適用することで、保守不可能な技術的負債の層を構築するのは簡単です
 
-機械的もしくは、アルゴリズムがある通知は、red flagであるべき
-そのような通知を自動化するあなたのチームのほうの不本意は、
-チームは、技術の借金をきれいにすることができる自信を欠くのを暗示している。
-これは、エスカレートする価値がある主要な問題である。？？？？
+Managers and technical leaders play a key role in implementing true, long-term fixes by supporting and prioritizing potentially time-consuming long-term fixes even when the initial “pain” of paging subsides.
+
+通知の初期の「痛み」が収まった時、潜在的に時間のかかる長期の解決策をサポートして、優先させ、本当の長期的な修正を実行することで、マネージャーと技術的なリーダーはキーとなる役割を演じます。
+
+Pages with rote, algorithmic responses should be a red flag.
+
+機械的もしくは、アルゴリズムがある通知は、「red flag」（警告を促すもの）であるべきです
+
+Unwillingness on the part of your team to automate such pages implies that the team lacks confidence that they can clean up their technical debt.
+
+そのようなページを自動化するあなたのチームの不本意なことは、
+技術的負債を綺麗にすることができる信頼が欠如していることを意味します？？
+
+This is a major problem worth escalating.
+
+これは、拡大する価値がある大きな問題です。
 
 #### The Long Run
 
 A common theme connects the previous examples of Bigtable and Gmail:
-共通のテーマはBigtableとGmailの前の例を接続する
+共通のテーマは、前述のBigtableとGmailの例につながります
 
 a tension between short-term and long-term availability.
-短期および長期の可用性の間の緊張。
+
+短期と長期的な可用性の間の緊張。
 
 Often, sheer force of effort can help a rickety system achieve high availability, but this path is usually short-lived and fraught with burnout and dependence on a small number of heroic team members.
 
-多くの場合、膨大な努力はガタガタのシステムの高可用性を成し遂げることができる
-しかし、このpathは通常短命で、燃え尽きる危険をはらんでいて、少数の英雄的メンバーに依存している
+多くの場合、膨大な努力はガタガタのシステムの高可用性を成し遂げることができるが
+この方法は短命で燃え尽きる危険をはらんでいて、少数の英雄的メンバーに依存している
 
 Taking a controlled, short-term decrease in availability is often a painful, but strategic trade for the long-run stability of the system.
 
-コントロールすることで、可用性の短期間の減少は
-多くの場合、システムの長期安定性のために痛みを伴うが、戦略的なトレードです。
+可用性の短期間の減少をコントロールすることは多くの場合、痛みを伴うが、システムの長期安定性のために戦略的なトレードです。
 
-It’s important not to think of every page as an event in isolation, but to consider whether the overall level of paging leads toward a healthy, appropriately available system with a healthy, viable team and long-term outlook. We review statistics about page frequency
+It’s important not to think of every page as an event in isolation, but to consider whether the overall level of paging leads toward a healthy, appropriately available system with a healthy, viable team and long-term outlook.
 
-それは隔離されたイベントとしてすべての通知を考えないようにすることが重要です、
-しかし、通知の全体的なレベルが健康に向かってつながるかどうかを検討するために、
-健康的で適切に利用可能なシステム
-実行可能なチームと長期見通し。
-私たちは、通知の頻度に関する統計情報を確認します
+それは隔離されたイベントとしてすべての通知を考えないようにすることが重要ですが、
+
+通知の全体的なレベルが、健康的で適切に利用可能なシステムで、実行可能なチームと長期見通し、健康的に向かってつながるかどうかを検討します？
+
+We review statistics about page frequency
+
+私たちは、通知の頻度に関する統計情報をレビューします
 
 (usually expressed as incidents per shift, where an incident might be composed of a few related pages) in quarterly reports with management, ensuring that decision makers are kept up to date on the pager load and overall health of their teams.
 
-(通常、1シフトあたりのインシデントとして表現される　インシデントはいくつか関係する通知で構成されるかもしれない)
-その意思決定者を確保する経営陣と四半期報告書は、彼らのチームのページロードおよび全体的な健康に最新の状態に保たれています　？？
+(通常、1シフトあたりのインシデントとして表現され、インシデントはいくつか関係する通知で構成されるかもしれない)
+経営陣による四半期レポートで、意思決定者が通知の負荷と彼らのチームの全体的な健全性に関して最新知識を持っていることを確実とします。？？
 
 ### Conclusion
 
@@ -416,12 +448,11 @@ A healthy monitoring and alerting pipeline is simple and easy to reason about.
 
 It focuses primarily on symptoms for paging, reserving cause-oriented heuristics to serve as aids to debugging problems.
 
-これは、主に通知の兆しに焦点を当て、
-デバッグする問題のためのAIDSとして、原因指向の体験学習を確保する？？
+これは、主に通知の兆しに焦点を当て、デバッグする問題のためのAIDSとして、原因指向の体験学習を確保します？？
 
 Monitoring symptoms is easier the further “up” your stack you monitor, though monitoring saturation and performance of subsystems such as databases often must be performed directly on the subsystem itself.
 
-徴候を監視することはより容易である より一層の「up」 あなたが監視するあなたのスタック
+徴候を監視することはより容易で、 より一層の「up」 あなたが監視するあなたのスタック
 だけれども、データベースなどのサブシステムの監視飽和と性能は、サブシステム自身においてしばしば直接実行されなければならない
 
 Email alerts are of very limited value and tend to easily become overrun with noise; instead, you should favor a dashboard that monitors all ongoing subcritical problems for the sort of information that typically ends up in email alerts. A dashboard might also be paired with a log, in order to analyze historical correlations.
