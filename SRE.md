@@ -494,7 +494,7 @@ Of course, just multiplying force does not naturally change the accuracy of wher
 
 doing automation thoughtlessly can create as many problems as it solves.
 
-自動化することは、なまじ、多くの問題として作成し、解決することができます。
+不注意に自動化をすることは、それが解くのと同じくらい多くの問題を生じさせることができます。
 
 Therefore, while we believe that software-based automation is superior to manual operation in most circumstances, better than either option is a higher-level system design requiring neither of them—an autonomous system.
 
