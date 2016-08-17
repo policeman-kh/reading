@@ -1,6 +1,6 @@
 # Chapter 6. Monitoring Distributed Systems
 
-##  Worrying About Your Tail (or, Instrumentation and Performance)
+##  <Font color="red">Worrying About Your Tail (or, Instrumentation and Performance)</font>
 
 あなたのしっぽについて悩む
 
@@ -31,7 +31,7 @@ Performance = パフォーマンス
 のリクエスト数がどのくらいか？
 そうすることでリクエストの分布を可視化することができます。
 
-## Choosing an Appropriate Resolution for Measurements
+## <Font color="red">Choosing an Appropriate Resolution for Measurements</font>
 
 計測のための適切な解決を選択する
 
@@ -57,7 +57,7 @@ CPU負荷の毎秒の測定値を収集することは、興味深いデータ�
 
 高コスト化を招くことなく、簡単なCPUのhotspotsを観察することができる
 
-## As Simple as Possible, No Simpler
+## <Font color="red">As Simple as Possible, No Simpler</font>
 
 可能な限りシンプルに
 
@@ -88,7 +88,7 @@ Googleの経験では、アラートおよびダッシュボードとペアでme
 
 ソフトウェアエンジニアリングと同様、明確で、単純で、疎結合なシステムを維持することはより良い戦略
 
-## Tying These Principles Together
+## <Font color="red">Tying These Principles Together</font>
 
 ともにこれらの原則を型付けすること
 
@@ -120,7 +120,7 @@ pager burnout・・・呼び出しによって疲労する
 この哲学を満たしていないのであれば、
 一定の判定と分散させ、また判断を増幅させるので、監視によってトリガされべきではない
 
-## Monitoring for the Long Term
+## <Font color="red">Monitoring for the Long Term</font>
 
 長期的な監視
 
@@ -170,7 +170,7 @@ Gmailの監視は、タスクが「de-scheduled」になったとき、アラー
 また、繰り返し、アルゴリズムがある通知は、警告を促す「red flag」であるべきで
 そのような通知を自動化することは、技術的負債をクリーンアップすることの自信に欠けている。
 
-## The Long Run
+### The Long Run
 
 この章では、前の章と同様、長期的な戦略が重要であることを記述
 
@@ -182,7 +182,7 @@ Gmailの監視は、タスクが「de-scheduled」になったとき、アラー
 あと、
 四半期ごとのレポートで、意思決定者が通知の負荷と彼らのチームの全体的な健全性に関して最新状態が保たれていること
 
-## Conclusion
+## <Font color="red">Conclusion</font>
 
 結論
 
@@ -206,7 +206,7 @@ SRE にとって、自動化は力を増強させる食べ物であるが万能�
 自動化の価値は、それが何をするかとその賢明なアプリケーションの両方から来ていて
 自動化の価値と　どのような姿勢で進化してきたのか　の両方を説明します。
 
-## The Value of Automation　　
+## <Font color="red">The Value of Automation</font>　　
 
 自動化の価値
 
@@ -240,18 +240,110 @@ SRE にとって、自動化は力を増強させる食べ物であるが万能�
 
 より早く修理する
 
+自動化が定期的に正常に実行された場合、結果として失敗によるMTTR（平均復旧時間）が減少します。
 
+また、問題の防止とそのあとのクリーンアップに費やす時間も必要ないので
+開発者は他のタスクに費やすことができます。
+
+MTTR（平均復旧時間）が減少することで、その復旧に費やす時間とコストが減り、時間とお金の両方で、システムの総コストを下げるのに良い機会を持っています
 
 ### Faster Action
+
+早いアクション
+
+人間は通常、マシンほど速く反応しません
+
+例えば、フェイルオーバーまたはトラフィック切り替えのたびに
+人が必要とし、“Allow system to continue to run.” と呼ばれるボタンを都度おす状況は無意味です
+
+Gooleは自動化の量が多いです。それは管理可能な手動操作のしきい値を超えているためで、自動化せずには生き残ることができませんでした。
+
 ### Time Saving
+
+時間の節約
+
+エンジニアは手動で行うタスクを自動化することに価値はあるのかと迷うが、自動化でいくつかのタスクをカプセル化すると、誰もがそのタスクを実行することができ、それによる時間の節約は誰もがに適用されます。
+
 ### WARNING
 
-## The Value for Google SRE
+自動化しないことによる警告を記述？
 
-## The Use Cases for Automation
+もしエンジニアリング・プロセスと自動化されない解決策がある場合、
+システムを維持するために人間のスタップを持ち続け、
+そして人の血、汗、そして涙で、マシンを運用することになります
 
-## Google SRE’s Use Cases for Automation
+特別な効果が少ないマトリックス？を考え、そして、より多くのシステム管理者が去りました
 
-## A Hierarchy of Automation Classes
+## <Font color="red">The Value for Google SRE</font>
+
+GoogleのSREのための価値
+
+Googleは、自動化に向けた強いバイアスを持っています。
+
+バイアス＝先入観・偏見・偏り・傾向
+
+Googleの製品とサービスは地球にまたがる規模であり
+マシンあるいはサービスを手作業で保持する時間はありません
+
+本当に大規模なサービスのために、一貫性、迅速性、および信頼性の要因が
+自動化を行う、行わないのトレードオフについての会話のほとんどを占めています
+
+また、他の組織は、アクセス可能なAPIなしに重要な部分を担っているかもしれないが、ソースコードがないソフトウェアやその他の妨害があるようなシナリオはGoogleでは避けるようにしています
+
+ベンダーから利用可能なAPIを入手できなかったとき、Googleではそのシステム用のAPIを構築していて、短期的かつ安価なソフトウェアを購入するよりも自身のソリューションを書くことを選びました
+
+はるかに大きな長期的な利益を潜在に持つAPIにするためです。
+
+自動化システム管理の障害を克服するため、多くの時間を費やし、あえて自動化システム管理自体を開発しました。
+
+いかなるシステムのコードを利用できることは、 スタックの全部を支配することになるので、“own the product in production” 我々の任務が非常により簡単なことを意味します。
+
+すべての人が自動化を開発する傾きを持っていることはなく、
+自動化することに心を傾けてはいるが、現実ではアプローチの修正が必要としています
+
+ただ、Googleのコンテキストの範囲内で、行動に加えることは成功していて、自身が作成、配置可能なプラットフォームを作成することを一般的に選択してきました。
+
+必要に応じて、このplatform-basedのアプローチを検討します
+
+## <Font color="red">The Use Cases for Automation</font>
+
+自動化のためのユースケース
+
+ここでは、自動化のためのユースケースを非網羅的にあげています
+
+* ユーザアカウントの作成
+* クラスタのturnup/turndown
+* ソフトウェアまたはハードウェアのインストール準備と廃止
+* 新しいソフトウェアバージョンのロールアウト
+* ランタイム構成の変更、依存関係の変更
+
+ユースケースは無限をあげることができる
+
+### Google SRE’s Use Cases for Automation
+
+Google SREの自動化のためのユースケース
+
+グーグルでは、先ほどの使用例を多く持っています
+
+infrastructure上を通過するデータの品質を管理することとは対照的に、Google SRE内での主要なアフィニティーはinfrastructureを実行するためで、
+
+自動化のためのコンテキストはシステムのライフサイクルを管理するために自動化することで、それらのデータではありません
+
+？？この章よくわからなかった？？
+
+### A Hierarchy of Automation Classes
+
+自動化のクラスの階層
+
+自動化の進化の経路について記述
+
+1. 自動化しない
+2. 外部で管理されている特別なシステムの自動化
+3. 外部で管理されている汎用的な自動化
+4. 内部で管理されている特別なシステムの自動化
+5. 任意の自動化を必要としないシステム
+
+？？？
+
 
 ## Automate Yourself Out of a Job: Automate ALL the Things!
