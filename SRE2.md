@@ -1,10 +1,13 @@
 第12章効果的なトラブルシューティング
+
 クリス・ジョーンズによって書かれました
 
 Be warned that being an expert is more than understanding how a system is supposed to work.
-Expertise is gained by investigating why a system doesn’t work.
 
 専門家であることは、システムが動作するようになっている方法を理解する以上であることを警告します。
+
+Expertise is gained by investigating why a system doesn’t work.
+
 専門知識は、システムが動作しない理由を調査することによって得られます。
 
 ブライアン・レッドマン
@@ -578,33 +581,101 @@ Negative results should not be ignored or discounted. Realizing you’re wrong h
 
 。否定的な結果を無視または割引されるべきではない、あなたは間違っている実現するために多くの価値を持っている：明確な否定的な結果は、最も困難な設計上の問題の一部を解決することができます。多くの場合、チームは2一見合理的なデザインを持っているが、1つの方向に進展が他の方向が良いかもしれないかどうかについて曖昧で投機的な質問に対応しなければなりません。
 
-Experiments with negative results are conclusive. They tell us something certain about production, or the design space, or the performance limits of an existing system. They can help others determine whether their own experiments or designs are worthwhile. For example, a given development team might decide against using a particular web server because it can handle only ~800 connections out of the needed 8,000 connections before failing due to lock contention. When a subsequent development team decides to evaluate web servers, instead of starting from scratch, they can use this already well-documented negative result as a starting point to decide quickly whether (a) they need fewer than 800 connections or (b) the lock contention problems have been resolved.
+Experiments with negative results are conclusive.
 
-その結果、陰性で実験が決定的である。彼らは私たちの生産、または設計空間、または既存のシステムの性能限界について特定の何かを伝えます。彼らは他の人が自分の実験やデザインは価値があるかどうかを判断するのに役立ちます。例えば、与えられた開発チームは、それが競合をロックすることにより、失敗する前に必要な8000の接続のうちだけ〜800の接続を処理できるため、特定のWebサーバーを使用しないことを決めるかもしれません。その後の開発チームではなく、最初からの、Webサーバを評価することを決定したときは、（a）は、彼らがより少ない800接続または（b）のロックが必要かどうかを迅速に決定するための出発点として、この既に十分に立証された否定的な結果を使用することができます競合の問題が解決されました。
+その結果、陰性で実験が決定的である。
 
-Even when negative results do not apply directly to someone else’s experiment, the supplementary data gathered can help others choose new experiments or avoid pitfalls in previous designs. Microbenchmarks, documented antipatterns, and project postmortems all fit this category. You should consider the scope of the negative result when designing an experiment, because a broad or especially robust negative result will help your peers even more.
+They tell us something certain about production, or the design space, or the performance limits of an existing system.
 
-陰性の結果が誰かの他の人の実験に直接適用されない場合でも、他の人を助けることができ集め補足データは、新しい実験を選択するか、以前の設計で落とし穴を避けます。マイクロベンチマーク、文書化アンチパターン、およびプロジェクトpostmortemsすべてこのカテゴリに合います。実験を設計する際に広いまたは特に堅牢な負の結果は、さらに仲間を助けるので、あなたは、否定的な結果の範囲を検討する必要があります。
+彼らは私たちの生産、または設計空間、または既存のシステムの性能限界について特定の何かを伝えます。
 
-Tools and methods can outlive the experiment and inform future work. As an example, benchmarking tools and load generators can result just as easily from a disconfirming experiment as a supporting one. Many webmasters have benefited from the difficult, detail-oriented work that produced Apache Bench, a web server loadtest, even though its first results were likely disappointing.
+They can help others determine whether their own experiments or designs are worthwhile.
 
-ツールと方法は、実験よりも長生きし、今後の活動を知らせることができる。 例として、支援一つとしてdisconfirming実験から同じように簡単にツールや負荷ジェネレータが生じる可能性がベンチマーク。多くのウェブマスターは、その最初の結果は、おそらく失望したにも関わらず、Apacheのベンチ、Webサーバのloadtestを生産困難、詳細志向の仕事の恩恵を受けています。
+彼らは他の人が自分の実験やデザインは価値があるかどうかを判断するのに役立ちます。
 
-Building tools for repeatable experiments can have indirect benefits as well: although one application you build may not benefit from having its database on SSDs or from creating indices for dense keys, the next one just might. Writing a script that allows you to easily try out these configuration changes ensures you don’t forget or miss optimizations in your next project.
+For example, a given development team might decide against using a particular web server because it can handle only ~800 connections out of the needed 8,000 connections before failing due to lock contention.
 
-反復可能な実験のための建物のツールにも間接的なメリットを持つことができます：あなたが構築する一つのアプリケーションでは、SSDの上または密なキーのインデックスを作成するから、そのデータベースを持っていることから、次の1だけかもしれないの利益にないかもしれません。あなたは簡単にこれらの設定変更を試してみることができ、スクリプトを書くことは、あなたの次のプロジェクトに最適化を忘れたり、お見逃しなく保証します。
+例えば、与えられた開発チームは、それが競合をロックすることにより、失敗する前に必要な8000の接続のうちだけ〜800の接続を処理できるため、特定のWebサーバーを使用しないことを決めるかもしれません。
 
-Publishing negative results improves our industry’s data-driven culture. Accounting for negative results and statistical insignificance reduces the bias in our metrics and provides an example to others of how to maturely accept uncertainty. By publishing everything, you encourage others to do the same, and everyone in the industry collectively learns much more quickly. SRE has already learned this lesson with high-quality postmortems, which have had a large positive effect on production stability.
+When a subsequent development team decides to evaluate web servers, instead of starting from scratch, they can use this already well-documented negative result as a starting point to decide quickly whether (a) they need fewer than 800 connections or (b) the lock contention problems have been resolved.
 
-陰性の結果を公開すると、我々の業界のデータ駆動型の文化を向上させる。陰性結果の会計処理と統計取るに足りないが、私たちのメトリックにバイアスを低減し、分別の不確実性を受け入れるする方法の他に例を提供します。すべてを公開することで、あなたは同じことを行うために他の人を励まし、そして業界の誰もが一括してはるかに迅速に学習します。SREは、すでに生産安定性に大きなプラスの効果を持っていた、高品質のpostmortems、この教訓を学びました。
+その後の開発チームではなく、最初からの、Webサーバを評価することを決定したときは、（a）は、彼らがより少ない800接続または（b）のロックが必要かどうかを迅速に決定するための出発点として、この既に十分に立証された否定的な結果を使用することができます競合の問題が解決されました。
 
-Publish your results. If you are interested in an experiment’s results, there’s a good chance that other people are as well. When you publish the results, those people do not have to design and run a similar experiment themselves. It’s tempting and common to avoid reporting negative results because it’s easy to perceive that the experiment “failed.” Some experiments are doomed, and they tend to be caught by review. Many more experiments are simply unreported because people mistakenly believe that negative results are not progress.
+Even when negative results do not apply directly to someone else’s experiment, the supplementary data gathered can help others choose new experiments or avoid pitfalls in previous designs.
 
-あなたの結果を公開します。あなたは、実験の結果に興味がある場合は、他の人が同様であることを良いチャンスがあります。あなたは結果を公開すると、それらの人々は、自分自身を同様の実験を設計し、実行する必要はありません。これは、いくつかの実験が運命にある」。失敗した」魅力的な、それは実験がいることを知覚するのは簡単ですので、陰性の結果を報告して回避することが一般的だし、彼らは、レビューによって捕捉される傾向にあります。人々が誤って陰性の結果が進行中でないことを信じているので、多くのより多くの実験が簡単に報告されていないです。
+陰性の結果が誰かの他の人の実験に直接適用されない場合でも、他の人を助けることができ集め補足データは、新しい実験を選択するか、以前の設計で落とし穴を避けます。
 
-Do your part by telling everyone about the designs, algorithms, and team workflows you’ve ruled out. Encourage your peers by recognizing that negative results are part of thoughtful risk taking and that every well-designed experiment has merit. Be skeptical of any design document, performance review, or essay that doesn’t mention failure. Such a document is potentially either too heavily filtered, or the author was not rigorous in his or her methods.
+Microbenchmarks, documented antipatterns, and project postmortems all fit this category.
 
-あなたは除外しまし設計、アルゴリズム、およびチームのワークフローについて皆に伝えることであなたの部分を実行してください。陰性の結果が思慮深いリスクテイクの一部であり、そのすべてのうまく設計された実験はメリットがあることを認識することによって、あなたの仲間を奨励します。失敗を言及していない任意の設計ドキュメント、人事考課、またはエッセイの懐疑的です。このような文書は、潜在的にどちらか過度にろ過する、または著者は彼または彼女の方法に厳格ではありませんでした。
+マイクロベンチマーク、文書化アンチパターン、およびプロジェクトpostmortemsすべてこのカテゴリに合います。
+
+You should consider the scope of the negative result when designing an experiment, because a broad or especially robust negative result will help your peers even more.
+
+実験を設計する際に広いまたは特に堅牢な負の結果は、さらに仲間を助けるので、あなたは、否定的な結果の範囲を検討する必要があります。
+
+Tools and methods can outlive the experiment and inform future work. As an example, benchmarking tools and load generators can result just as easily from a disconfirming experiment as a supporting one.
+
+ツールと方法は、実験よりも長生きし、今後の活動を知らせることができる。 例として、支援一つとしてdisconfirming実験から同じように簡単にツールや負荷ジェネレータが生じる可能性がベンチマーク。
+
+Many webmasters have benefited from the difficult, detail-oriented work that produced Apache Bench, a web server loadtest, even though its first results were likely disappointing.
+
+多くのウェブマスターは、その最初の結果は、おそらく失望したにも関わらず、Apacheのベンチ、Webサーバのloadtestを生産困難、詳細志向の仕事の恩恵を受けています。
+
+Building tools for repeatable experiments can have indirect benefits as well: although one application you build may not benefit from having its database on SSDs or from creating indices for dense keys, the next one just might.
+
+反復可能な実験のための建物のツールにも間接的なメリットを持つことができます：あなたが構築する一つのアプリケーションでは、SSDの上または密なキーのインデックスを作成するから、そのデータベースを持っていることから、次の1だけかもしれないの利益にないかもしれません。
+
+Writing a script that allows you to easily try out these configuration changes ensures you don’t forget or miss optimizations in your next project.
+
+あなたは簡単にこれらの設定変更を試してみることができ、スクリプトを書くことは、あなたの次のプロジェクトに最適化を忘れたり、お見逃しなく保証します。
+
+Publishing negative results improves our industry’s data-driven culture.
+
+陰性の結果を公開すると、我々の業界のデータ駆動型の文化を向上させる。
+
+Accounting for negative results and statistical insignificance reduces the bias in our metrics and provides an example to others of how to maturely accept uncertainty.
+
+陰性結果の会計処理と統計取るに足りないが、私たちのメトリックにバイアスを低減し、分別の不確実性を受け入れるする方法の他に例を提供します。
+
+By publishing everything, you encourage others to do the same, and everyone in the industry collectively learns much more quickly.
+
+すべてを公開することで、あなたは同じことを行うために他の人を励まし、そして業界の誰もが一括してはるかに迅速に学習します。
+
+SRE has already learned this lesson with high-quality postmortems, which have had a large positive effect on production stability.
+
+SREは、すでに生産安定性に大きなプラスの効果を持っていた、高品質のpostmortems、この教訓を学びました。
+
+Publish your results. If you are interested in an experiment’s results, there’s a good chance that other people are as well.
+
+あなたの結果を公開します。あなたは、実験の結果に興味がある場合は、他の人が同様であることを良いチャンスがあります。
+
+When you publish the results, those people do not have to design and run a similar experiment themselves.
+
+あなたは結果を公開すると、それらの人々は、自分自身を同様の実験を設計し、実行する必要はありません。
+
+It’s tempting and common to avoid reporting negative results because it’s easy to perceive that the experiment “failed.” Some experiments are doomed, and they tend to be caught by review.
+
+これは、いくつかの実験が運命にある」。失敗した」魅力的な、それは実験がいることを知覚するのは簡単ですので、陰性の結果を報告して回避することが一般的だし、彼らは、レビューによって捕捉される傾向にあります。
+
+Many more experiments are simply unreported because people mistakenly believe that negative results are not progress.
+
+人々が誤って陰性の結果が進行中でないことを信じているので、多くのより多くの実験が簡単に報告されていないです。
+
+Do your part by telling everyone about the designs, algorithms, and team workflows you’ve ruled out.
+
+あなたは除外しまし設計、アルゴリズム、およびチームのワークフローについて皆に伝えることであなたの部分を実行してください。
+
+Encourage your peers by recognizing that negative results are part of thoughtful risk taking and that every well-designed experiment has merit.
+
+陰性の結果が思慮深いリスクテイクの一部であり、そのすべてのうまく設計された実験はメリットがあることを認識することによって、あなたの仲間を奨励します。
+
+Be skeptical of any design document, performance review, or essay that doesn’t mention failure.
+
+失敗を言及していない任意の設計ドキュメント、人事考課、またはエッセイの懐疑的です。
+
+Such a document is potentially either too heavily filtered, or the author was not rigorous in his or her methods.
+
+このような文書は、潜在的にどちらか過度にろ過する、または著者は彼または彼女の方法に厳格ではありませんでした。
 
 Above all, publish the results you find surprising so that others—including your future self—aren’t surprised.
 
@@ -614,33 +685,53 @@ Cure
 
 治す
 
-Ideally, you’ve now narrowed the set of possible causes to one. Next, we’d like to prove that it’s the actual cause. Definitively proving that a given factor caused a problem—by reproducing it at will—can be difficult to do in production systems; often, we can only find probable causal factors, for the following reasons:
+Ideally, you’ve now narrowed the set of possible causes to one. Next, we’d like to prove that it’s the actual cause.
 
-理想的には、あなたが今1に考えられる原因のセットを狭めてきました。次に、我々はそれが実際の原因だということを証明したいと思います。決定的に与えられた要因があることを証明起因する問題を-ことにより、生産システムで行うことは困難であること、でき意志でそれを再現します。多くの場合、我々は見つけることができる 可能性の高い次の理由から、因果要因を、：
+理想的には、あなたが今1に考えられる原因のセットを狭めてきました。
+
+Definitively proving that a given factor caused a problem—by reproducing it at will—can be difficult to do in production systems; often, we can only find probable causal factors, for the following reasons:
+
+次に、我々はそれが実際の原因だということを証明したいと思います。決定的に与えられた要因があることを証明起因する問題を-ことにより、生産システムで行うことは困難であること、でき意志でそれを再現します。多くの場合、我々は見つけることができる 可能性の高い次の理由から、因果要因を、：
 
 * Systems are complex. It’s quite likely that there are multiple factors, each of which individually is not the cause, but which taken jointly are causes.15 Real systems are also often path-dependent, so that they must be in a specific state before a failure occurs.
 
 システムは複雑です。これは、共同で原因となっている個別の原因ではありませんが、その撮影したそのそれぞれが、複数の要因があることは非常に可能性があります。15 障害が発生する前に、彼らが特定の状態でなければなりませんように、実際のシステムは、また、多くの場合、パスに依存しています。
 
-* Reproducing the problem in a live production system may not be an option, either because of the complexity of getting the system into a state where the failure can be triggered, or because further downtime may be unacceptable. Having a nonproduction environment can mitigate these challenges, though at the cost of having another copy of the system to run.
+* Reproducing the problem in a live production system may not be an option, either because of the complexity of getting the system into a state where the failure can be triggered, or because further downtime may be unacceptable.
 
-本番システムで問題を再現することは選択肢ではないかもしれない障害がトリガすることができる状態にシステムを得ることの複雑さのため、またはさらなるダウンタイムは容認できないかもしれないのでどちらか、。非本番環境を持つことは、実行するためのシステムの別のコピーを持つことのコストでいるが、これらの課題を軽減することができます。
+本番システムで問題を再現することは選択肢ではないかもしれない障害がトリガすることができる状態にシステムを得ることの複雑さのため、またはさらなるダウンタイムは容認できないかもしれないのでどちらか、
 
-Once you’ve found the factors that caused the problem, it’s time to write up notes on what went wrong with the system, how you tracked down the problem, how you fixed the problem, and how to prevent it from happening again. In other words, you need to write a postmortem (although ideally, the system is alive at this point!).
+Having a nonproduction environment can mitigate these challenges, though at the cost of having another copy of the system to run.
 
-あなたが問題を引き起こした要因を見つけたら、それはあなたが問題を修正する方法と、再び起きてからそれを防ぐために、どのように問題を追跡し、どのようにシステムに何が悪かったのかにメモを書くための時間です。（理想的には、システムがあるが、言い換えれば、あなたは死後を記述する必要が生きているこの時点で！）。
+。非本番環境を持つことは、実行するためのシステムの別のコピーを持つことのコストでいるが、これらの課題を軽減することができます。
+
+Once you’ve found the factors that caused the problem, it’s time to write up notes on what went wrong with the system, how you tracked down the problem, how you fixed the problem, and how to prevent it from happening again.
+
+あなたが問題を引き起こした要因を見つけたら、それはあなたが問題を修正する方法と、再び起きてからそれを防ぐために、どのように問題を追跡し、どのようにシステムに何が悪かったのかにメモを書くための時間です。
+
+In other words, you need to write a postmortem (although ideally, the system is alive at this point!).
+
+（理想的には、システムがあるが、言い換えれば、あなたは死後を記述する必要が生きているこの時点で！）。
 
 Case Study
 
 ケーススタディ
 
-App Engine,16 part of Google’s Cloud Platform, is a platform-as-a-service product that allows developers to build services atop Google’s infrastructure. One of our internal customers filed a problem report indicating that they’d recently seen a dramatic increase in latency, CPU usage, and number of running processes needed to serve traffic for their app, a content-management system used to build documentation for developers.17 The customer couldn’t find any recent changes to their code that correlated with the increase in resources, and there hadn’t been an increase in traffic to their app (see Figure 12-3), so they were wondering if a change in the App Engine service was responsible.
+App Engine,16 part of Google’s Cloud Platform, is a platform-as-a-service product that allows developers to build services atop Google’s infrastructure.
 
-App Engineを、16 Googleのクラウドプラットフォームの一部は、開発者はGoogleのインフラストラクチャの上にサービスを構築することを可能にするプラットフォームサービスとしての製品です。社内の顧客の1つは、最近、劇的な待ち時間の増加、CPU使用率、およびそれらのアプリ、開発者向けのドキュメントをビルドするために使用するコンテンツ管理システムのトラフィックを提供するために必要なプロセスを実行しているの数を見たいことを示す問題報告書を提出しました。17顧客が資源の増加と相関し、そのアプリ（参照へのトラフィックが増加していなかった自分のコードに任意の最近の変更を見つけることができませんでした図12-3）ので、変化があれば不思議に思っていましたApp Engineのサービスを担当していました。
+App Engineを、16 Googleのクラウドプラットフォームの一部は、開発者はGoogleのインフラストラクチャの上にサービスを構築することを可能にするプラットフォームサービスとしての製品です。
 
-Our investigation discovered that latency had indeed increased by nearly an order of magnitude (as shown in Figure 12-4). Simultaneously, the amount of CPU time (Figure 12-5) and number of serving processes (Figure 12-6) had nearly quadrupled. Clearly something was wrong. It was time to start troubleshooting.
+One of our internal customers filed a problem report indicating that they’d recently seen a dramatic increase in latency, CPU usage, and number of running processes needed to serve traffic for their app, a content-management system used to build documentation for developers.17 The customer couldn’t find any recent changes to their code that correlated with the increase in resources, and there hadn’t been an increase in traffic to their app (see Figure 12-3), so they were wondering if a change in the App Engine service was responsible.
 
-私たちの調査では、待ち時間が実際に（に示すように大きさのほぼ順に増加していたことを発見図12-4）。同時に、CPU時間の量（図12-5）とサービングプロセスの数（図12-6）4倍近くありました。明らかに何かが間違っていました。トラブルシューティングを開始する時間でした。
+社内の顧客の1つは、最近、劇的な待ち時間の増加、CPU使用率、およびそれらのアプリ、開発者向けのドキュメントをビルドするために使用するコンテンツ管理システムのトラフィックを提供するために必要なプロセスを実行しているの数を見たいことを示す問題報告書を提出しました。17顧客が資源の増加と相関し、そのアプリ（参照へのトラフィックが増加していなかった自分のコードに任意の最近の変更を見つけることができませんでした図12-3）ので、変化があれば不思議に思っていましたApp Engineのサービスを担当していました。
+
+Our investigation discovered that latency had indeed increased by nearly an order of magnitude (as shown in Figure 12-4). Simultaneously, the amount of CPU time (Figure 12-5) and number of serving processes (Figure 12-6) had nearly quadrupled. Clearly something was wrong.
+
+私たちの調査では、待ち時間が実際に（に示すように大きさのほぼ順に増加していたことを発見図12-4）。同時に、CPU時間の量（図12-5）とサービングプロセスの数（図12-6）4倍近くありました。明らかに何かが間違っていました。
+
+It was time to start troubleshooting.
+
+トラブルシューティングを開始する時間でした。
 
 Typically a sudden increase in latency and resource usage indicates either an increase in traffic sent to the system or a change in system configuration. However, we could easily rule out both of these possible causes: while a spike in traffic to the app around 20:45 could explain a brief surge in resource usage, we’d expect traffic to return to baseline fairly soon after request volume normalized. This spike certainly shouldn’t have continued for multiple days, beginning when the app’s developers filed the report and we started looking into the problem. Second, the change in performance happened on Saturday, when neither changes to the app nor the production environment were in flight. The service’s most recent code pushes and configuration pushes had completed days before. Furthermore, if the problem originated with the service, we’d expect to see similar effects on other apps using the same infrastructure. However, no other apps were experiencing similar effects.
 
