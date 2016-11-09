@@ -1,199 +1,255 @@
-第12章効果的なトラブルシューティング
+# 第12章 効果的なトラブルシューティング
 
 クリス・ジョーンズによって書かれました
 
 Be warned that being an expert is more than understanding how a system is supposed to work.
 
-専門家であることは、システムが動作するようになっている方法を理解する以上であることを警告します。
+エキスパートである事は、どのようにシステムが動作するのか理解する以上であることを警告します
 
 Expertise is gained by investigating why a system doesn’t work.
 
 専門知識は、システムが動作しない理由を調査することによって得られます。
 
-ブライアン・レッドマン
+Brian Redman
 
 Ways in which things go right are special cases of the ways in which things go wrong.
-物事が右に行くする方法は物事がうまくいかれるの方法の特殊なケースです。
 
-ジョンAllspaw
+物事が正しく進む方法は、誤って進む方法の特殊なケースです。　
 
-Troubleshooting is a critical skill for anyone who operates distributed computing systems—especially SREs—but it’s often viewed as an innate skill that some people have and others don’t.
+John Allspaw
 
-トラブルシューティングは、コンピューティングシステム、特にのSRE-が、分散して動作することが多い一部の人が持っていると他の人がいないことを生得的なスキルとして見ています誰のための重要なスキルです。
+Troubleshooting is a critical skill for anyone who operates distributed computing systems
+—especially SREs—
+
+トラブルシューティングは、分散コンピュータ・システムを操作するいかなる人にとって重要なスキルです。
+特に、SREsにとって
+
+but it’s often viewed as an innate skill that some people have and others don’t.
+
+しかし、それは、いくつかの人が保有していて、他はない先天的なスキルとしてしばしば見られます。
 
 One reason for this assumption is that, for those who troubleshoot often, it’s an ingrained process;  
 
-この仮定の1つの理由は、多くの場合、トラブルシューティングを行う人のために、それが染み付いプロセスだ、ということです。
+この仮定の1つの理由は、多くトラブルシューティングを行う人のための、生まれつきのプロセスです。
 
 explaining how to troubleshoot is difficult, much like explaining how to ride a bike.
 
-説明どのようにトラブルシューティングするためには、多くの自転車に乗る方法を説明するように、困難です。
+トラブルシューティングの方法を説明することは難しい。自転車の乗り方を説明するように。
 
 However, we believe that troubleshooting is both learnable and teachable.
 
-しかし、我々は、トラブルシューティングがあると信じて両方の学習可能と教えやすいです。
+しかしながら、私たちは トラブルシューティングは学習可能で、教育可能である両方を信じています
 
-Novices are often tripped up when troubleshooting because the exercise ideally depends upon two factors: an understanding of how to troubleshoot generically (i.e., without any particular system knowledge) and a solid knowledge of the system.
+Novices are often tripped up when troubleshooting because the exercise ideally depends upon two factors: an understanding of how to troubleshoot generically
+(i.e., without any particular system knowledge) and a solid knowledge of the system.
 
-演習では、理想的には二つの要因に依存するため、トラブルシューティングを行うときに、初心者は頻繁にトリップしている：一般的にトラブルシューティングする方法の理解（すなわち、任意の特定のシステムの知識がなくても）、システムの確かな知識を。
+トラブルシューティングを行うときに、初心者はしばしばつまずきます。実習は理想的に２つの要因に依存するので：
+一般的にトラブルシューティングの方法の理解（特有のシステム知識なしに）とシステムの深い知識。
+
 
 While you can investigate a problem using only the generic process and derivation from first principles, we usually find this approach to be less efficient and less effective than understanding how things are supposed to work.
 
-あなたは第一原理からのみ一般的なプロセスと派生を使用して問題を調査することができますが、我々は通常、物事が動作するようになっている方法を理解するよりも効率とあまり効果的であることが、このアプローチを見つけます。
+あなたが　最初の原理から、一般的なプロセスと派生を使用した問題を調査可能な間、
+私たちは通常、物事が動作する方法を理解するよりも　効率的でない、効果的でない、このアプローチを見つける
 
 Knowledge of the system typically limits the effectiveness of an SRE new to a system; there’s little substitute to learning how the system is designed and built.
 
-システムの知識は、典型的には、システムへの新しいSREの有効性を制限します。システムを設計・構築されている方法を学ぶには、ほとんどの代替があります。
+システムの知識は一般的に、新しいSREの有効性を一つのシステムに制限します
+どのようにシステムがデザインされて、構築されるか学習するためには、ほとんどの代替があります。
 
 Let’s look at a general model of the troubleshooting process.
 
-のは、トラブルシューティングプロセスの一般的なモデルを見てみましょう。
+トラブルシューティングプロセスの一般的なモデルを見てみましょう。
 
 Readers with expertise in troubleshooting may quibble with our definitions and process; if your method is effective for you, there’s no reason not to stick with it.
 
-トラブルシューティングの専門知識を持つ読者は、私たちの定義とプロセスと屁理屈てもよいです。あなたの方法はあなたのために効果的である場合、それに固執しない理由はありません。
+トラブルシューティングの専門知識を持つ読者は、私たちの定義とプロセスとつまらない議論だと思うかもしれない。
+もし、あなたのメソッドがあなたにとって有効であれば、それに固執しない理由はありません。
 
-* Theory
+## Theory
 
 理論
 
 Formally, we can think of the troubleshooting process as an application of the hypothetico-deductive method:
 
-形式的には、我々は仮説演繹法の応用として、トラブルシューティングのプロセスと考えることができます：
+形式的には、我々は仮説演繹法のアプリケーションとして、トラブルシューティングのプロセスを考えることができます：
+
+仮説演繹法：（hypothetico-deductive method）
+https://ja.wikipedia.org/wiki/%E4%BB%AE%E8%AA%AC%E6%BC%94%E7%B9%B9%E6%B3%95
 
 given a set of observations about a system and a theoretical basis for understanding system behavior, we iteratively hypothesize potential causes for the failure and try to test those hypotheses.
 
-システムおよびシステムの動作を理解するための理論的基礎についての観察のセットを与え、我々は反復的障害の潜在的な原因を仮定し、それらをテストしてみてください仮説。
+システムと、システムの振る舞いを理解するための理論的基礎について、観察の一式が与えられ、
+私達は失敗のための潜在的な原因を繰り返し仮定し、それらの仮説をテストしようとします。
 
-In an idealized model such as that in Figure 12-1, we’d start with a problem report telling us that something is wrong with the system.
+In an idealized model such as that in Figure 12-1,
 
-などの場合と理想化されたモデルでは、図12-1、我々は何かがシステムに間違っていることを告げ問題報告で始まると思います。
+Figure 12-1 のような理想的なモデルの中で、
 
-Then we can look at the system’s telemetry and logs to understand its current state. This information, combined with our knowledge of how the system is built, how it should operate, and its failure modes, enables us to identify some possible causes.
+we’d start with a problem report telling us that something is wrong with the system.
 
-その後、我々は、システムの遠隔測定を見ることができる、現在の状態を理解し、ログインします。システムは、それがどのように動作するか、どのように構築されるかについての知識、およびその故障モードと組み合わせたこの情報は、いくつかの可能な原因を特定することを可能にします。
+私たちは、何かシステムがよくないことを示している問題のレポート報告から始めます。
+
+Then we can look at the system’s telemetry and logs to understand its current state.
+
+それから、私たちは現在の状態を理解するために、システムのテリトリーとログを見ることができます。
+
+This information, combined with our knowledge of how the system is built, how it should operate, and its failure modes, enables us to identify some possible causes.
+
+この情報は、どうシステムが構築されるか、どう操作すべきか、そのfailureモードと組み合わせされて
+起こりうる原因を見極めることを可能にする
+
 
 Figure 12-1. A process for troubleshooting
-図12-1。トラブルシューティングのためのプロセス
+
+図12-1 トラブルシューティングのためのプロセス
 
 We can then test our hypotheses in one of two ways.
 
-それから、次のいずれかの方法で私たちの仮説をテストすることができます。
+それから、我々は2つの方法の1つで、仮説をテストすることができます。
 
 We can compare the observed state of the system against our theories to find confirming or disconfirming evidence.
 
-私たちは、確認や証拠をdisconfirming見つけるために私たちの理論に対するシステムの観察された状態を比較することができます。
+私たちは、確証、あるいは未確証の証拠を見つけるため
+私たちの理論に対するシステムの監視状態を比較することができます。
 
-Or, in some cases, we can actively “treat” the system—that is, change the system in a controlled way—and observe the results.
+Or, in some cases, we can actively “treat” the system
+— that is, change the system in a controlled way—
+and observe the results.
 
-または、いくつかのケースでは、我々は積極的にシステムでの「治療」、制御システムを変更する方法-、結果を確認することができます。
+または、いくつかのケースでは、我々は積極的にシステムを「治療」することができる
+-- つまり、コントロールされた方向にシステムを変更する
+そしてその結果を監視する
 
 This second approach refines our understanding of the system’s state and possible cause(s) of the reported problems.
 
-この第2のアプローチは、システムの状態と報告された問題の原因（複数可）の我々の理解を洗練します。
+この第2のアプローチは、システムの状態の理解と報告された問題の起こりうる原因に、洗練する
 
 Using either of these strategies, we repeatedly test until a root cause is identified, at which point we can then take corrective action to prevent a recurrence and write a postmortem.
 
-根本的な原因が特定されるまで、これらの戦略は、我々繰り返しテストのいずれかを使用して、我々はその後、再発防止と死後を書くために是正措置をとることができ、その時点で。
+これらの戦略のどちらか一方を使用して、根本の原因が特定されるまで、我々は繰り返し試験します。
+それから、我々は再発防止のために、矯正するアクションを取ることができる。そして事後の検討事項を記述する
 
 Of course, fixing the proximate cause(s) needn’t always wait for root-causing or postmortem writing.
 
-もちろん、近因（複数可）を固定することは常にルートの原因や死後の書き込みを待つ必要はありません。
+もちろん、直接の原因を修正することは、根本原因、あるいは事後の検討をいつも待つ必要がない。
 
-COMMON PITFALLS
+####  COMMON PITFALLS
 
 陥りやすい落とし穴
 
 Ineffective troubleshooting sessions are plagued by problems at the Triage, Examine, and Diagnose steps, often because of a lack of deep system understanding.
 
-効果のないトラブルシューティングセッションはトリアージでの問題に悩まされて、調べて、しばしば深いシステムに対する理解の不足のため、手順を診断します。
+効果のないトラブルシューティングの会議は、しばしば深いシステムに対する理解不足のため
+トリアージ（優先順位？）の問題に悩まされて、調査し、手順を診断する
 
 The following are common pitfalls to avoid:
 
-避けるための一般的な落とし穴には、次のとおりです。
+避けるための共通的な落とし穴には、次のとおりです。
 
 * Looking at symptoms that aren’t relevant or misunderstanding the meaning of system metrics. Wild goose chases often result.
 
-関連していない症状を見て、またはシステム・メトリックの意味を誤解。野生のガチョウチェイスがしばしば生じます。
+関連していない症状を見て、あるいはシステム・メトリックの意味を誤解。
+無駄な追跡がしばしば生じます。
 
 * Misunderstanding how to change the system, its inputs, or its environment, so as to safely and effectively test hypotheses.
 
-安全かつ効果的仮説を検証するために、システム、その入力、またはその環境を変更する方法を誤解。
+安全かつ効果的に仮説を検証するために、システム、その入力、またはその環境を変更する方法を誤解。
 
 * Coming up with wildly improbable theories about what’s wrong, or latching on to causes of past problems, reasoning that since it happened once, it must be happening again.
 
-間違っているのかについて乱暴にありえない理論を考え出す、またはそれが一度起こったので、それが再び起こってしなければならないことを推論、過去の問題の原因に上のラッチ。
+間違っていることについてひどくありそうもない理論を出す
+あるいは、過去の問題の原因をとらわれ、
+それはかつて起こったので、それが再び起こってしなければならないことを推論する
 
 * Hunting down spurious correlations that are actually coincidences or are correlated with shared causes.
 
-実際に偶然の一致であるか、または共有の原因と相関しているスプリアス相関を追い詰めます。
+実際に偶然の一致、または共有の原因と相関している嘘の相関関係を追い詰める
 
 Fixing the first and second common pitfalls is a matter of learning the system in question and becoming experienced with the common patterns used in distributed systems.  
 
-第一および第二の一般的な落とし穴を固定することは、問題のシステムを学習し、分散システムで使用される一般的なパターンと経験豊富になるという問題です。
+第一および第二の一般的な落とし穴を修正することは、問題のシステムを学習し、分散システムで使用される共通のパターンに経験豊富になること
 
-The third trap is a set of logical fallacies that can be avoided by remembering that not all failures are equally probable—as doctors are taught, “when you hear hoofbeats, think of horses not zebras.” Also remember that, all things being equal, we should prefer simpler explanations.
+The third trap is a set of logical fallacies that can be avoided by remembering that not all failures are equally probable
+— as doctors are taught, “when you hear hoofbeats, think of horses not zebras.”
 
-第三のトラップはないすべての障害が均等であることを覚えておく可能性-として医師が、教示されていることによって回避することができる論理的誤謬のセットである"あなたは、hoofbeatsを聞く馬ないシマウマを考えるとき。」はまた、すべてのものが等しいことを覚えておいてください、我々は簡単な説明を好むべきである。
+第三のトラップは、すべての失敗が等しくありえる。というわけではないのを思い出すことによって、避けられることができる論理的誤りの一セットです
+- 医者として教えられる「あなたが蹄の音を聞くとき、馬はシマウマではないと考える」
+
+Also remember that, all things being equal, we should prefer simpler explanations.
+
+また、すべてのことが等しいなら、私たちはより単純な説明を好むべきなのを思い出す
 
 Finally, we should remember that correlation is not causation:
 
-：最後に、我々はその相関は因果関係ではないことを覚えておいてください
+最後に、我々はその相関関係は因果関係ではないことを覚えておいてください
 
- some correlated events, say packet loss within a cluster and failed hard drives in the cluster, share common causes—in this case, a power outage, though network failure clearly doesn’t cause the hard drive failures nor vice versa.
+some correlated events, say packet loss within a cluster and failed hard drives in the cluster, share common causes
 
-ネットワーク障害が明らかに発生しませんが、いくつかの相関イベント、クラスタ内でパケット損失を言うと、クラスタ内のハードドライブを失敗し、共有する一般的な原因は、この場合、停電ハードドライブの障害やその逆。
+クラスタ内のパケット損失やクラスタ内のハードドライブの失敗といった、いくつかの相関関係のあるイベントは共通の原因を分け合う
 
- Even worse, as systems grow in size and complexity and as more metrics are monitored, it’s inevitable that there will be events that happen to correlate well with other events, purely by coincidence.
+ — in this case, a power outage, though network failure clearly doesn’t cause the hard drive failures nor vice versa.
 
-さらに悪いことに、システムの規模と複雑さに成長し、複数のメトリックが監視されているとして、それは純粋に偶然他のイベント、とよく相関するために発生するイベントが存在することを避けられないとして。
+このケース、停電では、ネットワーク失敗は、ハードディスク故障もその逆も明らかに引き起こさない
+
+Even worse, as systems grow in size and complexity and as more metrics are monitored, it’s inevitable that there will be events that happen to correlate well with other events, purely by coincidence.
+
+更に悪いことに、システムの規模と複雑さが成長し、より多くのメトリックスが監視されているとして、
+それは純粋に偶然、他のイベントとよく相関するイベントが存在することは避けられない
 
 Understanding failures in our reasoning process is the first step to avoiding them and becoming more effective in solving problems.
 
-私たちの推論過程に障害を理解することは、それらを回避し、問題の解決に、より効果的になるための第一歩です。
+我々の推理プロセスの失敗を理解することは、それを避けて、問題を解決することにおいて、効果的になることへの第一歩です
 
 A methodical approach to knowing what we do know, what we don’t know, and what we need to know, makes it simpler and more straightforward to figure out what’s gone wrong and how to fix it.
 
-私たちが知っていないもの、そして私たちが知っておくべきことを、私たちが知っているものを知ることに系統的アプローチは、間違っているものを把握するために、それを修正する方法、それは簡単で、より直接的になります。
+何がうまくいかなかったか、そして、どのようにそれを修正するべきか理解するために、
+私たちが知ること、わからないこと、知る必要があること、を知る規則的なアプローチは
+それをよりシンプルに、簡単にさせる　
 
+## In Practice
 
-In Practice
 実際には
 
 In practice, of course, troubleshooting is never as clean as our idealized model suggests it should be.
 
-実際には、もちろん、トラブルシューティングは、私たちの理想モデルは、それがあるべき示唆するほどきれいになることはありません。
+実際には、もちろん、トラブルシューティングは、私たちの理想モデルとして、そうあるべきと示唆するほどクリアーにはならない。
 
 There are some steps that can make the process less painful and more productive for both those experiencing system problems and those responding to them.
 
-それらの経験システムの問題とそれに対応する者の両方のプロセスは苦痛が少ない、より生産性を向上させることができるいくつかのステップがあります。
+システムの問題を経験しているそれら、彼らに返事しているそれら両方のために、
+より苦痛の少ない、より生産性が向上するプロセスを作ることができるいくつかのステップがあります。
 
-Problem Report
+### Problem Report
 
 問題の報告
 
 Every problem starts with a problem report, which might be an automated alert or one of your colleagues saying, “The system is slow.”
 
-すべての問題は、自動化されたアラートまたはあなたの同僚の1、と言うかもしれない問題報告書で始まり、「システムが遅いです。
+すべての問題は、問題のレポートから始まる
+自動的なアラート、あるいは、あなたの同僚が「システムが遅い」といった発言かもしれない
 
 An effective report should tell you the expected behavior, the actual behavior, and, if possible, how to reproduce the behavior.
 
-「有効レポートはあなたに言うべきで予想される、行動を実際の行動を、そして、再生することができるならば、どのように行動。
+効果的レポートは、期待される事象と実際の事象と、できれば、事象を再現する方法を教えなければなりません。
 
- Ideally, the reports should have a consistent form and be stored in a searchable location, such as a bug tracking system.
+Ideally, the reports should have a consistent form and be stored in a searchable location, such as a bug tracking system.
 
-理想的には、レポートには、一貫性のある形を持っている必要があり、そのようなバグ追跡システムとして、検索可能な場所に格納すること。
+理想的には、レポートに一貫性のある形を持っている必要があり、バグトラッキングシステムのような検索可能な場所に格納すること。
 
 Here, our teams often have customized forms or small web apps that ask for information that’s relevant to diagnosing the particular systems they support, which then automatically generate and route a bug.
 
-ここでは、私たちのチームは、多くの場合、自動的にバグを発生させ、ルートフォームまたはそれらがサポートする特定のシステムを診断する関連性の情報を求める小規模なWebアプリケーションを、カスタマイズしています。
+ここでは、私たちのチームは、しばしば、カスタマイズされたフォーム、
+あるいはサポートする特定のシステムを診断するため、関連する情報を尋ねる小さなweb appsを持つ
+そして、それから、自動的に生成し、バグを発送する
 
 This may also be a good point at which to provide tools for problem reporters to try self-diagnosing or self-repairing common issues on their own.
 
-また、これは自分で自己診断や自己修復一般的な問題をしようとする問題の記者のためのツールを提供するために、これで良い点かもしれません。
+これは、自己診断や共通の課題を自己修復するのに、問題のレポータのツールを提供するために、これで良い点かもしれません。
 
 It’s common practice at Google to open a bug for every issue, even those received via email or instant messaging.
 
+！！！
 これは、電子メールやインスタントメッセージを介して受信したものであっても、すべての問題のためにバグを開くためにGoogleのが一般的です。
 
 Doing so creates a log of investigation and remediation activities that can be referenced in the future.
