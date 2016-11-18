@@ -1,6 +1,9 @@
 ## Feeling Safe
 
-安心すること
+安心すること<br>
+この章では、on-callであるときの考え方であったり、
+安心してon-callできるようなリソース・方法論について記述している。
+
 
 >As mentioned earlier, SRE teams support Google’s most critical systems.
 
@@ -25,18 +28,18 @@ SREの方法論(methodology)は、サービスの適切な運用のために不�
 
 * Intuitive, automatic, and rapid action
 
-直感的で、オートマティックで、迅速なアクション
+直感的で(Intuitive)、オートマティックで、迅速なアクション
 
 * Rational, focused, and deliberate cognitive functions
 
-合理的に、集中して、意図的に認識する機能
+合理的に、集中して、意図的に認識する機能(deliberate cognitive functions)
 
 >When one is dealing with the outages related to complex systems, the second of these options is more likely to produce better results and lead to well-planned incident handling.
 
 1つ目(one)？が複数のシステムに関係する障害を扱っている時
 これらのオプションである2つ目(the second of these options)？は、より良い結果を生成し、良く計画されたインシデントハンドリングにつながる可能性が高いです。
 
-one, the second of these options = 何を意味している？<br>
+one, the second of these options = 上記の2つの方法を意味する？<br>
 incident=出来事・事件
 
 --
