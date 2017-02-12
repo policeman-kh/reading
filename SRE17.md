@@ -411,42 +411,176 @@ higher- versus lower-order、上位から下位のバグの動向を念頭に置
 
 ## Creating a Test and Build Environment
 
-While it’s wonderful to think about these types of tests and failure scenarios on day one of a project, frequently SREs join a developer team when a project is already well underway—once the team’s project validates its research model, its library proves that the project’s underlying algorithm is scalable, or perhaps when all of the user interface mocks are finally acceptable.
+> While it’s wonderful to think about these types of tests and failure scenarios on day one of a project, frequently SREs join a developer team when a project is already well underway—once the team’s project validates its research model, its library proves that the project’s underlying algorithm is scalable, or perhaps when all of the user interface mocks are finally acceptable.
 
-プロジェクトの初日にこれらのタイプのテストと失敗シナリオを考えるのは素晴らしいことですが、プロジェクトがすでに進行中のときに開発チームに参加することがよくあります。
+プロジェクトの初日にこれらのタイプのテストと失敗シナリオを考えるのは素晴らしいことですが、プロジェクトが既に進行中の場合、頻繁にSREが開発チームに加わります
 
-チームのプロジェクトがそのリサーチモデルを検証すると、アルゴリズムはスケーラブルであるか、またはおそらくすべてのユーザインタフェースモックが最終的に許容可能であるときである
+そのチームのプロジェクトは、その研究モデルを検証し、
+そのライブラリは、プロジェクトの基礎となるアルゴリズムがスケーラブルであり、
+または、おそらくすべてのユーザインターフェースモックが最終的に受け入れ可能である時点です。
 
-The team’s codebase is still a prototype and comprehensive testing hasn’t yet been designed or deployed. In such situations, where should your testing efforts begin? Conducting unit tests for every key function and class is a completely overwhelming prospect if the current test coverage is low or nonexistent. Instead, start with testing that delivers the most impact with the least effort.
+> The team’s codebase is still a prototype and comprehensive testing hasn’t yet been designed or deployed.
 
-You can start your approach by asking the following questions:
+チームのコードベースはまだプロトタイプであり、包括的なテストはまだ設計または展開されていません。
 
-Can you prioritize the codebase in any way? To borrow a technique from feature development and project management, if every task is high priority, none of the tasks are high priority. Can you stack-rank the components of the system you’re testing by any measure of importance?
+> In such situations, where should your testing efforts begin?
 
-Are there particular functions or classes that are absolutely mission-critical or business-critical? For example, code that involves billing is a commonly business-critical. Billing code is also frequently cleanly separable from other parts of the system.
+このような状況では、テストの作業はどこから始めるべきですか？
 
-Which APIs are other teams integrating against? Even the kind of breakage that never makes it past release testing to a user can be extremely harmful if it confuses another developer team, causing them to write wrong (or even just suboptimal) clients for your API.
+> Conducting unit tests for every key function and class is a completely overwhelming prospect if the current test coverage is low or nonexistent.
 
-Shipping software that is obviously broken is among the most cardinal sins of a developer. It takes little effort to create a series of smoke tests to run for every release. This type of low-effort, high-impact first step can lead to highly tested, reliable software.
+現在のテストカバレッジが低いか存在しない場合は、すべてのfunctionとクラスごとにunitテストを実行することはoverwhelming prospect、完全な見通しです。
 
-One way to establish a strong testing culture7 is to start documenting all reported bugs as test cases. If every bug is converted into a test, each test is supposed to initially fail because the bug hasn’t yet been fixed. As engineers fix the bugs, the software passes testing and you’re on the road to developing a comprehensive regression test suite.
+> Instead, start with testing that delivers the most impact with the least effort.
 
-Another key task for creating well-tested software is to set up a testing infrastructure. The foundation for a strong testing infrastructure is a versioned source control system that tracks every change to the codebase.
+代わりに、最小の労力で最も大きな影響を与えるテストから始めます。
 
-Once source control is in place, you can add a continuous build system that builds the software and runs tests every time code is submitted. We’ve found it optimal if the build system notifies engineers the moment a change breaks a software project. At the risk of sounding obvious, it’s essential that the latest version of a software project in source control is working completely. When the build system notifies engineers about broken code, they should drop all of their other tasks and prioritize fixing the problem. It is appropriate to treat defects this seriously for a few reasons:
+> You can start your approach by asking the following questions:
 
-It’s usually harder to fix what’s broken if there are changes to the codebase after the defect is introduced.
+あなたは次の質問をしてアプローチを開始できます：
 
-Broken software slows down the team because they must work around the breakage.
+* Can you prioritize the codebase in any way? To borrow a technique from feature development and project management, if every task is high priority, none of the tasks are high priority. Can you stack-rank the components of the system you’re testing by any measure of importance?
 
-Release cadences, such as nightly and weekly builds, lose their value.
+コードベースの優先順位を決めることはできますか？ featureの開発とプロジェクト管理から技術を借用するために、すべてのタスクが優先度が高い場合は優先度の高いタスクはありません。
+重要な尺度でテストしているシステムのコンポーネントをスタック・ランク付けできますか？
 
-The ability of the team to respond to a request for an emergency release (for example, in response to a security vulnerability disclosure) becomes much more complex and difficult.
+* Are there particular functions or classes that are absolutely mission-critical or business-critical? For example, code that involves billing is a commonly business-critical. Billing code is also frequently cleanly separable from other parts of the system.
 
-The concepts of stability and agility are traditionally in tension in the world of SRE. The last bullet point provides an interesting case where stability actually drives agility. When the build is predictably solid and reliable, developers can iterate faster!
+ミッションクリティカルまたはビジネスクリティカルな特定のfuncionやクラスはありますか？
+たとえば、billingを含むコードは一般的にビジネスクリティカルです。 billingコードは、しばしばシステムの他の部分からきれいに分離可能です。
 
-Some build systems like Bazel8 have valuable features that afford more precise control over testing. For example, Bazel creates dependency graphs for software projects. When a change is made to a file, Bazel only rebuilds the part of the software that depends on that file. Such systems provide reproducible builds. Instead of running all tests at every submit, tests only run for changed code. As a result, tests execute cheaper and faster.
+* Which APIs are other teams integrating against? Even the kind of breakage that never makes it past release testing to a user can be extremely harmful if it confuses another developer team, causing them to write wrong (or even just suboptimal) clients for your API.
 
-There are a variety of tools to help you quantify and visualize the level of test coverage you need [Cra10]. Use these tools to shape the focus of your testing: approach the prospect of creating highly tested code as an engineering project rather than a philosophical mental exercise. Instead of repeating the ambiguous refrain “We need more tests,” set explicit goals and deadlines.
+他のチームと統合しているAPIはどれですか？
+過去のリリーステストがユーザに行わないような破壊であっても、非常に有害である可能性があり
+別のデベロッパーチームを混乱させて、あなたのAPI用に間違った（あるいは最適でない）クライアントを作成することになります。
 
-Remember that not all software is created equal. Life-critical or revenue-critical systems demand substantially higher levels of test quality and coverage than a non-production script with a short shelf life.
+> Shipping software that is obviously broken is among the most cardinal sins of a developer.
+
+明らかに壊れているソフトウェアの出荷は、開発者の最も重い罪の1つです。
+
+> It takes little effort to create a series of smoke tests to run for every release.
+
+すべてのリリースで実行する一連のsmokeテストを作成するのにはほとんど手間がかかりません。
+
+> This type of low-effort, high-impact first step can lead to highly tested, reliable software.
+
+このタイプの低労力、インパクトの高い第1ステップは、高度にテストされた信頼性の高いソフトウェアにつながります。
+
+> One way to establish a strong testing culture is to start documenting all reported bugs as test cases.
+
+強力なテスト文化を確立する1つの方法は、テストケースとして報告されたすべてのバグを文書化することです。
+
+> If every bug is converted into a test, each test is supposed to initially fail because the bug hasn’t yet been fixed.
+
+すべてのバグがテストに変換された場合、バグがまだ修正されていないため、最初にテストが失敗するはずです。
+
+> As engineers fix the bugs, the software passes testing and you’re on the road to developing a comprehensive regression test suite.
+
+エンジニアがバグを修正すると、ソフトウェアはテストに合格し、包括的なregressionテストスイートを開発する道を歩んでいます。
+
+> Another key task for creating well-tested software is to set up a testing infrastructure.
+
+十分にテストされたソフトウェアを作成するためのもう1つの重要なタスクは、テストインフラストラクチャをセットアップすることです。
+
+> The foundation for a strong testing infrastructure is a versioned source control system that tracks every change to the codebase.
+
+強力なテストインフラストラクチャの基礎は、コードベースのあらゆる変更を追跡する、バージョン管理されたソース管理システムです。
+
+> Once source control is in place, you can add a continuous build system that builds the software and runs tests every time code is submitted.
+
+ソース管理が完了すると、ソフトウェアをビルドし、コードがsubmitされるたびにテストを実行する継続的なビルドシステムを追加することができます。
+
+> We’ve found it optimal if the build system notifies engineers the moment a change breaks a software project.
+
+ビルドシステムが、変更がソフトウェアプロジェクトを中断させた瞬間をエンジニアに通知することが最適であるとわかりました。
+
+> At the risk of sounding obvious, it’s essential that the latest version of a software project in source control is working completely.
+
+At the risk of sounding obvious、わかりきったことですが、
+ソース管理のソフトウェアプロジェクトの最新バージョンが完全に機能することが不可欠です。
+
+> When the build system notifies engineers about broken code, they should drop all of their other tasks and prioritize fixing the problem.
+
+ビルドシステムがエンジニアに壊れたコードを通知すると、他のすべてのタスクを削除し、問題の解決に優先順位を付けるべきです。
+
+> It is appropriate to treat defects this seriously for a few reasons:
+
+それはいくつかの理由でこれを深刻に扱うことが適切です：
+
+* It’s usually harder to fix what’s broken if there are changes to the codebase after the defect is introduced.
+
+欠陥が導入された後にコードベースが変更されると、何が壊れているのかを修正することは通常困難です。
+
+* Broken software slows down the team because they must work around the breakage.
+
+壊れたソフトウェアは、破損を回避する必要があるため、チームの速度を低下させます。
+
+* Release cadences, such as nightly and weekly builds, lose their value.
+
+夜間や週ごとのビルドのようなリリース・リズムは、その価値を失います。
+
+* The ability of the team to respond to a request for an emergency release (for example, in response to a security vulnerability disclosure) becomes much more complex and difficult.
+
+緊急リリースの要求（たとえば、セキュリティ脆弱性の開示に対応）に対応するチームの能力は、はるかに複雑で困難になります
+
+> The concepts of stability and agility are traditionally in tension in the world of SRE.
+
+安定性と敏捷性の概念は、伝統的にSREの世界で内包しています。
+
+> The last bullet point provides an interesting case where stability actually drives agility.
+
+最後の箇条書き？は、安定性が実際に敏捷性を促進する興味深いケースを提供します。
+
+> When the build is predictably solid and reliable, developers can iterate faster!
+
+ビルドが予想通りに確実で信頼できるものであれば、開発者はより迅速に反復することができます。
+
+> Some build systems like Bazel have valuable features that afford more precise control over testing.
+
+Bazelのようなビルドシステムには、テストをより正確に制御できる貴重な機能があります。
+
+> For example, Bazel creates dependency graphs for software projects.
+
+たとえば、Bazelはソフトウェアプロジェクトのdependencyグラフを作成します。
+
+> When a change is made to a file, Bazel only rebuilds the part of the software that depends on that file.
+
+ファイルが変更されると、Bezelはそのファイルに依存するソフトウェアの部分のみを再構築します。
+
+> Such systems provide reproducible builds.
+
+このようなシステムは、再現可能なビルドを提供します。
+
+> Instead of running all tests at every submit, tests only run for changed code.
+
+submitごとにすべてのテストを実行するのではなく、変更されたコードに対してのみテストを実行します。
+
+> As a result, tests execute cheaper and faster.
+
+その結果、テストはより安価で高速に実行されます。
+
+> There are a variety of tools to help you quantify and visualize the level of test coverage you need [Cra10].
+
+必要なテストカバレッジのレベルを数値化して視覚化するのに役立つさまざまなツールがあります
+
+> Use these tools to shape the focus of your testing:
+
+これらのツールを使用して、テストのfocusを形成します。
+
+> approach the prospect of creating highly tested code as an engineering project rather than a philosophical mental exercise.
+
+哲学的、精神的な実行ではなく、エンジニアリングプロジェクトとして高度にテストされたコードを作成する見通しに近づきます
+
+> Instead of repeating the ambiguous refrain “We need more tests,” set explicit goals and deadlines.
+
+「もっとテストが必要です」という、あいまいなリフレインを繰り返す代わりに、明示的な目標と締め切りを設定します。
+
+> Remember that not all software is created equal.
+
+すべてのソフトウェアが平等に作成されているわけではありません。
+
+> Life-critical or revenue-critical systems demand substantially higher levels of test quality and coverage than a non-production script with a short shelf life.
+
+ライフクリティカルなシステムまたはrevenue、収益クリティカルなシステムでは、
+貯蔵寿命が短い非プロダクションスクリプトよりもテスト品質とカバレッジのレベルが大いに求められます
