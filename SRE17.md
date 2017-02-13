@@ -167,31 +167,29 @@ uncertainty、不確定性を管理し、ユーザーへのリスクを避ける
 
 > This scenario can cause problems when tests are conducted against the live environment.
 
-ソース管理で、本番リリースされるのを待つ、1つ以上のバージョンのバイナリとそれに関連付けられたconfigurationファイルを保持することは可能です。<br>
-
-
-
-このシナリオは、ライブ環境に対してテストが実行されるときに問題を引き起こすことができる
-
 > For example, the test might use the latest version of a configuration file located in source control along with an older version of the binary that’s live.
-
-たとえば、テストでは、ライブのバイナリの古いバージョンと一緒に、ソースコントロールにあるconfigurationファイルの最新バージョンを使用することがあります
 
 > Or it might test an older version of the configuration file and find a bug that’s been fixed in a newer version of the file.
 
-あるいは、古いバージョンのconfigurationファイルをテストし、新しいバージョンのファイルで修正されたバグを見つけるかもしれません
+ソース管理で、本番リリースされるのを待つ、1つ以上のバージョンのバイナリとそれに関連付けられたconfigurationファイルを保持することは可能です。
+
+本番環境でテストが実行されるときに、このシナリオは問題を引き起こすことができます。
+
+たとえば、テストでは、本番環境ののバイナリの古いバージョンと一緒に、ソースコントロールにあるconfigurationファイルの最新バージョンを使用することがあります。
+
+あるいは、古いバージョンのconfigurationファイルをテストし、新しいバージョンのファイルで修正されたバグを見つけるかもしれません。
 
 > Similarly, a system test can use the configuration files to assemble its modules before running the test.
 
-同様に、システムテストでは、テストを実行する前に、モジュールをアセンブルするためにconfigurationファイルを使用することができる
-
 > If the test passes, but its version is one in which the configuration test (discussed in the following section) fails, the result of the test is valid hermetically, but not operationally.
-
-テストはpassするが、そのバージョンがconfigurationテスト（次のセクションで説明）に失敗した場合、テストの結果は完全に有効ですが、操作上は有効ではない
 
 > Such an outcome is inconvenient.
 
-そのような結果は不便・都合が悪い。
+同様に、システムテストでは、テストを実行する前にモジュールをアセンブルするためにconfigurationファイルを使用することができます。
+
+テストはpassするが、そのバージョンがconfigurationテスト（次のセクションで説明）に失敗した場合、テストの結果は完全に正しいですが、操作的は有効ではありません。
+
+このような結果はinconvenient、適していません。
 
 <hr>
 
@@ -199,27 +197,29 @@ uncertainty、不確定性を管理し、ユーザーへのリスクを避ける
 
 > At Google, web service configurations are described in files that are stored in our version control system.
 
-Googleでは、Webサービスのconfigurationsは、バージョン管理システムに格納されているファイルに記述されています
-
 > For each configuration file, a separate configuration test examines production to see how a particular binary is actually configured and reports discrepancies against that file.
-
-各configurationファイルに対して、個別のconfigurationテストでは、実際に特定のバイナリーが実際にどのように構成されているかを確認し、そのファイルに対しての矛盾を報告します
 
 > Such tests are inherently not hermetic, as they operate outside the test infrastructure sandbox.
 
-このようなテストは、テストインフラストラクチャのサンドボックスの外部で動作するため、本質的にhermetic・密閉ではありません
+Googleでは、Webサービスのconfigurationsは、バージョン管理システムに格納されているファイルに記述されています。
+
+各configurationファイルに対して、個別のconfigurationテストでは、実際に特定のバイナリーが実際にどのように構成されているかを確認し、そのファイルに対しての矛盾を報告します。
+
+テストインフラストラクチャのサンドボックスの外部で動作するため、このようなテストは本質的にhermetic、密閉ではありません。
 
 > Configuration tests are built and tested for a specific version of the checked-in configuration file.
 
-configurationテストは、チェックインされたconfigurationファイルの特定のバージョンで構築され、テストされます。
-
 > Comparing which version of the test is passing in relation to the goal version for automation implicitly indicates how far actual production currently lags behind ongoing engineering work.
 
-自動化のために、テストのどのバージョンがgoalとなるバージョンに関連しているか比較すると、実際のproductionが進行中のエンジニアリング作業にどれだけ遅れているかが明示的に示されます？
+configurationテストは、チェックインされたconfigurationファイルの特定のバージョンで構築され、テストされます。
+
+自動化のために、テストのどのバージョンがgoalとなるバージョンに関連しているか比較すると、
+実際のproductionが現在進行中のエンジニアリング作業にどれだけ遅れているか、明示的に示されます。
 
 > These nonhermetic configuration tests tend to be especially valuable as part of a distributed monitoring solution since the pattern of passes/fails across production can identify paths through the service stack that don’t have sensible combinations of the local configurations.
 
-これらの密閉されていないconfigurationテストは、distributed monitoring solution・分散監視ソリューションの一部として特に役立ちます。
+これらの密閉されていないconfigurationテストは、distributed monitoring solution、分散監視ソリューションの一部として、特に役立ちます。
+
 これは、production全体でのpasses/faildのパターンが、ローカルのconfigurationsの合理的な組み合わせを持たないサービススタックを通じてパスを識別できるため？
 
 > The monitoring solution’s rules try to match paths of actual user requests (from the trace logs) against that set of undesirable paths.
