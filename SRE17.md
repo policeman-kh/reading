@@ -1,190 +1,175 @@
+# Chapter 17. Testing for Reliability
+
 ## Types of Software Testing
 
->Software tests broadly fall into two categories: traditional and production.
+> Software tests broadly fall into two categories: traditional and production.<br>
 
-ソフトウェアテストは、2つのカテゴリーに大きく分類されます<br>
-traditional と production
+> Traditional tests are more common in software development to evaluate the correctness of software offline, during development.<br>
 
->Traditional tests are more common in software development to evaluate the correctness of software offline, during development.
+> Production tests are performed on a live web service to evaluate whether a deployed software system is working correctly.
 
-traditional テストは、オフラインでソフトウェアの正確さを評価するソフトウェア開発でより一般的です。
-
->Production tests are performed on a live web service to evaluate whether a deployed software system is working correctly.
-
-プロダクションテストは、ライブWebサービス（オンラインのWebサービス）上で実行され、デプロイされたソフトウェアシステムが正しく機能しているかを評価します
+ソフトウェアテストは、2つのカテゴリーに大きく分類されます。traditional and production <br>
+traditional テストは、オフラインでソフトウェアの正確さを評価するソフトウェア開発でより一般的です。<br>
+production テストは、オンラインのWebサービス上で実行され、デプロイされたソフトウェアシステムが正しく機能しているかを評価します。
 
 ### Traditional Tests
 
 > As shown in Figure 17-1, traditional software testing begins with unit tests. Testing of more complex functionality is layered atop unit tests.
 
-図17-1に示すように、traditional ソフトウェアテストはunit(単体)テストから始まります。より複雑な機能のテストは、単体テストの上に階層化されています
+図17-1に示すように、traditional ソフトウェアテストは、unitテストから始まります。より複雑な機能のテストは、unitテストの上に階層化されています。
 
 #### UNIT TESTS
 
-> A unit test is the smallest and simplest form of software testing.
+> A unit test is the smallest and simplest form of software testing.<br>
 
-ユニットテストは、ソフトウェアのテストの最小かつ最も単純な形式です。
+> These tests are employed to assess a separable unit of software, such as a class or function, for correctness independent of the larger software system that contains the unit.<br>
 
-> These tests are employed to assess a separable unit of software, such as a class or function, for correctness independent of the larger software system that contains the unit.
-
-これらのテストは、ソフトウェアの分離可能なユニットを評価するために使用されます
-class または function　のような
-ユニットを含む大規模なソフトウェアシステムの独立した正しさを評価するために。
-
-> Unit tests are also employed as a form of specification to ensure that a function or module exactly performs the behavior required by the system.
-
-ユニットテストは、functionまたはモジュールがシステムに要求される動作を正確に実行することを保証するための仕様の形式(form of specification)としても採用されている
+> Unit tests are also employed as a form of specification to ensure that a function or module exactly performs the behavior required by the system.<br>
 
 > Unit tests are commonly used to introduce test-driven development concepts.
 
+ユニットテストは、ソフトウェアのテストの最小かつ最も単純な形式です。<br>
+これらのテストは、ユニットを含む大規模なソフトウェアシステムの独立した正しさを評価するために、<br>
+class または functionのような、ソフトウェアの分離可能なユニットを評価するために使用されます。<br>
+unitテストは、functionまたはmoduleがシステムに要求される動作を正確に実行することを保証するためのform of specification、仕様の形式としても採用されています。<br>
 unitテストは、test-drivenな開発の概念を導入するために一般的に使用されます。
 
 #### INTEGRATION TESTS
 
-> Software components that pass individual unit tests are assembled into larger components.
+> Software components that pass individual unit tests are assembled into larger components.<br>
 
-個々のunitテストをpassするソフトウェアコンポーネントは、より大きなコンポーネントにアセンブル・集約されます
+> Engineers then run an integration test on an assembled component to verify that it functions correctly.<br>
 
-> Engineers then run an integration test on an assembled component to verify that it functions correctly.
-
-エンジニアは集約されたコンポーネントのintegrationテストを実行して、正しく機能することを確認します。
-
-> Dependency injection, which is performed with tools such as Dagger, is an extremely powerful technique for creating mocks of complex dependencies so that an engineer can cleanly test a component.
-
-Google Daggerのようなツールで実行されるDependency injectionは、エンジニアがcleanly・きれいにコンポーネントをテストすることができるように、複雑な依存関係のモックを作成するための非常に強力なテクニックです
+> Dependency injection, which is performed with tools such as Dagger, is an extremely powerful technique for creating mocks of complex dependencies so that an engineer can cleanly test a component.<br>
 
 > A common example of a dependency injection is to replace a stateful database with a lightweight mock that has precisely specified behavior.
 
-dependency injectionの一般的な例は、ステートフルなデータベースを、特定の振る舞いを正確に指定された軽量のモックで置き換えることです。
+個々のunitテストをpassするソフトウェアコンポーネントは、より大きなコンポーネントにassembled、組み立てられます。<br>
+エンジニアは集約されたコンポーネントのintegrationテストを実行して、正しく機能することを確認します。<br>
+Google Daggerのようなツールで実行されるDependency injectionは、エンジニアがcleanly、きれいにコンポーネントをテストすることができるように、複雑な依存関係のモックを作成するための非常に強力なテクニックです。<br>
+dependency injectionの一般的な例は、ステートフルなデータベースを特定の振る舞いを正確に指定された軽量のモックで置き換えることです。
 
 #### SYSTEM TESTS
 
-> A system test is the largest scale test that engineers run for an undeployed system.
+> A system test is the largest scale test that engineers run for an undeployed system.<br>
 
-システムテストは、エンジニアがまだデプロイされていないシステムのために実行する最もスケールの大きなテストです。
-
-> All modules belonging to a specific component, such as a server that passed integration tests, are assembled into the system.
-
-特定のコンポーネントに属するすべてのモジュール、例えば、integrationテストをpassしたサーバーは、システムに組み込まれます。
+> All modules belonging to a specific component, such as a server that passed integration tests, are assembled into the system.<br>
 
 > Then the engineer tests the end-to-end functionality of the system. System tests come in many different flavors:
 
-その後、エンジニアはシステムのエンドツーエンド機能をテストします。システムテストにはたくさんの異なるflavors・趣向、種類・目的があります
+システムテストは、エンジニアがまだデプロイされていないシステムのために実行する最もスケールの大きなテストです。<br>
+特定のコンポーネントに属するすべてのモジュール、例えば、integrationテストをpassしたサーバーは、システムに組み込まれます。<br>
+その後、エンジニアはシステムのエンドツーエンド機能をテストします。システムテストにはたくさんの異なるflavors、趣向？種類？目的があります。
 
-* Smoke tests
+##### Smoke tests
 
-> Smoke tests, in which engineers test very simple but critical behavior, are among the simplest type of system tests.
-
-Smoke testsは、エンジニアが非常にシンプルで、しかしクリティカルな振る舞いをテストする、最もシンプルなタイプのシステムテストです
+> Smoke tests, in which engineers test very simple but critical behavior, are among the simplest type of system tests.<br>
 
 > Smoke tests are also known as sanity testing, and serve to short-circuit additional and more expensive testing.
 
-Smoke testsはsanity testingとも知られ、short-circuitな追加で、より高価値なテストをする役割を果たします。
+* Smoke test = プログラムの必須機能が正常に動作することを確認するのが目的で、コンポーネントやシステムの主要機能を網羅し、細かな点は無視するテスト。テスト部門／テスト担当者の作業効率化
 
-http://www.qbook.jp/qpterm/search?keyword=smoke%20test&link=1
-プログラムの必須機能が正常に動作することを確認するのが目的で、コンポーネントやシステムの主要機能を網羅し、細かな点は無視するひ
+Smoke testsは、エンジニアが非常にシンプルで、しかしクリティカルな振る舞いをテストする、最もシンプルなタイプのシステムテストです。<br>
+Smoke testsはsanity testingとも知られ、short-circuitな追加で、よりexpensive、高価値なテストをする役割を果たします。
 
-* Performance tests
+##### Performance tests
 
-> Once basic correctness is established via a smoke test, a common next step is to write another variant of a system test to ensure that the performance of the system stays acceptable over the duration of its lifecycle.
-
-スモークテストによって基本的な正しさが確立されたら、次の共通のステップは、
-システムのパフォーマンスが、そのライフサイクル全体にわたって許容可能な状態を保つために
-システムテストのanother variant・別の変形を記述することです
+> Once basic correctness is established via a smoke test, a common next step is to write another variant of a system test to ensure that the performance of the system stays acceptable over the duration of its lifecycle.<br>
 
 > Because response times for dependencies or resource requirements may change dramatically during the course of development, a system needs to be tested to make sure that it doesn’t become incrementally slower without anyone noticing (before it gets released to users).
 
-dependenciesやリソース要件の応答時間は開発の過程で劇的に変化する可能性があるため、
-誰もは気づかないよう（ユーザーにリリースされる前に）徐々に遅くならないようにシステムをテストする必要があります
-
 > For example, a given program may evolve to need 32 GB of memory when it formerly only needed 8 GB, or a 10 ms response time might turn into 50 ms, and then into 100 ms.
-
-たとえば、
-与えられたプログラムは以前は8GBしか必要ない時、32GBのメモリが必要になるよう進化する、
-もしくは10 msの応答時間が50msになり、さらに100 msになるかもしれない。
 
 > A performance test ensures that over time, a system doesn’t degrade or become too expensive.
 
-パフォーマンステストでは、時間がたつにつれてシステムが退化しないこと、あまりにも高価（システム処理時間が長い・リソースを多く使う？）にならないことを保証します
+スモークテストによって基本的な正しさが確立されたら、次の共通のステップは、システムのパフォーマンスが、そのライフサイクル全体にわたって許容可能な状態を保つために、システムテストのanother variant、別の変形を記述することです。<br>
+dependenciesやリソース要件の応答時間は開発の過程で劇的に変化する可能性があるため、誰もは気づかないよう（ユーザーにリリースされる前に）徐々に遅くならないように、システムをテストする必要があります。<br>
+たとえば、与えられたプログラムは以前は8GBしか必要なかったのみ、32GBのメモリが必要になるよう進化したり、<br>
+もしくは10 msの応答時間が50msになり、さらに100 msになるかもしれません。<br>
+パフォーマンステストでは、時間がたつにつれてシステムが退化しないこと、あまりにexpensive、システム処理時間が長い・リソースを多く使うようにならないことを保証します。
 
-* Regression tests
+##### Regression tests
 
-> Another type of system test involves preventing bugs from sneaking back into the codebase.
+> Another type of system test involves preventing bugs from sneaking back into the codebase.<br>
 
-もう1つのタイプのシステムテストでは、バグがコードベースに逆戻りするのを防ぎます
+> Regression tests can be analogized to a gallery of rogue bugs that historically caused the system to fail or produce incorrect results.<br>
 
-> Regression tests can be analogized to a gallery of rogue bugs that historically caused the system to fail or produce incorrect results.
+> By documenting these bugs as tests at the system or integration level, engineers refactoring the codebase can be sure that they don’t accidentally introduce bugs that they’ve already invested time and effort to eliminate.<br>
 
-Regressionテストは、歴史的なシステムの失敗や不正な結果を生んだ不正なバグのギャラリーを類推することができます
+もう1つのタイプのシステムテストでは、バグがコードベースに逆戻りするのを防ぎます。<br>
+Regressionテストは、歴史的なシステムの失敗や不正な結果を生んだバグのギャラリーを類推することができます。<br>
 
-> By documenting these bugs as tests at the system or integration level, engineers refactoring the codebase can be sure that they don’t accidentally introduce bugs that they’ve already invested time and effort to eliminate.
+これらのバグをシステムまたはintegrationレベルでのテストとして文書化することで、<br>
+コードベースをリファクタリングするエンジニアは、排除するために時間と労力を投資したバグを誤って導入しないことを確信することができます。
 
-これらのバグをシステムまたはintegrationレベルでのテストとして文書化することで、コードベースをリファクタリングするエンジニアは、
-排除するために時間と労力を投資したバグを誤って導入しないことを確信することができます。
-
-> It’s important to note that tests have a cost, both in terms of time and computational resources.
-
-テストには時間と余剰リソースの両面でコストがかかることに注意することが重要です
+> It’s important to note that tests have a cost, both in terms of time and computational resources.<br>
 
 > At one extreme, unit tests are very cheap in both dimensions, as they can usually be completed in milliseconds on the resources available on a laptop.
 
-極端なところで、unitテストは通常​​、laptopの利用可能なリソースでミリ秒単位で完了できるため、両方の面で非常に安価です
-
 > At the other end of the spectrum, bringing up a complete server with required dependencies (or mock equivalents) to run related tests can take significantly more time—from several minutes to multiple hours—and possibly require dedicated computing resources.
-
-一方で、関連するテストを実行するのに必要なdependencies（あるいはモック同等物）を備えた完全なサーバーを起動すると、数分から数時間という非常に長い時間がかかり、専用のコンピューティングリソースが必要になる可能性があります
 
 > Mindfulness of these costs is essential to developer productivity, and also encourages more efficient use of testing resources.
 
+テストには時間と余剰リソースの両面でコストがかかることに注意することが重要です。<br>
+極端なところで、unitテストは通常​​laptopの利用可能なリソースでミリ秒単位で完了できるため、両方の面で非常に安価です。<br>
+一方で、関連するテストを実行するのに必要なdependencies（あるいは、モック）を備えた完全なサーバーを起動すると、<br>
+数分から数時間という非常に長い時間がかかり、専用のコンピューティングリソースが必要になる可能性があります。<br>
 これらのコストを心に留めておくことは、開発者の生産性にとって不可欠であり、テストリソースの効率的な使用を促進します。
 
 #### Production Tests
 
 > Production tests interact with a live production system, as opposed to a system in a hermetic testing environment.
 
-Productionテストは、密封されたテスト環境のシステムとは対照的に、実際に動作しているproductionシステムに影響します。
-
 > These tests are in many ways similar to black-box monitoring (see Chapter 6), and are therefore sometimes called black-box testing. Production tests are essential to running a reliable production service.
 
+Productionテストは、hermetic、密閉されたテスト環境のシステムとは対照的に、実際に動作しているproductionシステムに影響します。<br>
 これらのテストは、多くの点でブラックボックスモニタリング（第6章を参照）と似ています。したがって、ブラックボックステストと呼ばれることもあります。Productionテストは信頼できるproductionサービスを実行する上で不可欠です。
 
 <hr>
-#### ROLLOUTS ENTANGLE TESTS
+##### ROLLOUTS ENTANGLE TESTS
 
 ロールアウトに絡むテスト？
 
 > It’s often said that testing is (or should be) performed in a hermetic environment [Nar12].
 
-密封された環境でテストが実行されることが多いと言われています
-
-https://testing.googleblog.com/2012/10/hermetic-servers.html
-
 > This statement implies that production is not hermetic.
-
-この声明は、productionが密封されていないことを意味しています
 
 > Of course, production usually isn’t hermetic, because rollout cadences make live changes to the production environment in small and well-understood chunks.
 
-もちろん、productionは密封されていません。なぜなら、ロールアウトのリズムは、プロダクション環境を小規模でよく理解されたチャンク・かたまりで、実際に変更されるからです
+密閉された環境でテストが実行されることが多いと言われています。
+```
+[Nar12]　Hermetic Servers：
+https://testing.googleblog.com/2012/10/hermetic-servers.html
+
+Hermetic Serversとは、ネットワーク接続のない単一のマシンで構成され、
+テスト時、外部・バックエンドサーバに通信する場合はMockで構成する。
+```
+
+この声明は、productionが密閉されていないことを意味しています。<br>
+もちろん、productionは密閉されていません。<br>
+なぜなら、ロールアウトのリズムは、プロダクション環境を小規模でよく理解されたchunks、かたまりで、実際に変更されるからです。
 
 > To manage uncertainty and hide risk from users, changes might not be pushed live in the same order that they were added to source control.
 
-不確定性を管理し、ユーザーへのリスクを避けるために、ソース管理に追加されたのと同じ順序・タイミングで変更を反映させることはできません。
-
 > Rollouts often happen in stages, using mechanisms that gradually shuffle users around, in addition to monitoring at each stage to ensure that the new environment isn’t hitting anticipated yet unexpected problems.
-
-ロールアウトは、段階的に行われ、ユーザーを段階的にシャッフルするメカニズムを使用し、
-加えて新しい環境が予想外の予期しない問題を引き起こさないことを確実にするために各段階で　監視を行っている。
 
 > As a result, the entire production environment is intentionally not representative of any given version of a binary that’s checked into source control.
 
-その結果、production環境全体が、ソース管理にチェックインされた任意のバージョンのバイナリを故意に表していない。
+uncertainty、不確定性を管理し、ユーザーへのリスクを避けるために、ソース管理に追加されたのと同じ順序・タイミングで変更を反映させることはできません。<br>
+
+ロールアウトは、段階的に行われ、ユーザーを段階的にシャッフル？するメカニズムを使用し、<br>
+加えて、新しい環境が予期しない問題を引き起こさないことを確実にするために、各段階で監視を行っています。<br>
+
+その結果、production環境全体がソース管理にチェックインされた任意のバージョンのバイナリを故意に表していません。<br>
+= chunk毎にRolloutされるため、production環境全体が特定のバージョンで構成されるわけではない？
 
 > It’s possible for source control to have more than one version of a binary and its associated configuration file waiting to be made live.
 
-ソース管理で1つ以上のバージョンのバイナリと、有効になる？のを待つ、それに関連付けられたconfigurationファイルを保持することは可能です。
-
 > This scenario can cause problems when tests are conducted against the live environment.
+
+ソース管理で、本番リリースされるのを待つ、1つ以上のバージョンのバイナリとそれに関連付けられたconfigurationファイルを保持することは可能です。<br>
+
+
 
 このシナリオは、ライブ環境に対してテストが実行されるときに問題を引き起こすことができる
 
