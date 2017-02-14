@@ -218,37 +218,37 @@ configurationテストは、チェックインされたconfigurationファイル
 
 > These nonhermetic configuration tests tend to be especially valuable as part of a distributed monitoring solution since the pattern of passes/fails across production can identify paths through the service stack that don’t have sensible combinations of the local configurations.
 
-これらの密閉されていないconfigurationテストは、distributed monitoring solution、分散監視ソリューションの一部として、特に役立ちます。
-
-これは、production全体でのpasses/faildのパターンが、ローカルのconfigurationsの合理的な組み合わせを持たないサービススタックを通じてパスを識別できるため？
-
 > The monitoring solution’s rules try to match paths of actual user requests (from the trace logs) against that set of undesirable paths.
-
-monitoringソリューションのルールは、望ましくないパスのセットに反して（トレースログからの）実際のユーザーリクエストと照合しようとします。
 
 > Any matches found by the rules become alerts that ongoing releases and/or pushes are not proceeding safely and remedial action is needed.
 
-ルールによって検出されたこの一致は、進行中のリリース、および/または　プッシュが安全に進まず、是正措置が必要である。というアラートになる？
+これらの密閉されていないconfigurationテストは、<br>
+プロダクション全体でのパス/フェイルのパターンは、ローカルスタック構成の合理的な組み合わせを持たないサービススタックを通るパスを識別することができるので、<br>
+distributed monitoring solution、分散監視ソリューションの一部として、特に役立ちます。
+
+monitoringソリューションのルールは、実際のユーザーリクエストのパス（トレースログからの）を望ましくないパスのセットと照合しようとします。
+
+ルールによって検出された一致は、進行中のリリース または/あるい プッシュが安全に進行しておらず、是正処置が必要であるというアラートになります。？
 
 > Configuration tests can be very simple when the production deployment uses the actual file content and offers a real-time query to retrieve a copy of the content.
 
-production deploymentで実際のファイルコンテンツが使用され、コンテンツのコピーを取得するためのリアルタイムクエリが提供される場合、configurationテストは非常にシンプルに実施できます
-
 > In this case, the test code simply issues that query and diffs the response against the file.
 
-この場合、テストコードは単にそのクエリを発行し、ファイルに対する応答を比較します。
-
 > The tests become more complex when the configuration does one of the following:
+
+production deploymentで実際のファイルコンテンツが使用され、コンテンツのコピーを取得するためのリアルタイムクエリが提供される場合、configurationテストは非常にシンプルに実施できます。
+
+この場合、テストコードは単にそのクエリを発行し、ファイルに対する応答を比較します。
 
 configurationが次のいずれかを実行するとき、テストはより複雑になります。
 
 * Implicitly incorporates defaults that are built into the binary (meaning that the tests are separately versioned as a result)
 
-バイナリに組み込まれているデフォルトを暗黙的に組み入れる（テストが結果として、結果が別々にバージョン管理されることを意味する）
+バイナリに組み込まれているデフォルトを暗黙的に組み入れる（テスト結果が別々にバージョン化されていることを意味する）
 
 * Passes through a preprocessor such as bash into command-line flags (rendering the tests subject to expansion rules)
 
-bashなどのプリプロセッサを通じて、コマンドラインフラグにpassする（テストを拡張ルールの対象とする）
+bashなどのプリプロセッサを通じて、コマンドラインフラグに渡す（テストを拡張ルールの適用する）
 
 * Specifies behavioral context for a shared runtime (making the tests depend on that runtime’s release schedule)
 
@@ -258,19 +258,19 @@ bashなどのプリプロセッサを通じて、コマンドラインフラグ�
 
 > In order to safely operate a system, SREs need to understand the limits of both the system and its components.
 
-安全にシステムを運用するためには、SREはシステムとそのコンポーネントの両方の限界を理解する必要があります。
-
 > In many cases, individual components don’t gracefully degrade beyond a certain point—instead, they catastrophically fail.
-
-多くの場合、個々のコンポーネントは特定のポイントを超えて、gracefully・優雅に退化するのではなく、壊滅的に失敗します
 
 > Engineers use stress tests to find the limits on a web service.
 
-エンジニアはWebサービスの制限を見つけるために、ストレステストを使用します
-
 > Stress tests answer questions such as:
 
-ストレステストは次のような質問に答えます
+安全にシステムを運用するためには、SREはシステムとそのコンポーネントの両方の限界を理解する必要があります。
+
+多くの場合、個々のコンポーネントは特定のポイントを超えて、gracefully、優雅に退化するのではなく、壊滅的に失敗します。
+
+エンジニアはWebサービスの制限を見つけるために、ストレステストを使用します。
+
+ストレステストは次のような質問に答えます。
 
 * How full can a database get before writes start to fail?
 
@@ -284,67 +284,68 @@ bashなどのプリプロセッサを通じて、コマンドラインフラグ�
 
 > The canary test is conspicuously absent from this list of production tests.
 
-canary testは、production testのリストから著しく欠けている
-
 > The term canary comes from the phrase “canary in a coal mine,” and refers to the practice of using a live bird to detect toxic gases before humans were poisoned.
 
-“canaryという言葉は、「canary in a coal mine、炭鉱のカナリア」というフレーズに由来し、人間が毒される前に有毒ガスを検出するため、鳥を使用したプラクティスを参照している。
+canary testは、production testのリストから著しく欠けています。
+
+canaryという言葉は、「canary in a coal mine、炭鉱のカナリア」というフレーズに由来し、人間が毒される前に有毒ガスを検出するため、鳥を使用したプラクティスを参照しています。
 
 > To conduct a canary test, a subset of servers is upgraded to a new version or configuration and then left in an incubation period.
 
-canary testを実施するには、サーバーのサブセットを新しいバージョン、または新しいconfigurationにアップグレードし、incubation period、潜伏期間　放置する
+> Should no unexpected variances occur, the release continues and the rest of the servers are upgraded in a progressive fashion.
 
-> Should no unexpected variances occur, the release continues and the rest of the servers are upgraded in a progressive fashion.4
+canary testを実施するには、サーバーのサブセットを新しいバージョン、または新しいconfigurationにアップグレードし、incubation period、潜伏期間の間、放置します。
 
-予期しない差異が発生しなければ、リリースは続行され、残りのサーバーは段階的にアップグレードされます
+予期しない差異が発生しなければ、リリースは続行され、残りのサーバーは段階的にアップグレードされます。
 
-> 4 -  A standard rule of thumb is to start by having the release impact 0.1% of user traffic, and then scaling by orders of magnitude every 24 hours while varying the geographic location of servers being upgraded (then on day 2: 1%, day 3: 10%, day 4: 100%).
+> 4- A standard rule of thumb is to start by having the release impact 0.1% of user traffic, and then scaling by orders of magnitude every 24 hours while varying the geographic location of servers being upgraded (then on day 2: 1%, day 3: 10%, day 4: 100%).
 
-標準的な経験則では、リリースがユーザートラフィックの0.1％に影響を与えてから、アップグレードするサーバーの地理的な位置を変えながら（24時間ごとに次数をスケーリングします（2日目：1％、3日目： 10％、4日目：100％）。
+4 - 標準的な経験則は、リリースがユーザートラフィックの0.1％に影響を与えることから始め、アップグレードするサーバーの地理的な位置を変えながら、24時間ごとにスケーリングします（2日目：1％、3日目： 10％、4日目：100％）。
 
 > Should anything go awry, the single modified server can be quickly reverted to a known good state.
 
-何かがうまくいかない場合は、単一の変更されたサーバーを既知の正常な状態にすばやく戻すことができます
-
 > We commonly refer to the incubation period for the upgraded server as “baking the binary.”
 
-アップグレードされたサーバーの潜伏期間は、通常、“baking the binary” と呼ばれます
+何かがうまくいかない場合は、単一の変更されたサーバーを既知の正常な状態にすばやく戻すことができます。
+
+アップグレードされたサーバーの潜伏期間は、通常、“baking the binary” と呼ばれます。
 
 > A canary test isn’t really a test; rather, it’s structured user acceptance.
 
-canaryテストは実際、テストではありません。むしろ、それは構造化されたユーザーの受け入れです
-
 > Whereas configuration and stress tests confirm the existence of a specific condition over deterministic software, a canary test is more ad hoc.
-
-configurationテストとstressテストでは、確定的なソフトウェアに対する特定の条件の存在が確認されますが、canary testはよりad hocです。
 
 > It only exposes the code under test to less predictable live production traffic, and thus, it isn’t perfect and doesn’t always catch newly introduced faults.
 
-テスト対象のコードは予測できないproductionトラフィックにしか公開されないため、完全ではなく、いつも新たに導入された障害を検出するとは限りません。
+canaryテストは実際、テストではありません。むしろ、それは構造化されたユーザーの受け入れです。
+
+configurationテストとstressテストでは、確定的なソフトウェアに対する特定の条件の存在が確認されますが、canary testはよりad hocです。
+
+テスト対象のコードは予測できないproductionトラフィックにしか公開されないため、パーフェクトではなく、いつも新たに導入された障害を検出するとは限りません。
 
 > To provide a concrete example of how a canary might proceed:
 
-canaryがどのように進んでいくかの具体的な例を提供する
-
 > consider a given underlying fault that relatively rarely impacts user traffic and is being deployed with an upgrade rollout that is exponential.
-
-ユーザーのトラフィックに比較的ほとんど影響を与えず、急激なアップグレード、ロールアウトで展開されている根本的な障害を検討してください
 
 > We expect a growing cumulative number of reported variances "CU = RK"  where  R is the rate of those reports, U is the order of the fault (defined later), and K is the period over which the traffic grows by a factor of e, or 172%. 5
 
-報告されたvariances、分散の累積数の増加「CU = RK」が予想されます。ここで、Rはレポートの割合、Uは障害の順序（後述）、Kはトラフィックがe倍または172% になる期間です
+canaryがどのように進んでいくかの具体的な例を提供します。
+
+ユーザーのトラフィックに比較的ほとんど影響を与えず、急激なアップグレード、ロールアウトで展開されている根本的な障害を検討してください。
+
+報告されたvariances、分散の累積数の増加「CU = RK」が予想されます。<br>
+ここで、Rはレポートの割合、Uは障害の順序（後述）、Kはトラフィックがe倍または172% になる期間です。
 
 > In order to avoid user impact, a rollout that triggers undesirable variances needs to be quickly rolled back to the prior configuration.
 
-ユーザーの影響を避けるために、望ましくない差異を引き起こすロールアウトをすばやく以前の構成にロールバックする必要があります。
-
 > In the short time it takes automation to observe the variances and respond, it is likely that several additional reports will be generated.
-
-短時間では、variances、分散を観察して対応するために自動化が必要ですが、いくつかの追加レポートが生成される可能性があります。
 
 > Once the dust has settled, these reports can estimate both the cumulative number C and rate R.
 
-いったん物事が落ち着くと、これらの報告は累積数CとRの両方を推定することができる。
+ユーザーの影響を避けるために、望ましくない差異を引き起こすロールアウトは、すばやく以前の構成にロールバックする必要があります。
+
+短時間では、variances、分散を観察して対応するために自動化が行われますが、いくつかの追加レポートが生成される可能性があります。
+
+いったん物事が落ち着くと、これらの報告は累積数CとRの両方を推定することができます。
 
 > Dividing and correcting for K gives an estimate of U, the order of the underlying fault. 6 Some examples:
 
@@ -364,59 +365,57 @@ Kを分割して訂正すると、基礎となる断層の次数であるUの推
 
 > Most bugs are of order one: they scale linearly with the amount of user traffic [Per07].
 
-ほとんどのバグは1 番です。ユーザーのトラフィック量に比例して大きくなります
-
 > You can generally track down these bugs by converting logs of all requests with unusual responses into new regression tests.
-
-一般的に、異常なresponseを伴うすべてのリクエストのログを新しいregressionテストに変換することで、これらのバグを追跡することができる
 
 > This strategy doesn’t work for higher-order bugs; a request that repeatedly fails if all the preceding requests are attempted in order will suddenly pass if some requests are omitted.
 
-この戦略はhigher-orderのバグでは機能しません。先行するすべてのリクエストが順番に試行された場合に繰り返し失敗するリクエストは、いくつかのリクエストが省略された場合に突然passするようになる
-
 > It is important to catch these higher-order bugs during release, because otherwise, operational workload can increase very quickly.
 
-そうしないと、operational workload、操作上の作業負荷が非常に迅速に増加する可能性があるので、リリース中にこれらの高次のバグをキャッチすることは重要です
+ほとんどのバグはU=1です。ユーザーのトラフィック量に比例して大きくなります。
+
+一般的に、異常なresponseを伴うすべてのリクエストのログを新しいregressionテストに変換することで、これらのバグを追跡することができます。
+
+この戦略はhigher-orderのバグでは機能しません。先行するすべてのリクエストが順番に試行された場合に繰り返し失敗するリクエストは、いくつかのリクエストが省略された場合に突然passするようになります。
+
+そうしないと、operational workload、操作上の作業負荷が非常に迅速に増加する可能性があるので、リリース中にこれらのhigher-orderなバグをキャッチすることは重要です。
 
 > Keeping the dynamics of higher- versus lower-order bugs in mind, when you are using an exponential rollout strategy, it isn’t necessary to attempt to achieve fairness among fractions of user traffic.
 
-higher- versus lower-order、上位から下位のバグの動向を念頭に置いて、指数的なrollout戦略を使用している場合は、ユーザートラフィックの一部の間で公平性を果たす必要はありません
-
 > As long as each method for establishing a fraction uses the same K interval, the estimate of U will be valid even though you can’t yet determine which method was instrumental in illuminating the fault.
-
-端数を設定する各方法が同じ K 間隔を使用する限り、どの方法が障害を照らしているのかをまだ判断できない場合でも、Uの見積もりは有効です。
 
 > Using many methods sequentially while permitting some overlap keeps the value of K small.
 
-いくつかのオーバーラップを許可しながら、多くのメソッドを順番に使用すると、Kの値は小さく保たれます。
-
 > This strategy minimizes the total number of user-visible variances C while still allowing an early estimate of U (hoping for 1, of course).
 
-この戦略は、ユーザーの視認可能な分散Cの総数を最小限に抑えながら、Uの早期推定を可能にします（もちろん、1を希望します）。
+higher-versus lower-order、上位から下位のバグの動向を念頭に置いて、指数的なロールアウト戦略を使用している場合は、ユーザートラフィックの一部に公平性を果たす必要はありません。
+
+端数を設定する各方法が同じ K 間隔を使用する限り、どの方法が障害を照らしているのかをまだ判断できない場合でも、Uの見積もりは有効です。
+
+いくつかのオーバーラップを許可しながら、多くのメソッドを順番に使用すると、Kの値は小さく保たれます。
+
+この戦略は、ユーザーの視認可能な分散Cの総数を最小限に抑えながら、Uの早期推定を可能にします。（もちろん、1を希望します）。
 
 ## Creating a Test and Build Environment
 
 > While it’s wonderful to think about these types of tests and failure scenarios on day one of a project, frequently SREs join a developer team when a project is already well underway—once the team’s project validates its research model, its library proves that the project’s underlying algorithm is scalable, or perhaps when all of the user interface mocks are finally acceptable.
 
-プロジェクトの初日にこれらのタイプのテストと失敗シナリオを考えるのは素晴らしいことですが、プロジェクトが既に進行中の場合、頻繁にSREが開発チームに加わります
-
-そのチームのプロジェクトは、その研究モデルを検証し、
-そのライブラリは、プロジェクトの基礎となるアルゴリズムがスケーラブルであり、
-または、おそらくすべてのユーザインターフェースモックが最終的に受け入れ可能である時点です。
-
 > The team’s codebase is still a prototype and comprehensive testing hasn’t yet been designed or deployed.
-
-チームのコードベースはまだプロトタイプであり、包括的なテストはまだ設計または展開されていません。
 
 > In such situations, where should your testing efforts begin?
 
-このような状況では、テストの作業はどこから始めるべきですか？
-
 > Conducting unit tests for every key function and class is a completely overwhelming prospect if the current test coverage is low or nonexistent.
 
-現在のテストカバレッジが低いか存在しない場合は、すべてのfunctionとクラスごとにunitテストを実行することはoverwhelming prospect、完全な見通しです。
-
 > Instead, start with testing that delivers the most impact with the least effort.
+
+プロジェクトの初日にこれらのタイプのテストと失敗シナリオを考えるのは素晴らしいことですが、プロジェクトが既に進行中の場合、頻繁にSREが開発チームに加わります。
+
+そのチームのプロジェクトは、その研究モデルを検証し、そのライブラリはプロジェクトの基礎となるアルゴリズムがスケーラブルであり、または、おそらくすべてのユーザインターフェースモックが最終的に受け入れ可能である時点です。
+
+チームのコードベースはまだプロトタイプであり、包括的なテストはまだ設計または展開されていません。
+
+このような状況では、テストの作業はどこから始めるべきですか？
+
+現在のテストカバレッジが低いか存在しない場合は、すべてのfunctionとクラスごとにunitテストを実行することはoverwhelming prospect、完全な見通し・見込みです。
 
 代わりに、最小の労力で最も大きな影響を与えるテストから始めます。
 
@@ -426,70 +425,71 @@ higher- versus lower-order、上位から下位のバグの動向を念頭に置
 
 * Can you prioritize the codebase in any way? To borrow a technique from feature development and project management, if every task is high priority, none of the tasks are high priority. Can you stack-rank the components of the system you’re testing by any measure of importance?
 
-コードベースの優先順位を決めることはできますか？ featureの開発とプロジェクト管理から技術を借用するために、すべてのタスクが優先度が高い場合は優先度の高いタスクはありません。
+コードベースの優先順位を決めることはできますか？ <br>
+featureの開発とプロジェクト管理から技術を借用するために、すべてのタスクが優先度が高い場合は優先度の高いタスクはありません。<br>
 重要な尺度でテストしているシステムのコンポーネントをスタック・ランク付けできますか？
 
 * Are there particular functions or classes that are absolutely mission-critical or business-critical? For example, code that involves billing is a commonly business-critical. Billing code is also frequently cleanly separable from other parts of the system.
 
-ミッションクリティカルまたはビジネスクリティカルな特定のfuncionやクラスはありますか？
+ミッションクリティカルまたはビジネスクリティカルな特定のfuncionやクラスはありますか？<br>
 たとえば、billingを含むコードは一般的にビジネスクリティカルです。 billingコードは、しばしばシステムの他の部分からきれいに分離可能です。
 
 * Which APIs are other teams integrating against? Even the kind of breakage that never makes it past release testing to a user can be extremely harmful if it confuses another developer team, causing them to write wrong (or even just suboptimal) clients for your API.
 
-他のチームと統合しているAPIはどれですか？
-過去のリリーステストがユーザに行わないような破壊であっても、非常に有害である可能性があり
+他のチームと統合しているAPIはどれですか？<br>
+過去のリリーステストがユーザに行わないような破壊であっても、非常に有害である可能性があり、<br>
 別のデベロッパーチームを混乱させて、あなたのAPI用に間違った（あるいは最適でない）クライアントを作成することになります。
 
 > Shipping software that is obviously broken is among the most cardinal sins of a developer.
 
-明らかに壊れているソフトウェアの出荷は、開発者の最も重い罪の1つです。
-
 > It takes little effort to create a series of smoke tests to run for every release.
-
-すべてのリリースで実行する一連のsmokeテストを作成するのにはほとんど手間がかかりません。
 
 > This type of low-effort, high-impact first step can lead to highly tested, reliable software.
 
-このタイプの低労力、インパクトの高い第1ステップは、高度にテストされた信頼性の高いソフトウェアにつながります。
+明らかに壊れているソフトウェアの出荷は、開発者の最も重い罪の1つです。
+
+すべてのリリースで実行する一連のsmokeテストを作成するのにはほとんど手間がかかりません。
+
+このタイプのlow-effort、低労力、high-impact、インパクトの高いfirstステップは、高度にテストされた信頼性の高いソフトウェアにつながります。
 
 > One way to establish a strong testing culture is to start documenting all reported bugs as test cases.
 
-強力なテスト文化を確立する1つの方法は、テストケースとして報告されたすべてのバグを文書化することです。
-
 > If every bug is converted into a test, each test is supposed to initially fail because the bug hasn’t yet been fixed.
 
-すべてのバグがテストに変換された場合、バグがまだ修正されていないため、最初にテストが失敗するはずです。
-
 > As engineers fix the bugs, the software passes testing and you’re on the road to developing a comprehensive regression test suite.
+
+強力なテスト文化を確立する1つの方法は、テストケースとして報告されたすべてのバグを文書化することです。
+
+すべてのバグがテストに変換された場合、バグがまだ修正されていないため、最初にテストが失敗するはずです。
 
 エンジニアがバグを修正すると、ソフトウェアはテストに合格し、包括的なregressionテストスイートを開発する道を歩んでいます。
 
 > Another key task for creating well-tested software is to set up a testing infrastructure.
 
-十分にテストされたソフトウェアを作成するためのもう1つの重要なタスクは、テストインフラストラクチャをセットアップすることです。
-
 > The foundation for a strong testing infrastructure is a versioned source control system that tracks every change to the codebase.
+
+十分にテストされたソフトウェアを作成するためのもう1つの重要なタスクは、テストインフラストラクチャをセットアップすることです。
 
 強力なテストインフラストラクチャの基礎は、コードベースのあらゆる変更を追跡する、バージョン管理されたソース管理システムです。
 
 > Once source control is in place, you can add a continuous build system that builds the software and runs tests every time code is submitted.
 
-ソース管理が完了すると、ソフトウェアをビルドし、コードがsubmitされるたびにテストを実行する継続的なビルドシステムを追加することができます。
-
 > We’ve found it optimal if the build system notifies engineers the moment a change breaks a software project.
-
-ビルドシステムが、変更がソフトウェアプロジェクトを中断させた瞬間をエンジニアに通知することが最適であるとわかりました。
 
 > At the risk of sounding obvious, it’s essential that the latest version of a software project in source control is working completely.
 
-At the risk of sounding obvious、わかりきったことですが、
-ソース管理のソフトウェアプロジェクトの最新バージョンが完全に機能することが不可欠です。
-
 > When the build system notifies engineers about broken code, they should drop all of their other tasks and prioritize fixing the problem.
 
-ビルドシステムがエンジニアに壊れたコードを通知すると、他のすべてのタスクを削除し、問題の解決に優先順位を付けるべきです。
-
 > It is appropriate to treat defects this seriously for a few reasons:
+
+ソース管理が完了すると、ソフトウェアをビルドし、コードがsubmitされるたびにテストを実行する継続的なビルドシステムを追加することができます。
+
+私たちは、変更がソフトウェアプロジェクトを中断させた瞬間をエンジニアに通知するビルドシステムが最適であるとわかりました。
+
+At the risk of sounding obvious、わかりきったことですが、<br>
+ソース管理のソフトウェアプロジェクトの最新バージョンが完全に機能することが不可欠です。
+
+ビルドシステムがエンジニアに壊れたコードを通知すると、他のすべてのタスクを中断し、問題の解決に優先順位を付けるべきです。
 
 それはいくつかの理由でこれを深刻に扱うことが適切です：
 
@@ -511,61 +511,61 @@ At the risk of sounding obvious、わかりきったことですが、
 
 > The concepts of stability and agility are traditionally in tension in the world of SRE.
 
-安定性と敏捷性の概念は、伝統的にSREの世界で内包しています。
-
 > The last bullet point provides an interesting case where stability actually drives agility.
 
-最後の箇条書き？は、安定性が実際に敏捷性を促進する興味深いケースを提供します。
-
 > When the build is predictably solid and reliable, developers can iterate faster!
+
+安定性と敏捷性の概念は、伝統的にSREの世界で内包しています。
+
+The last bullet point、最後の箇条書き？は、安定性が実際に敏捷性を促進する興味深いケースを提供します。
 
 ビルドが予想通りに確実で信頼できるものであれば、開発者はより迅速に反復することができます。
 
 > Some build systems like Bazel have valuable features that afford more precise control over testing.
 
-Bazelのようなビルドシステムには、テストをより正確に制御できる貴重な機能があります。
-
 > For example, Bazel creates dependency graphs for software projects.
-
-たとえば、Bazelはソフトウェアプロジェクトのdependencyグラフを作成します。
 
 > When a change is made to a file, Bazel only rebuilds the part of the software that depends on that file.
 
-ファイルが変更されると、Bezelはそのファイルに依存するソフトウェアの部分のみを再構築します。
-
 > Such systems provide reproducible builds.
-
-このようなシステムは、再現可能なビルドを提供します。
 
 > Instead of running all tests at every submit, tests only run for changed code.
 
-submitごとにすべてのテストを実行するのではなく、変更されたコードに対してのみテストを実行します。
-
 > As a result, tests execute cheaper and faster.
+
+Bazelのようなビルドシステムには、テストをより正確に制御できる貴重な機能があります。
+
+たとえば、Bazelはソフトウェアプロジェクトのdependencyグラフを作成します。
+
+ファイルが変更されると、Bezelはそのファイルに依存するソフトウェアの部分のみを再構築します。
+
+このようなシステムは、再現可能なビルドを提供します。
+
+submitごとにすべてのテストを実行するのではなく、変更されたコードに対してのみテストを実行します。
 
 その結果、テストはより安価で高速に実行されます。
 
 > There are a variety of tools to help you quantify and visualize the level of test coverage you need [Cra10].
 
-必要なテストカバレッジのレベルを数値化して視覚化するのに役立つさまざまなツールがあります
-
 > Use these tools to shape the focus of your testing:
-
-これらのツールを使用して、テストのfocusを形成します。
 
 > approach the prospect of creating highly tested code as an engineering project rather than a philosophical mental exercise.
 
-哲学的、精神的な実行ではなく、エンジニアリングプロジェクトとして高度にテストされたコードを作成する見通しに近づきます
-
 > Instead of repeating the ambiguous refrain “We need more tests,” set explicit goals and deadlines.
+
+必要なテストカバレッジのレベルを数値化して視覚化するのに役立つさまざまなツールがあります
+
+これらのツールを使用して、テストのfocusを形成します。
+
+哲学的、精神的な実行ではなく、エンジニアリングプロジェクトとして高度にテストされたコードを作成する見通しに近づきます
 
 「もっとテストが必要です」という、あいまいなリフレインを繰り返す代わりに、明示的な目標と締め切りを設定します。
 
 > Remember that not all software is created equal.
 
-すべてのソフトウェアが平等に作成されているわけではありません。
-
 > Life-critical or revenue-critical systems demand substantially higher levels of test quality and coverage than a non-production script with a short shelf life.
 
-ライフクリティカルなシステムまたはrevenue、収益クリティカルなシステムでは、
+すべてのソフトウェアが平等に作成されているわけではありません。
+
+ライフクリティカルなシステムまたはrevenue、収益クリティカルなシステムでは、<br>
 貯蔵寿命が短い非プロダクションスクリプトよりもテスト品質とカバレッジのレベルが大いに求められます
