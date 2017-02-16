@@ -175,7 +175,7 @@ uncertainty、不確定性を管理し、ユーザーへのリスクを避ける
 
 本番環境でテストが実行されるときに、このシナリオは問題を引き起こすことができます。
 
-たとえば、テストでは、本番環境ののバイナリの古いバージョンと一緒に、ソースコントロールにあるconfigurationファイルの最新バージョンを使用することがあります。
+たとえば、テストでは、本番環境のバイナリの古いバージョンと一緒に、ソースコントロールにあるconfigurationファイルの最新バージョンを使用することがあります。
 
 あるいは、古いバージョンのconfigurationファイルをテストし、新しいバージョンのファイルで修正されたバグを見つけるかもしれません。
 
@@ -349,7 +349,7 @@ canaryがどのように進んでいくかの具体的な例を提供します�
 
 > Dividing and correcting for K gives an estimate of U, the order of the underlying fault. 6 Some examples:
 
-Kを分割して訂正すると、基礎となる断層の次数であるUの推定値が得られます。
+Kを分割して訂正すると、根底にある誤りの順序 Uの推定値が得られます。
 
 * U=1: The user’s request encountered code that is simply broken.
 
@@ -389,11 +389,11 @@ Kを分割して訂正すると、基礎となる断層の次数であるUの推
 
 higher-versus lower-order、上位から下位のバグの動向を念頭に置いて、指数的なロールアウト戦略を使用している場合は、ユーザートラフィックの一部に公平性を果たす必要はありません。
 
-分数を確立する？各々方法が同じ間隔 Kを使用する限り、どの方法が障害を照らしているのかをまだ判断できない場合でも、Uの見積もりは有効です。
+fraction、分数を確立する？各々方法が同じ間隔 Kを使用する限り、どの方法が障害を照らしているのかをまだ判断できない場合でも、Uの見積もりは有効です。
 
 いくつかのオーバーラップを許可しながら、多くのメソッドを順番に使用すると、Kの値は小さく保たれます。
 
-この戦略は、ユーザーに表示される差異 C の総数を最小限に抑えながら、Uの早期推定を可能にします。（もちろん、1を希望します）。
+この戦略は、ユーザーに表示される差異 C の総数を最小限に抑えながら、Uの早期推定を可能にします。（もちろん、U=1を希望します）。
 
 > CU = RK
 
@@ -472,7 +472,7 @@ featureの開発とプロジェクト管理から技術を借用するために�
 
 すべてのバグがテストに変換された場合、バグがまだ修正されていないため、最初にテストが失敗するはずです。
 
-エンジニアがバグを修正すると、ソフトウェアはテストに合格し、包括的なregressionテストスイートを開発する道を歩んでいます。
+エンジニアがバグを修正すると、ソフトウェアはテストに合格し、包括的なregressionテストスイートを開発する道を歩むことができます。
 
 > Another key task for creating well-tested software is to set up a testing infrastructure.
 
@@ -499,7 +499,7 @@ featureの開発とプロジェクト管理から技術を借用するために�
 At the risk of sounding obvious、わかりきったことですが、<br>
 ソース管理のソフトウェアプロジェクトの最新バージョンが完全に機能することが不可欠です。
 
-ビルドシステムがエンジニアに壊れたコードを通知すると、他のすべてのタスクを中断し、問題の解決に優先順位を付けるべきです。
+ビルドシステムがエンジニアに壊れたコードを通知すると、エンジニアは他のすべてのタスクを中断し、その問題の解決に優先順位を付けるべきです。
 
 それはいくつかの理由でこれを深刻に扱うことが適切です：
 
@@ -509,7 +509,7 @@ At the risk of sounding obvious、わかりきったことですが、<br>
 
 * Broken software slows down the team because they must work around the breakage.
 
-壊れたソフトウェアは、破損を回避する必要があるため、チームの速度を低下させます。
+（コードが壊れている状態だと、開発時）破損を回避する必要があるため、壊れたソフトウェアはチームの速度を低下させます。
 
 * Release cadences, such as nightly and weekly builds, lose their value.
 
@@ -517,7 +517,7 @@ At the risk of sounding obvious、わかりきったことですが、<br>
 
 * The ability of the team to respond to a request for an emergency release (for example, in response to a security vulnerability disclosure) becomes much more complex and difficult.
 
-緊急リリースの要求（たとえば、セキュリティ脆弱性の開示に対応）に対応するチームの能力は、はるかに複雑で困難になります
+緊急リリースの要求（たとえば、セキュリティ脆弱性の開示に対応）に対応するチームの能力は、（コードが壊れている状態だと）はるかに複雑で困難になります
 
 > The concepts of stability and agility are traditionally in tension in the world of SRE.
 
@@ -527,7 +527,7 @@ At the risk of sounding obvious、わかりきったことですが、<br>
 
 安定性と敏捷性の概念は、伝統的にSREの世界で内包しています。
 
-The last bullet point、最後の箇条書き？は、安定性が実際に敏捷性を促進する興味深いケースを提供します。
+The last bullet point、最後の箇条書き＝緊急リリースの..の記述 は、安定性が実際に敏捷性を促進する興味深いケースを提供します。
 
 ビルドが予想通りに確実で信頼できるものであれば、開発者はより迅速に反復することができます。
 
@@ -543,7 +543,7 @@ The last bullet point、最後の箇条書き？は、安定性が実際に敏�
 
 > As a result, tests execute cheaper and faster.
 
-Bazelのようなビルドシステムには、テストをより正確に制御できる貴重な機能があります。
+Google Bazelのようなビルドシステムには、テストをより正確に制御できる貴重な機能があります。
 
 たとえば、Bazelはソフトウェアプロジェクトのdependencyグラフを作成します。
 
