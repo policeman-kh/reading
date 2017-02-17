@@ -187,9 +187,9 @@ uncertainty、不確定性を管理し、ユーザーへのリスクを避ける
 
 同様に、システムテストでは、テストを実行する前にモジュールをアセンブルするためにconfigurationファイルを使用することができます。
 
-テストはpassするが、そのバージョンがconfigurationテスト（次のセクションで説明）に失敗した場合、テストの結果は完全に正しいですが、操作的は有効ではありません。
+テストは合格しますが、そのバージョンがconfigurationテスト（次のセクションで説明）に失敗した場合、テストの結果は完全に有効ですが、操作的は有効ではありません。
 
-このような結果はinconvenient、適していません。
+このような結果はinconvenient、適切ではありません。
 
 <hr>
 
@@ -213,8 +213,8 @@ Googleでは、Webサービスのconfigurationsは、バージョン管理シス
 
 configurationテストは、チェックインされたconfigurationファイルの特定のバージョンで構築され、テストされます。
 
-自動化のために、テストのどのバージョンがgoalとなるバージョンに関連しているか比較すると、
-実際のproductionが現在進行中のエンジニアリング作業にどれだけ遅れているか、明示的に示されます。
+自動化のためのgoalとなるバージョンに関して　合格しているテストのバージョンとの比較は
+実際のproductionが現在進行中のエンジニアリング作業にどれだけ遅れているか、暗示的に示されます。？
 
 > These nonhermetic configuration tests tend to be especially valuable as part of a distributed monitoring solution since the pattern of passes/fails across production can identify paths through the service stack that don’t have sensible combinations of the local configurations.
 
@@ -222,13 +222,12 @@ configurationテストは、チェックインされたconfigurationファイル
 
 > Any matches found by the rules become alerts that ongoing releases and/or pushes are not proceeding safely and remedial action is needed.
 
-これらの密閉されていないconfigurationテストは、<br>
-プロダクション全体でのパス/フェイルのパターンは、ローカルスタック構成の合理的な組み合わせを持たないサービススタックを通るパスを識別することができるので、<br>
-distributed monitoring solution、分散監視ソリューションの一部として、特に役立ちます。
+これらの密閉されていないconfigurationテストは、分散モニタリングソリューションの一部として特に有用な傾向になります。
+これは、production全体でのpasses/fails、テストの合否判定のパターンが、ローカル構成の合理的な組み合わせを持たないサービススタックのパスを識別できるためです。？
 
-monitoringソリューションのルールは、実際のユーザーリクエストのパス（トレースログからの）を望ましくないパスのセットと照合しようとします。
+monitoringソリューションのルールはその望ましくないpathのsetに反して、（トレースログからの）実際のユーザーリクエストのパスを照合しようとします。
 
-ルールによって検出された一致は、進行中のリリース または/あるい プッシュが安全に進行しておらず、是正処置が必要であるというアラートになります。？
+このルールによって検出された一致は、進行中のリリース and/or プッシュが安全に進まず、是正処置が必要であるというアラートになります。？
 
 > Configuration tests can be very simple when the production deployment uses the actual file content and offers a real-time query to retrieve a copy of the content.
 
@@ -288,7 +287,7 @@ bashなどのプリプロセッサを通じて、コマンドラインフラグ�
 
 canary testは、production testのリストから著しく欠けています。
 
-canaryという言葉は、「canary in a coal mine、炭鉱のカナリア」というフレーズに由来し、人間が毒される前に有毒ガスを検出するため、鳥を使用したプラクティスを参照しています。
+canaryという言葉は、「canary in a coal mine、炭鉱のカナリア」というフレーズに由来し、炭鉱の中で、人間が毒される前に有毒ガスを検出するため、鳥を使用したプラクティスを参照しています。
 
 > To conduct a canary test, a subset of servers is upgraded to a new version or configuration and then left in an incubation period.
 
