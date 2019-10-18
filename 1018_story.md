@@ -7,7 +7,7 @@ I love soccer and I'm interested in European culture.
 So this report is about places that I found fascinating on my vacation.
 
 First I want to introduce the soccer stadium "Camp Nou" in Spain, Barcelona.
-This stadium is official stadium of Barcelona.
+This stadium is official stadium of Barcelona soccer team.
 It's one of famous and popular stadiums around the world so one of my dream was to visit here.
 It just feels so exciting to go in it and I could watch soccer game of Barcelona.
 
@@ -25,6 +25,6 @@ It is very memorable for me.
 
 The final place I want to introduce is the towncape in Denmark, Copenhagen.
 Unfortunately, this is not soccer stadium.
-But it was attractive for me because it has beautiful riverside and colorful houses. There is a river that runs through the area there.
+But it was attractive for me because it has beautiful riverside and colorful houses. 
 
 <img src="https://d1d37e9z843vy6.cloudfront.net/jp/images/3269734/700/027b7b1fa407be969e579dc9ea47890f4756cc79_5806f4d79866c_p.jpeg" width="500px">
