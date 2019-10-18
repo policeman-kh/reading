@@ -1,10 +1,10 @@
 Hi I'm Hirai.
 
-Last year I visited Denmark for the first time. I went to Spain, France.
+Last year I visited Denmark for the first time. I went to Spain, France before.
 In each country there were many interesting and exciting places.
-I love soccer and I'm interested in European culture.
 
-So this's report is about places that I found fascinating on my vacation.
+I love soccer and I'm interested in European culture.
+So this report is about places that I found fascinating on my vacation.
 
 First I want to introduce the soccer stadium "Camp Nou" in Spain, Barcelona.
 This stadium is official stadium of Barcelona.
