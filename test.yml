@@ -1,0 +1,6 @@
+armeria:
+  metrics-path: /internal/metrics
+  internal-services:
+    include: metrics
+    port: 18080
+
