@@ -1,5 +1,6 @@
 dependencies {
-    implementation 'io.micrometer:micrometer-registry-prometheus:1.7.5'
+    implementation 'com.linecorp.armeria:armeria-brave:1.13.2'
+    implementation 'io.zipkin.reporter2:zipkin-sender-okhttp3:2.16.3'
     
     
     
