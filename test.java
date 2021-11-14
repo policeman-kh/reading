@@ -1,4 +1,12 @@
 public class ArmeriaConfiguration {
+
+    public String getString() {
+        if (isFeatureEnabled("use-new-string")) {
+            return "bar";
+        }
+        return "foo";
+    }
+    
     @Bean
     public WebClient webClient(MeterRegistry meterRegistry, HttpTracing tracing) {
         return WebClient.builder("http://xxxx:8081/")
