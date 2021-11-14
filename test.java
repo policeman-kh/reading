@@ -8,12 +8,14 @@ public class ArmeriaConfiguration {
 
     private static Function<? super HttpClient, CircuitBreakerClient> circuitBreakerDecorator(
             MeterRegistry meterRegistry) {
-        final CircuitBreakerRule rule = CircuitBreakerRule.builder()
-                                                          // A failure if the response is 5xx.
-                                                          .onServerErrorStatus()
-                                                          // A failure if an Exception is raised.
-                                                          .onException()
-                                                          .thenFailure();
+        final CircuitBreakerRule rule =
+                CircuitBreakerRule.builder()
+                                  // A failure if the response is 5xx.
+                                  .onServerErrorStatus()
+                                  // A failure if an Exception is raised.
+                                  // ResponseTimeoutException is thrown when response is not received within timeout.
+                                  .onException()
+                                  .thenFailure();
         final CircuitBreaker circuitBreaker =
                 CircuitBreaker.builder("BackendApiClient")
                               .listener(CircuitBreakerListener.metricCollecting(meterRegistry))
