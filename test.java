@@ -9,12 +9,16 @@ public class ArmeriaConfiguration {
     private static Function<? super HttpClient, CircuitBreakerClient> circuitBreakerDecorator(
             MeterRegistry meterRegistry) {
         final CircuitBreakerRule rule = CircuitBreakerRule.builder()
+                                                          // A failure if the response is 5xx.
                                                           .onServerErrorStatus()
+                                                          // A failure if an Exception is raised.
                                                           .onException()
                                                           .thenFailure();
         final CircuitBreaker circuitBreaker =
                 CircuitBreaker.builder("BackendApiClient")
                               .listener(CircuitBreakerListener.metricCollecting(meterRegistry))
+                              // The threshold that changes CircuitBreaker's state to OPEN.
+                              .failureRateThreshold(0.5)
                               .build();
         return CircuitBreakerClient.newDecorator(circuitBreaker, rule);
     }
