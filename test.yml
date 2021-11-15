@@ -1,6 +1,20 @@
-armeria:
-  metrics-path: /internal/metrics
-  internal-services:
-    include: metrics
-    port: 18080
+namespace:
+  unit: userId
+  segments: 1000
 
+experiment_definitions:
+  - definition: default
+    assign: !planout |
+      if (isBeta) {
+        use-new-string = true;
+      } else {
+        if (userId == 'xxxx') {
+          use-new-string = true;
+        } else {
+          use-new-string = false;
+        }
+      }
+
+default_experiment: default
+
+experiment_sequence: []
